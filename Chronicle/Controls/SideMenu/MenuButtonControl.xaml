@@ -20,26 +20,47 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}">
 
-                        <!-- Menu title -->
+                        <!-- Menu button -->
                         <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2">
 
                             <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="45" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                                
+                                <Grid Grid.Row="0">
 
-                                <TextBlock Grid.Column="0" 
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="45" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" 
                                            x:Name="Icon"
                                            Text="{Binding MenuIcon, Converter={local:IconTypeConverter}}"
                                            FontFamily="{StaticResource FontAwesomeSolid}"
                                            VerticalAlignment="Center" Margin="50, 0, -50, 0" />
 
-                                <TextBlock Grid.Column="1" 
+                                    <TextBlock Grid.Column="1" 
                                            x:Name="Title"
                                            Text="{Binding MenuTitle}"
                                            FontFamily="{StaticResource JostFont}"
                                            VerticalAlignment="Center" Margin="50, 0, 0, 0" />
+
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+
+                                    <ItemsControl ItemsSource="{Binding NotesSubMenu}"
+                                                  VerticalContentAlignment="Top"
+                                                  HorizontalContentAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+
+                                                <local:NotesListControl />                         <!-- make a generic list for the files -->
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </Grid>
+
                             </Grid>
 
                         </Border>
@@ -64,7 +85,6 @@
                 <MouseBinding Command="{Binding MenuCommand}" MouseAction="LeftClick" />
             </ContentControl.InputBindings>
         </ContentControl>
-
        
     </StackPanel>
     

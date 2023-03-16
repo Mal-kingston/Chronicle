@@ -15,26 +15,32 @@ namespace Chronicle
         /// No page
         /// </summary>
         None,
+
         /// <summary>
         /// Note page
         /// </summary>
         Note,
+
         /// <summary>
         /// Book page
         /// </summary>
         Book,
+
         /// <summary>
         /// Calendar and (time) page
         /// </summary>
         Calendar,
+
         /// <summary>
         /// Share page
         /// </summary>
         Share,
+
         /// <summary>
         /// Settings page
         /// </summary>
         Settings,
+
         /// <summary>
         /// Trash page
         /// </summary>

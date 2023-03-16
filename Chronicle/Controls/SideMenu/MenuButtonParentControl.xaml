@@ -27,30 +27,6 @@
                         
                         <local:MenuButtonControl />
 
-                        <ItemsControl ItemsSource="{Binding NotesSubMenu}" Grid.Row="0"
-                                      VerticalContentAlignment="Top"
-                                      HorizontalContentAlignment="Center">      
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-
-                                    <local:NotesListControl ShowNotesList="{Binding MenuButton.OpenNotesList, UpdateSourceTrigger=PropertyChanged,
-                                            Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BooleanToVisibilityConverter}}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                        <ItemsControl ItemsSource="{Binding BooksSubMenu}" Grid.Row="0"
-                                      VerticalContentAlignment="Top"
-                                      HorizontalContentAlignment="Center">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-
-                                    <local:BooksListControl ShowBooksList="True" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                      
-
                     </StackPanel>
 
                 </DataTemplate>

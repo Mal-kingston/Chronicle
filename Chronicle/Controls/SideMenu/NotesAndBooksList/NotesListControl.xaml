@@ -10,15 +10,15 @@
              d:DataContext="{x:Static local:NotesListControlDesignModel.Instance}" >
 
     
-    <UserControl.Style>
+    <!--<UserControl.Style>
         <Style TargetType="{x:Type UserControl}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ShowNotesList, ElementName=Notes, TargetNullValue=False, FallbackValue=False}" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-    </UserControl.Style>
+    </UserControl.Style>-->
 
     <Border Background="{StaticResource DarkBrush}"
             BorderThickness="0" ClipToBounds="True">
@@ -31,7 +31,7 @@
 
             <Grid >
 
-                <!--#region to be implemented with different app colors-->
+                <!--#region to be implemented with different app colors / theme -->
                
                 <!--<Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -60,7 +60,7 @@
                                   HorizontalContentAlignment="Center">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:ListControlItem />
+                                <local:ListItemControl />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

@@ -30,7 +30,7 @@
 
                 <Grid >
 
-                    <!--#region to be implemented with different app colors-->
+                    <!--#region to be implemented with different app colors / theme -->
 
                     <!--<Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -59,7 +59,7 @@
                                   HorizontalContentAlignment="Center">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <local:ListControlItem />
+                                    <local:ListItemControl />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

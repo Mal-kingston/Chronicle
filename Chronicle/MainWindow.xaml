@@ -35,18 +35,15 @@
                     <!-- Menu -->
                     <RowDefinition Height="Auto" />
                     <!-- blank space -->
-                    <!--<RowDefinition Height="*" />
-                    --><!-- Other menu --><!--
-                    <RowDefinition Height="Auto" />
-                    --><!-- blank space --><!--
-                    <RowDefinition Height="Auto"/>-->
+                    
                 </Grid.RowDefinitions>
 
                 <!-- App title -->
                 <Grid Grid.Row="0"
-                      x:Name="AppTitle">
+                      x:Name="AppTitle"
+                      Width="200">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Foreground="{StaticResource WhiteBrush}" Margin="-20, 5, 5, 5">
+                               Foreground="{StaticResource WhiteBrush}" Padding="10">
                         <TextBlock.Effect>
                             <DropShadowEffect BlurRadius="25" Color="{StaticResource Blue}" ShadowDepth="0" />
                         </TextBlock.Effect>
@@ -55,14 +52,16 @@
                     </TextBlock>
                 </Grid>
                 
-                <!-- Side menu --> <!-- update height value -->
+                <!-- Side menu --> 
                 <Grid Grid.Row="1" 
                       x:Name="SideMenu">
-                    <local:MenuButtonParentControl  />
+                    
                 </Grid>
 
             </Grid>
         </Border>
+        
+        <!--#region-->   
         
         <!-- Main window -->
         <Grid Grid.Column="1" >
@@ -118,5 +117,8 @@
             </Border>
 
         </Grid>
-  </Grid>
+
+        <!--#endregion-->
+
+    </Grid>
 </Window>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for ListControlItem.xaml
+    /// Interaction logic for ListItemControl.xaml
     /// </summary>
-    public partial class ListControlItem : UserControl
+    public partial class ListItemControl : UserControl
     {
-        public ListControlItem()
+        public ListItemControl()
         {
             InitializeComponent();
         }

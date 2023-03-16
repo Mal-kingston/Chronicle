@@ -54,7 +54,7 @@ namespace Chronicle
 
                 // If there's nothing to do, return null
                 default:
-                    return null;
+                    return null!;
             }
         }
     }
