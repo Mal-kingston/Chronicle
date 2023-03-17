@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Chronicle.ListItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Chronicle"
+             mc:Ignorable="d" 
+             d:DataContext="{x:Static local:ListControlItemDesignModel.Instance}">
+    <UserControl.Resources >
+
+        <!-- list item style -->
+        <Style TargetType="{x:Type ContentControl}" x:Key="ListItem">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}" >
+                        <Border Background="Transparent" BorderThickness="0" Padding="8, 2" Opacity="0.75">
+
+                            <Grid Margin="2">
+
+                                <!-- icon & title -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- icon -->
+                                <TextBlock Grid.Column="0" Foreground="{StaticResource WhiteBrush}" Name="Icon"
+                                           Text="{Binding Icon, Converter={local:IconTypeConverter}, FallbackValue=Notes}" FontFamily="{StaticResource FontAwesomeSolid}"
+                                           VerticalAlignment="Center" Margin="10, 0, 10, 0" Padding="0" />
+
+                                <!-- title -->
+                                <TextBlock Grid.Column="1"  Name="Text"
+                                           Text="{Binding FileName}" FontFamily="{StaticResource JostFont}" Foreground="{StaticResource WhiteBrush}"
+                                           VerticalAlignment="Center" Margin="0" Padding="0" TextTrimming="WordEllipsis" TextWrapping="NoWrap" />
+
+                            </Grid>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="Icon" />
+                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="Text" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+
+    </UserControl.Resources>
+
+    <ContentControl Style="{StaticResource ListItem}" />
+</UserControl>
