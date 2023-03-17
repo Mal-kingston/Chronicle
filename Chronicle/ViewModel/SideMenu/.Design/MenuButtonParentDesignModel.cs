@@ -11,17 +11,17 @@ namespace Chronicle
     /// <summary>
     /// View model for the container of the side menu control
     /// </summary>
-    public class MenuButtonParentDesignModel : MenuButtonParentViewModel
+    public class SideMenuControlDesignModel : SideMenuControlViewModel
     {
         /// <summary>
         /// A single instance of this class
         /// </summary>
-        public static MenuButtonParentDesignModel Instance => new MenuButtonParentDesignModel();
+        public static SideMenuControlDesignModel Instance => new SideMenuControlDesignModel();
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MenuButtonParentDesignModel()
+        public SideMenuControlDesignModel()
         {
             TopMenuItems = new ObservableCollection<MenuButtonViewModel>()
             {
@@ -29,7 +29,7 @@ namespace Chronicle
                 {
                     MenuIcon = IconType.Note,
                     MenuTitle = "Note",
-                    NotesSubMenu = new ObservableCollection<NotesListControlViewModel>
+                    NotesFiles = new ObservableCollection<NotesListControlViewModel>
                     {
                         new NotesListControlViewModel()
                         {
@@ -79,7 +79,7 @@ namespace Chronicle
                 {
                     MenuIcon = IconType.Book,
                     MenuTitle = "Book",
-                    BooksSubMenu = new ObservableCollection<BooksListControlViewModel>
+                    BooksFiles = new ObservableCollection<BooksListControlViewModel>
                     {
                         new BooksListControlViewModel()
                         {

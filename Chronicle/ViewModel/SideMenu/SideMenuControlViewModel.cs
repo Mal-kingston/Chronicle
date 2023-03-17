@@ -14,7 +14,7 @@ namespace Chronicle
     /// <summary>
     /// View model for the container of the side menu control
     /// </summary>
-    public class MenuButtonParentViewModel : BaseViewModel
+    public class SideMenuControlViewModel : BaseViewModel
     {
         #region Public Properties
 

@@ -28,19 +28,21 @@ namespace Chronicle
         /// </summary>
         public string MenuTitle { get; set; }
 
-        public bool OpenNotesList { get; set; }
+        public bool OpenList { get; set; }
+
+        public bool OpenNoteList { get; set; }
+        public bool OpenBookList { get; set; }
 
         /// <summary>
-        /// The submenu of this menu 
-        /// of type NOTES
+        /// List of notes
         /// </summary>
-        public ObservableCollection<NotesListControlViewModel> NotesSubMenu { get; set; }
+        public ObservableCollection<NotesListControlViewModel> NotesFiles { get; set; }
 
         /// <summary>
-        /// Submenu of this menu
+        /// List of books
         /// of type BOOKS
         /// </summary>
-        public ObservableCollection<BooksListControlViewModel> BooksSubMenu { get; set; }
+        public ObservableCollection<BooksListControlViewModel> BooksFiles { get; set; }
 
         #endregion
 
@@ -63,9 +65,14 @@ namespace Chronicle
             // Create commands
             MenuCommand = new RelayCommand(SelectMenuItem);
 
+            // Set properties
+            OpenList = false;
+            OpenNoteList = false;
+            OpenBookList = false;
+
             // Update properties
+            OnPropertyChanged(nameof(OpenNoteList));
             OnPropertyChanged(nameof(MenuTitle));
-            OnPropertyChanged(nameof(OpenNotesList));
         }
 
         #endregion
@@ -77,24 +84,23 @@ namespace Chronicle
         /// </summary>
         private void SelectMenuItem()
         {
+            // Get value ready
+            OpenList ^= true;
+            OnPropertyChanged(nameof(OpenList));
+
 
             // Sort and change view
             switch (MenuTitle)
             {
+
                 case "Note":
-                    // TODO: Open and close list items.
-                    // open note file on notepage when user click on list item
-                    MainAppViewModel.GotoPage(ApplicationPage.Note);
-                    if(OpenNotesList == true)
-                        OpenNotesList = false;
-                    else
-                        OpenNotesList = true;
-                    OnPropertyChanged(nameof(OpenNotesList));
+                    // MainAppViewModel.GotoPage(ApplicationPage.Note);
+
+                    OpenNoteList = OpenList;
+                    OnPropertyChanged(nameof(OpenNoteList));
                     return;
 
                 case "Book":
-                    // TODO: Open and close list items.
-                    // open book file on bookpage when user click on list item
                     MainAppViewModel.GotoPage(ApplicationPage.Book);
                     return;
 

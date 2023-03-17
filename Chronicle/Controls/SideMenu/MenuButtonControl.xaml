@@ -8,8 +8,8 @@
              d:DataContext="{x:Static local:MenuButtonDesignModel.Instance}">
 
     <UserControl.Resources>
-        
-        <Style x:Key="MenuButton" TargetType="{x:Type ContentControl}">
+
+        <Style x:Key="MenuButton" TargetType="{x:Type RadioButton}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
             <Setter Property="FontSize" Value="{StaticResource Small}" />
@@ -18,48 +18,31 @@
 
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
 
                         <!-- Menu button -->
                         <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2">
 
-                            <Grid >
-                                
-                                <Grid Grid.Row="0">
+                            <Grid Grid.Row="0">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="45" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Column="0" 
-                                           x:Name="Icon"
-                                           Text="{Binding MenuIcon, Converter={local:IconTypeConverter}}"
-                                           FontFamily="{StaticResource FontAwesomeSolid}"
-                                           VerticalAlignment="Center" Margin="50, 0, -50, 0" />
+                                <!-- Icon -->
+                                <TextBlock Grid.Column="0" 
+                                        x:Name="Icon"
+                                        Text="{Binding MenuIcon, Converter={local:IconTypeConverter}}"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        VerticalAlignment="Center" Margin="50, 0, -50, 0" />
 
-                                    <TextBlock Grid.Column="1" 
-                                           x:Name="Title"
-                                           Text="{Binding MenuTitle}"
-                                           FontFamily="{StaticResource JostFont}"
-                                           VerticalAlignment="Center" Margin="50, 0, 0, 0" />
-
-                                </Grid>
-
-                                <Grid Grid.Row="1">
-
-                                    <ItemsControl ItemsSource="{Binding NotesSubMenu}"
-                                                  VerticalContentAlignment="Top"
-                                                  HorizontalContentAlignment="Center">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-
-                                                <local:NotesListControl />                         <!-- make a generic list for the files -->
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-
-                                </Grid>
+                                <!-- Title -->
+                                <TextBlock Grid.Column="1" 
+                                        x:Name="Title"
+                                        Text="{Binding MenuTitle}"
+                                        FontFamily="{StaticResource JostFont}"
+                                        VerticalAlignment="Center" Margin="50, 0, 0, 0" />
 
                             </Grid>
 
@@ -68,7 +51,6 @@
                         <ControlTemplate.Triggers>
 
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
                                 <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
                             </Trigger>
 
@@ -80,12 +62,30 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
-        <ContentControl Style="{StaticResource MenuButton}" >
+
+        <RadioButton Style="{StaticResource MenuButton}" >
             <ContentControl.InputBindings>
                 <MouseBinding Command="{Binding MenuCommand}" MouseAction="LeftClick" />
             </ContentControl.InputBindings>
-        </ContentControl>
-       
+        </RadioButton>
+
+        <Grid Visibility="{Binding OpenList, Converter={local:BooleanToVisibilityConverter}}">
+
+            <ItemsControl ItemsSource="{Binding NotesFiles}"
+                      VerticalContentAlignment="Top"
+                      HorizontalContentAlignment="Center" >
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <local:NotesListControl />                <!-- make a generic list and also handle sorting for the right files -->
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
+
     </StackPanel>
     
 </UserControl>
