@@ -24,7 +24,7 @@
         <!-- make the border width resizable -->
         <Border Grid.Column="0"
                 BorderBrush="{StaticResource GrayBrush}" BorderThickness="0, 0, 1, 0"
-                Background="{StaticResource DarkBrush}" >
+                Background="{StaticResource DarkBrush}" ClipToBounds="True" >
 
             <Grid>
 
@@ -32,7 +32,7 @@
                     <!-- App title -->
                     <RowDefinition Height="100" />
                     <!-- Menu -->
-                    <RowDefinition Height="{Binding Height, ElementName=Main}" />
+                    <RowDefinition Height="*" />
                     <!-- blank space -->
                     
                 </Grid.RowDefinitions>
@@ -52,18 +52,46 @@
                 </Grid>
                 
                 <!-- Side menu --> 
-                <Grid Grid.Row="1" 
-                      x:Name="SideMenu"
-                      Margin="0, 0, 0, 100">
+                <Grid Grid.Row="1"
+                     x:Name="SideMenu"
+                     Margin="0, 0, 0, 0">
 
-                    <local:SideMenuControl />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="6*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Top group -->
+                    <StackPanel Grid.Row="0">
+
+                        <local:SideMenuControl MenuTitle="Note" MenuIcon="Note" HasSubMenu="True" />
+                        <local:SideMenuControl MenuTitle="Book" MenuIcon="Book" HasSubMenu="True" />
+                        <local:SideMenuControl MenuTitle="Calendar" MenuIcon="Calendar" />
+                        <local:SideMenuControl MenuTitle="Share" MenuIcon="Share" />
+
+                    </StackPanel>
+
+                    <!-- Bottom group -->
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Bottom">
+
+                        <local:SideMenuControl MenuTitle="Settings" MenuIcon="Settings" />
+                        <local:SideMenuControl MenuTitle="Trash" MenuIcon="Trash" />
+
+                    </StackPanel>
+
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Height="50"
+                            VerticalAlignment="Bottom" Margin="0" />
 
                 </Grid>
 
             </Grid>
         </Border>
         
-        <!--#region-->   
+        <!--#region Main window -->   
         
         <!-- Main window -->
         <Grid Grid.Column="1" >

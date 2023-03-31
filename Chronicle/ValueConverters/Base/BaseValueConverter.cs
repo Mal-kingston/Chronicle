@@ -16,7 +16,7 @@ namespace Chronicle
 		/// <summary>
 		/// A single static instance of this value converter
 		/// </summary>
-		private static T Converter = null;
+		private static T Converter = null!;
 
 		#endregion
 

@@ -14,16 +14,15 @@ namespace Chronicle
 		/// An action to run
 		/// </summary>
 		private Action mAction;
-        private object v;
 
         #endregion
 
         #region Public Events
 
         /// <summary>
-        /// The event that gets fired when required 
+        /// The event that gets fired 
         /// </summary>
-        public event EventHandler CanExecuteChanged = (sender, e) => { };
+        public event EventHandler? CanExecuteChanged = (sender, e) => { };
 
 		#endregion
 
@@ -34,7 +33,7 @@ namespace Chronicle
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <returns></returns>
-		public bool CanExecute(object parameter)
+		public bool CanExecute(object? parameter)
 		{
 			return true;
 		}
@@ -43,7 +42,7 @@ namespace Chronicle
 		/// Runs the action
 		/// </summary>
 		/// <param name="parameter"></param>
-		public void Execute(object parameter)
+		public void Execute(object? parameter)
 		{
 			// The action
 			mAction();
@@ -60,11 +59,6 @@ namespace Chronicle
 		{
 			mAction = action;
 		}
-
-        public RelayCommand(object v)
-        {
-            this.v = v;
-        }
 
         #endregion
     }

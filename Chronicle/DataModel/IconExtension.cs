@@ -14,7 +14,7 @@ namespace Chronicle
         /// <summary>
         /// Sort and gets the appropriate icon
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">Type of icon</param>
         /// <returns></returns>
         public static string ToFontAwesome(this IconType type)
         {
@@ -50,7 +50,8 @@ namespace Chronicle
 
                 // Return trash icon
                 case IconType.Trash:
-                    return "\uf2ed";
+                    return "\uf783";
+                //                    return "\uf2ed";
 
                 // If there's nothing to do, return null
                 default:

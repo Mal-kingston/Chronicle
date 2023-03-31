@@ -19,16 +19,6 @@ namespace Chronicle
         /// </summary>
         public MainViewModel Application => MainAppViewModel;
 
-        /// <summary>
-        /// Note list view model
-        /// </summary>
-        public NotesListControlViewModel NotesList => NotesListViewModel;
-
-        /// <summary>
-        /// Side menu view model
-        /// </summary>
-        public MenuButtonViewModel MenuButton => SideMenuButtonViewModel;
-
         #endregion
     }
 }

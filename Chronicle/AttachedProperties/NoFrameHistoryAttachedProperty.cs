@@ -15,6 +15,11 @@ namespace Chronicle
 			// Get the frame
 			var frame = (sender as Frame);
 
+			// If we have no frame
+			if (frame == null)
+				// Do nothing
+				return;
+
 			// Hide the UI navigation bar
 			frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 

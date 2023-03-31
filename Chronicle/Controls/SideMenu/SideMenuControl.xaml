@@ -5,50 +5,128 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             x:Name="MenuControl"
+             DataContext="{x:Static local:SideMenuDesignModel.Instance}">
 
-    <Grid DataContext="{x:Static local:SideMenuControlDesignModel.Instance}"
-          Background="{StaticResource DarkBrush}">
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="100" />
-        </Grid.RowDefinitions>
+    <UserControl.Resources>
 
-        <ItemsControl ItemsSource="{Binding TopMenuItems}" Grid.Row="0"
-                      VerticalContentAlignment="Top"
-                      HorizontalContentAlignment="Center">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical"
-                                HorizontalAlignment="Stretch">
+        <!-- Menu button style -->
+        <Style x:Key="MenuButton" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+            <Setter Property="FontSize" Value="{StaticResource Small}" />
+            <Setter Property="Width" Value="270" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <!-- Menu button -->
+                        <Grid Background="{TemplateBinding Background}" >
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+
+                                <!-- Icon & Title -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Icon -->
+                                <TextBlock Grid.Column="0" 
+                                           x:Name="Icon"
+                                           Text="{Binding MenuIcon, ElementName=MenuControl, Converter={local:IconTypeConverter}}"
+                                           FontFamily="{StaticResource FontAwesomeSolid}"
+                                           VerticalAlignment="Center" Margin="50, 0, -50, 0"/>
+
+                                <!-- Title -->
+                                <TextBlock Grid.Column="1" 
+                                            x:Name="Title"
+                                            Text="{Binding MenuTitle, ElementName=MenuControl, FallbackValue=Note}"
+                                            FontFamily="{StaticResource JostFont}"
+                                            VerticalAlignment="Center" Margin="50, 0, 0, 0" />
+
+                            </Grid>
+
+                            <!-- Sub menu -->
+                            <Border Background="{StaticResource DarkBrush}" Grid.Row="1"
+                                    BorderThickness="0" ClipToBounds="True" 
+                                    Visibility="{Binding HasSubMenu, ElementName=MenuControl, Converter={local:BooleanToVisibilityConverter}, FallbackValue=False}">
+
+                                <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
+                                        BorderThickness="5, 5, 5, 0" Margin="-4">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
+                                    </Border.Effect>
+
+                                    <Grid >
+
+                                        <ScrollViewer x:Name="SubMenu" 
+                                                      HorizontalScrollBarVisibility="Disabled" 
+                                                      VerticalScrollBarVisibility="Hidden"
+                                                      Visibility="Collapsed">
+
+                                            <ItemsControl ItemsSource="{Binding Items}"
+                                                          VerticalContentAlignment="Top"
+                                                          HorizontalContentAlignment="Center">
+                                                
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <local:SubMenuControl  />
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                                
+                                            </ItemsControl>
+
+                                        </ScrollViewer>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </Border>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Visibility" TargetName="SubMenu" Value="Visible" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Visibility" TargetName="SubMenu" Value="Collapsed" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Visibility" TargetName="SubMenu" Value="Collapsed" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
                         
-                        <local:MenuButtonControl />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
-                    </StackPanel>
+    <Border >
 
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <Border Grid.Row="1" />
-
-        <ItemsControl ItemsSource="{Binding BottomMenuItems}" Grid.Row="2"
-                      VerticalContentAlignment="Bottom"
-                      HorizontalContentAlignment="Center">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-
-                    <local:MenuButtonControl  />
-
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <Border Grid.Row="3" />
-
-    </Grid>
+        <ToggleButton Style="{StaticResource MenuButton}" >
+            <ContentControl.InputBindings>
+                <MouseBinding Command="{Binding MenuCommand}" MouseAction="LeftClick" />
+            </ContentControl.InputBindings>
+        </ToggleButton>
+        
+    </Border>
 
 </UserControl>

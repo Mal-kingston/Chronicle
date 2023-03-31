@@ -14,10 +14,10 @@ namespace Chronicle
 			// Find the appropriate page
 			switch(page)
 			{
-				case ApplicationPage.Note:
+				case ApplicationPage.NoteFile:
 					return new NotePage { DataContext = new NotePageViewModel() };
 
-                case ApplicationPage.Book:
+                case ApplicationPage.BookFile:
                     return new BookPage { DataContext = new BookPageViewModel() };
 				
 				case ApplicationPage.Calendar:
@@ -34,7 +34,7 @@ namespace Chronicle
 
                 default:
 					Debugger.Break();
-					return null;
+					return null!;
 			}
 		}
 
@@ -42,10 +42,10 @@ namespace Chronicle
 		{
 			// Find and return the application page that matches the base page
 			if (page is NotePage)
-				return ApplicationPage.Note;
+				return ApplicationPage.NoteFile;
 
             if (page is BookPage)
-                return ApplicationPage.Book;
+                return ApplicationPage.BookFile;
 
             Debugger.Break();
 			return default(ApplicationPage);

@@ -12,21 +12,8 @@ namespace Chronicle
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((IconType)value != IconType.NotesItem || (IconType)value != IconType.BooksItem)
-                return null;
+            throw new NotImplementedException();
 
-            switch ((IconType)value)
-            {
-                case IconType.NotesItem:
-                    return new NotesListControl { DataContext = new NotesListControlViewModel() };
-
-                case IconType.BooksItem:
-                    return new BooksListControl { DataContext = new BooksListControlViewModel() };
-
-                default:
-                    Debugger.Break();
-                    return null;
-            }
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
