@@ -17,14 +17,14 @@ namespace Chronicle
         None,
 
         /// <summary>
-        /// Note page
+        /// Note file
         /// </summary>
-        Note,
+        NoteFile,
 
         /// <summary>
-        /// Book page
+        /// Book file
         /// </summary>
-        Book,
+        BookFile,
 
         /// <summary>
         /// Calendar and (time) page

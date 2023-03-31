@@ -16,11 +16,11 @@ namespace Chronicle
         /// <summary>
         /// List of tabs 
         /// </summary>
-        public ObservableCollection<TabControlViewModel> Items { get; set; }
+        public ObservableCollection<TabControlViewModel>? Items { get; set; }
 
         /// <summary>
         /// Command to add a new tab
         /// </summary>
-        public ICommand AddTabCommand { get; set; }
+        public ICommand? AddTabCommand { get; set; }
     }
 }

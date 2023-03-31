@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Chronicle
 {
     /// <summary>
-    /// Type of a file (Note or Book)
+    /// Type of icon
     /// </summary>
     public enum IconType
     {

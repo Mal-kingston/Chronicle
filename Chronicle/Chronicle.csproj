@@ -9,19 +9,20 @@
 
   <ItemGroup>
     <Compile Remove="doc\**" />
+    <Compile Remove="ViewModel\List\**" />
     <EmbeddedResource Remove="doc\**" />
+    <EmbeddedResource Remove="ViewModel\List\**" />
     <None Remove="doc\**" />
+    <None Remove="ViewModel\List\**" />
     <Page Remove="doc\**" />
+    <Page Remove="ViewModel\List\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="ViewModel\SideMenu\.Design\MenuButtonDesignModel.cs" />
-    <Compile Include="ViewModel\SideMenu\.Design\MenuButtonParentDesignModel.cs" />
+    <Compile Include="ViewModel\SideMenu\.Design\SideMenuDesignModel.cs" />
+    <Compile Include="ViewModel\SideMenu\.Design\SubMenuDesignModel.cs" />
     <Compile Include="ViewModel\Tabs\.Design\TabControlContainerDesignModel.cs" />
     <Compile Include="ViewModel\Tabs\.Design\TabControlDesignModel.cs" />
-    <Compile Include="ViewModel\List\.Design\BooksListControlDesignModel.cs" />
-    <Compile Include="ViewModel\List\.Design\ListControlItemDesignModel.cs" />
-    <Compile Include="ViewModel\List\.Design\NotesListControlDesignModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

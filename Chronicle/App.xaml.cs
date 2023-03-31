@@ -39,7 +39,7 @@ namespace Chronicle
                  .Build();
 
             // Set note page as initial or default view
-            MainAppViewModel.CurrentPage = ApplicationPage.Note;
+            MainAppViewModel.CurrentPage = ApplicationPage.NoteFile;
         }
     }
 }
