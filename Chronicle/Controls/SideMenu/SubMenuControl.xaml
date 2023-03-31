@@ -55,6 +55,6 @@
     </UserControl.Resources>
 
     <!-- Main control -->
-    <Button Style="{StaticResource SubItem}"/>
+    <Button Style="{StaticResource SubItem}" Opacity=".5" />
 
 </UserControl>
