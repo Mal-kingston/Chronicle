@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,17 +17,14 @@ namespace Chronicle
         /// </summary>
         public static SideMenuDesignModel Instance = new SideMenuDesignModel();
 
-        public List<SubMenuDesignModel> Items { get; set; }
-
-
         /// <summary>
         /// Default constructor
         /// </summary>
         public SideMenuDesignModel()
         {
-                    
+
             // Sub-menu
-            Items = new List<SubMenuDesignModel>
+            SubMenu = new ObservableCollection<SubMenuDesignModel>
             {
                 new SubMenuDesignModel
                 {

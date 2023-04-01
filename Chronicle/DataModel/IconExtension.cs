@@ -50,8 +50,7 @@ namespace Chronicle
 
                 // Return trash icon
                 case IconType.Trash:
-                    return "\uf783";
-                //                    return "\uf2ed";
+                    return "\uf2ed";
 
                 // If there's nothing to do, return null
                 default:

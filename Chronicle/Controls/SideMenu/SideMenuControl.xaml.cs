@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -67,9 +69,8 @@ namespace Chronicle
 
         // Using a DependencyProperty as the backing store for HasSubMenu.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasSubMenuProperty =
-            DependencyProperty.Register("HasSubMenu", typeof(bool), typeof(SideMenuControl), new PropertyMetadata(defaultValue:(bool)false));
-
-
+            DependencyProperty.Register("HasSubMenu", typeof(bool), typeof(SideMenuControl), new PropertyMetadata(defaultValue: (bool)false));
 
     }
+
 }

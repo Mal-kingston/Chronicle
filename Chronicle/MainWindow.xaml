@@ -51,11 +51,10 @@
                     </TextBlock>
                 </Grid>
                 
-                <!-- Side menu --> 
+                <!-- Side menu -->
                 <Grid Grid.Row="1"
-                     x:Name="SideMenu"
-                     Margin="0, 0, 0, 0">
-
+                     x:Name="SideMenu" >
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="6*" />
@@ -64,12 +63,15 @@
                     </Grid.RowDefinitions>
 
                     <!-- Top group -->
-                    <StackPanel Grid.Row="0">
+                    <StackPanel Grid.Row="0" >
 
-                        <local:SideMenuControl MenuTitle="Note" MenuIcon="Note" HasSubMenu="True" />
-                        <local:SideMenuControl MenuTitle="Book" MenuIcon="Book" HasSubMenu="True" />
-                        <local:SideMenuControl MenuTitle="Calendar" MenuIcon="Calendar" />
-                        <local:SideMenuControl MenuTitle="Share" MenuIcon="Share" />
+                        <local:SideMenuControl MenuTitle="Note" MenuIcon="Note" 
+                                               HasSubMenu="True" DataContext="{Binding Note}" />
+                        <local:SideMenuControl MenuTitle="Book" MenuIcon="Book"
+                                               HasSubMenu="True" DataContext="{Binding Book}" />
+
+                        <local:SideMenuControl MenuTitle="Calendar" MenuIcon="Calendar" DataContext="{Binding Calendar}" />
+                        <local:SideMenuControl MenuTitle="Share" MenuIcon="Share" DataContext="{Binding Share}" />
 
                     </StackPanel>
 
@@ -77,14 +79,13 @@
                     <StackPanel Grid.Row="1"
                                 VerticalAlignment="Bottom">
 
-                        <local:SideMenuControl MenuTitle="Settings" MenuIcon="Settings" />
-                        <local:SideMenuControl MenuTitle="Trash" MenuIcon="Trash" />
+                        <local:SideMenuControl MenuTitle="Settings" MenuIcon="Settings" DataContext="{Binding Settings}" />
+                        <local:SideMenuControl MenuTitle="Trash" MenuIcon="Trash" DataContext="{Binding Trash}" />
 
                     </StackPanel>
 
                     <!-- Footer -->
-                    <Border Grid.Row="2" Height="50"
-                            VerticalAlignment="Bottom" Margin="0" />
+                    <Border Grid.Row="2" Height="20" VerticalAlignment="Bottom" Margin="0" />
 
                 </Grid>
 

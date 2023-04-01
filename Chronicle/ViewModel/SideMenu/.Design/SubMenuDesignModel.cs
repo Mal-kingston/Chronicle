@@ -22,7 +22,7 @@ namespace Chronicle
         public SubMenuDesignModel() 
         {
             // Title
-            SubMenuTitle = "Embedded System architecture";
+            SubMenuTitle = "Embedded System Architecture";
 
             // Icon
             SubMenuIcon = IconType.BooksItem;

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d" 
              x:Name="MenuControl"
-             DataContext="{x:Static local:SideMenuDesignModel.Instance}">
+             d:DataContext="{x:Static local:SideMenuDesignModel.Instance}">
 
     <UserControl.Resources>
 
@@ -40,7 +40,7 @@
                                 <!-- Icon -->
                                 <TextBlock Grid.Column="0" 
                                            x:Name="Icon"
-                                           Text="{Binding MenuIcon, ElementName=MenuControl, Converter={local:IconTypeConverter}}"
+                                           Text="{Binding MenuIcon, ElementName=MenuControl, Converter={local:IconTypeConverter}, FallbackValue={StaticResource NoteButtonIcon}}"
                                            FontFamily="{StaticResource FontAwesomeSolid}"
                                            VerticalAlignment="Center" Margin="50, 0, -50, 0"/>
 
@@ -71,13 +71,13 @@
                                                       VerticalScrollBarVisibility="Hidden"
                                                       Visibility="Collapsed">
 
-                                            <ItemsControl ItemsSource="{Binding Items}"
+                                            <ItemsControl ItemsSource="{Binding SubMenu}"
                                                           VerticalContentAlignment="Top"
                                                           HorizontalContentAlignment="Center">
                                                 
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <local:SubMenuControl  />
+                                                        <local:SubMenuControl />
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                                 
@@ -100,6 +100,7 @@
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
                                 <Setter Property="Visibility" TargetName="SubMenu" Value="Visible" />
                             </Trigger>
 
@@ -121,12 +122,9 @@
 
     <Border >
 
-        <ToggleButton Style="{StaticResource MenuButton}" >
-            <ContentControl.InputBindings>
-                <MouseBinding Command="{Binding MenuCommand}" MouseAction="LeftClick" />
-            </ContentControl.InputBindings>
-        </ToggleButton>
-        
+        <ToggleButton x:Name="MenuButton"
+                      Style="{StaticResource MenuButton}" />
+
     </Border>
 
 </UserControl>
