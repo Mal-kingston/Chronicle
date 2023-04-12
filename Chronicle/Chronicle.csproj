@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="ViewModel\SideMenu\.Design\SideMenuDesignModel.cs" />
     <Compile Include="ViewModel\SideMenu\.Design\SubMenuDesignModel.cs" />
+    <Compile Include="ViewModel\SideMenu\.Design\SubMenuItemDesignModel.cs" />
     <Compile Include="ViewModel\Tabs\.Design\TabControlContainerDesignModel.cs" />
     <Compile Include="ViewModel\Tabs\.Design\TabControlDesignModel.cs" />
   </ItemGroup>

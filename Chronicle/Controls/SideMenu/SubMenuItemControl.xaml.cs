@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for SubMenuControl.xaml
+    /// Interaction logic for SubMenuItemControl.xaml
     /// </summary>
-    public partial class SubMenuControl : UserControl
+    public partial class SubMenuItemControl : UserControl
     {
-        public SubMenuControl()
+        public SubMenuItemControl()
         {
             InitializeComponent();
         }

@@ -65,13 +65,45 @@
                     <!-- Top group -->
                     <StackPanel Grid.Row="0" >
 
-                        <local:SideMenuControl MenuTitle="Note" MenuIcon="Note" 
-                                               HasSubMenu="True" DataContext="{Binding Note}" />
-                        <local:SideMenuControl MenuTitle="Book" MenuIcon="Book"
-                                               HasSubMenu="True" DataContext="{Binding Book}" />
+                        <Button Content="Note"
+                                Tag="{StaticResource NoteButtonIcon}"
+                                Style="{StaticResource MenuButton}"
+                                Command="{Binding NoteMenuCommand}"/>
 
-                        <local:SideMenuControl MenuTitle="Calendar" MenuIcon="Calendar" DataContext="{Binding Calendar}" />
-                        <local:SideMenuControl MenuTitle="Share" MenuIcon="Share" DataContext="{Binding Share}" />
+                        <!--Note Sub-Menu-->
+                        <ItemsControl ItemsSource="{Binding NoteSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}"
+                                      Visibility="{Binding IsNoteSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=False}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:SubMenuItemControl />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
+                        <Button Content="Book"
+                                Tag="{StaticResource BookButtonIcon}"
+                                Style="{StaticResource MenuButton}"                     
+                                Command="{Binding BookMenuCommand}"/>
+
+                        <!--Book Sub-Menu-->
+                        <ItemsControl ItemsSource="{Binding BookSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}"
+                                      Visibility="{Binding IsBookSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=False}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:SubMenuItemControl />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Button Content="Calendar"
+                                Tag="{StaticResource CalendarButtonIcon}"
+                                Style="{StaticResource MenuButton}"
+                                Command="{Binding CalendarMenuCommand}"/>
+
+                        <Button Content="Share"
+                                Tag="{StaticResource ShareButtonIcon}"
+                                Style="{StaticResource MenuButton}" 
+                                Command="{Binding ShareMenuCommand}" />
 
                     </StackPanel>
 
@@ -79,8 +111,15 @@
                     <StackPanel Grid.Row="1"
                                 VerticalAlignment="Bottom">
 
-                        <local:SideMenuControl MenuTitle="Settings" MenuIcon="Settings" DataContext="{Binding Settings}" />
-                        <local:SideMenuControl MenuTitle="Trash" MenuIcon="Trash" DataContext="{Binding Trash}" />
+                        <Button Content="Settings"
+                                Tag="{StaticResource SettingButtonIcon}"
+                                Style="{StaticResource MenuButton}"
+                                Command="{Binding SettingsMenuCommand}"/>
+
+                        <Button Content="Trash"
+                                Tag="{StaticResource TrashButtonIcon}"
+                                Style="{StaticResource MenuButton}" 
+                                Command="{Binding TrashMenuCommand}"/>
 
                     </StackPanel>
 

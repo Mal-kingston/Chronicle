@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -27,6 +29,18 @@ namespace Chronicle
         public double MinimumWidth { get; set; }
 
         /// <summary>
+        /// True if note sub menu should be shown,
+        /// Otherwise false
+        /// </summary>
+        public bool IsNoteSubMenuOpen { get; set; }
+
+        /// <summary>
+        /// True if book sub menu should be shown,
+        /// Otherwise false
+        /// </summary>
+        public bool IsBookSubMenuOpen { get; set; }
+
+        /// <summary>
         /// The current page of this application
         /// default to note
         /// </summary>
@@ -37,45 +51,39 @@ namespace Chronicle
         /// </summary>
         public BaseViewModel? CurrentPageViewModel { get; set; }
 
-        #region Side menu
-
-        /// <summary>
-        /// Side menu -> Note
-        /// </summary>
-        public SideMenuViewModel Note { get; set; }
-
-        /// <summary>
-        /// Side menu -> Book
-        /// </summary>
-        public SideMenuViewModel Book { get; set; }
-
-        /// <summary>
-        /// Side menu -> Calendar
-        /// </summary>
-        public SideMenuViewModel Calendar { get; set; }
-
-        /// <summary>
-        /// Side menu -> Share
-        /// </summary>
-        public SideMenuViewModel Share { get; set; }
-
-        /// <summary>
-        /// Side menu -> Settings
-        /// </summary>
-        public SideMenuViewModel Settings { get; set; }
-
-
-        /// <summary>
-        /// Side menu -> Trash
-        /// </summary>
-        public SideMenuViewModel Trash { get; set; }
-
-        #endregion
-
         #endregion
 
         #region Public Commands
 
+        /// <summary>
+        /// Command to select note menu item
+        /// </summary>
+        public ICommand NoteMenuCommand { get; set; }
+
+        /// <summary>
+        /// Command to select book menu item
+        /// </summary>
+        public ICommand BookMenuCommand { get; set; }
+
+        /// <summary>
+        /// Command to select calendar menu item
+        /// </summary>
+        public ICommand CalendarMenuCommand { get; set; }
+
+        /// <summary>
+        /// Command to select share menu item
+        /// </summary>
+        public ICommand ShareMenuCommand { get; set; }
+
+        /// <summary>
+        /// Command to select settings menu item
+        /// </summary>
+        public ICommand SettingsMenuCommand { get; set; }
+
+        /// <summary>
+        /// Command to select trash menu item
+        /// </summary>
+        public ICommand TrashMenuCommand { get; set; }
 
         #endregion
 
@@ -90,94 +98,67 @@ namespace Chronicle
             MinimumHeight = 750;
             MinimumWidth = 1048;
             CurrentPage = ApplicationPage.NoteFile;
+            IsNoteSubMenuOpen = false;
+            IsBookSubMenuOpen = false;
 
-            // Note menu
-            Note = new SideMenuViewModel
-            {
-                SubMenu = new ObservableCollection<SubMenuDesignModel>
-                {
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.NotesItem,
-                        SubMenuTitle = "Astrophysics 101",
-                    },
+            // Create Commands
+            NoteMenuCommand = new RelayCommand(OpenNotes);
+            BookMenuCommand = new RelayCommand(OpenBooks);
+            CalendarMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Calendar); });
+            ShareMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Share); });
+            SettingsMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Settings); });
+            TrashMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Trash); });
 
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.NotesItem,
-                        SubMenuTitle = "Genesis of People and culture",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.NotesItem,
-                        SubMenuTitle = "The future of A.I",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.NotesItem,
-                        SubMenuTitle = "Beauty and the beast",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.NotesItem,
-                        SubMenuTitle = "The marchant ship",
-                    },
-
-                }
-            };
-
-            // Book menu
-            Book = new SideMenuViewModel
-            {
-                SubMenu = new ObservableCollection<SubMenuDesignModel>
-                {
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.BooksItem,
-                        SubMenuTitle = "Astrophysics 101",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.BooksItem,
-                        SubMenuTitle = "Genesis of People and culture",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.BooksItem,
-                        SubMenuTitle = "The future of A.I",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.BooksItem,
-                        SubMenuTitle = "Beauty and the beast",
-                    },
-
-                    new SubMenuDesignModel
-                    {
-                        SubMenuIcon = IconType.BooksItem,
-                        SubMenuTitle = "The marchant ship",
-                    },
-
-                    }
-            };
+            // Update properties
+            OnPropertyChanged(nameof(IsNoteSubMenuOpen));
+            OnPropertyChanged(nameof(IsBookSubMenuOpen));
         }
 
         #endregion
 
         #region Command Methods
 
-  
+        /// <summary>
+        /// Command method to open books
+        /// </summary>
+        private void OpenBooks()
+        {
+            // If note sub menu is already open
+            if (IsNoteSubMenuOpen)
+                // Close it
+                IsNoteSubMenuOpen = false;
+
+            // Toggle book sub menu as needed
+            IsBookSubMenuOpen ^= true;
+
+            // Update properties
+            OnPropertyChanged(nameof(IsNoteSubMenuOpen));
+            OnPropertyChanged(nameof(IsBookSubMenuOpen));
+        }
+
+        /// <summary>
+        /// Command method to open notes
+        /// </summary>
+        private void OpenNotes()
+        {
+            // If book sub menu is already open
+            if (IsBookSubMenuOpen)
+                // Close it
+                IsBookSubMenuOpen = false;
+
+            // Toggle note sub menu as needed
+            IsNoteSubMenuOpen ^= true;
+
+            // Update properties
+            OnPropertyChanged(nameof(IsNoteSubMenuOpen));
+            OnPropertyChanged(nameof(IsBookSubMenuOpen));
+        }
+
         #endregion
 
         #region Public Helpers
 
-        
+
         public void GotoPage(ApplicationPage page)
         {            
             // Sets current page value

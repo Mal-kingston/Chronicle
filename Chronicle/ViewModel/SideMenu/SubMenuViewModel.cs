@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Chronicle
 {
     /// <summary>
-    /// View model for <see cref="SubMenuControl"/>
+    /// View model for the sub menu of this application
     /// </summary>
     public class SubMenuViewModel : BaseViewModel
     {
         /// <summary>
-        /// The title of a submenu item
+        /// The list of book submenu
         /// </summary>
-        public string SubMenuTitle { get; set; }
+        public ObservableCollection<SubMenuItemViewModel> BookSubMenu { get; set; }
 
         /// <summary>
-        /// The icon type of a submenu item
+        /// The list of note submenu
         /// </summary>
-        public IconType SubMenuIcon { get; set; }
+        public ObservableCollection<SubMenuItemViewModel> NoteSubMenu { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public SubMenuViewModel()
+        {
+            // Set default properties
+            BookSubMenu = new ObservableCollection<SubMenuItemViewModel>();
+            NoteSubMenu = new ObservableCollection<SubMenuItemViewModel>();
+        }
 
     }
 }
