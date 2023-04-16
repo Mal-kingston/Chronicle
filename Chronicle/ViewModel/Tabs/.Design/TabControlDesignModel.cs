@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace Chronicle
 {
     /// <summary>
-    /// Design model for tab control
+    /// Design model for the tab control
     /// </summary>
     public class TabControlDesignModel : TabControlViewModel
     {
@@ -17,12 +19,28 @@ namespace Chronicle
         public static TabControlDesignModel Instance => new TabControlDesignModel();
 
         /// <summary>
-        /// Default constructor
+        /// Default contructor
         /// </summary>
-        public TabControlDesignModel()
+        public TabControlDesignModel() 
         {
-            TabHeader = "Push last code to github";
-            IsSelected = true;
+            // Set default tab item in the view (dummy item)
+            Items = new ObservableCollection<TabItemViewModel> { new TabItemViewModel { TabHeader = "Untitled"}  };
+
+            // Create commands
+            AddNewTabCommand = new RelayCommand(AddNewTab);
+        }
+
+        /// <summary>
+        /// Command to add dummy tab item to Items
+        /// </summary>
+        private void AddNewTab()
+        {
+            if (Items.Count == 4)
+                return;
+
+            // Add dummy item
+            Items?.Add(new TabItemViewModel { TabHeader = $"Untitled - {Items.Count}" });
+            OnPropertyChanged(nameof(Items));
         }
     }
 }

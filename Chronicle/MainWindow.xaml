@@ -57,74 +57,107 @@
                     
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="6*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Top group -->
-                    <StackPanel Grid.Row="0" >
+                    <!--Note-->
+                    <!-- Set the ischecked properties in the app settings based on the default page of the app -->
+                    <RadioButton Grid.Row="0" IsChecked="True" 
+                                 Content="Note"
+                                 Tag="{StaticResource NoteButtonIcon}"
+                                 Style="{StaticResource MenuButton}"
+                                 Command="{Binding NoteMenuCommand}"/>
 
-                        <Button Content="Note"
-                                Tag="{StaticResource NoteButtonIcon}"
-                                Style="{StaticResource MenuButton}"
-                                Command="{Binding NoteMenuCommand}"/>
+                    <!--Note Sub-Menu-->
 
-                        <!--Note Sub-Menu-->
-                        <ItemsControl ItemsSource="{Binding NoteSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}"
-                                      Visibility="{Binding IsNoteSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=False}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <local:SubMenuItemControl />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        
-                        <Button Content="Book"
+                    <Border Background="{StaticResource DarkBrush}" Grid.Row="1"
+                            BorderThickness="0" ClipToBounds="True"
+                            Visibility="{Binding IsNoteSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+
+                        <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
+                                BorderThickness="5, 5, 5, 0" Margin="-4">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
+                            </Border.Effect>
+
+                            <ItemsControl ItemsSource="{Binding NoteSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:SubMenuItemControl />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Border>
+
+                    </Border>
+
+                    <!--Book-->
+                    <RadioButton Grid.Row="2" Content="Book"
                                 Tag="{StaticResource BookButtonIcon}"
                                 Style="{StaticResource MenuButton}"                     
                                 Command="{Binding BookMenuCommand}"/>
 
-                        <!--Book Sub-Menu-->
-                        <ItemsControl ItemsSource="{Binding BookSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}"
-                                      Visibility="{Binding IsBookSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=False}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <local:SubMenuItemControl />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
 
-                        <Button Content="Calendar"
+                    <!--Book Sub-Menu-->
+                    <Border Background="{StaticResource DarkBrush}" Grid.Row="3"
+                            BorderThickness="0" ClipToBounds="True"
+                            Visibility="{Binding IsBookSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+
+                        <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
+                                BorderThickness="5, 5, 5, 0" Margin="-4">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
+                            </Border.Effect>
+
+                            <ItemsControl ItemsSource="{Binding BookSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:SubMenuItemControl />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Border>
+                    </Border>
+
+                        <!--Calendar-->
+                    <RadioButton Grid.Row="4" Content="Calendar"
                                 Tag="{StaticResource CalendarButtonIcon}"
                                 Style="{StaticResource MenuButton}"
                                 Command="{Binding CalendarMenuCommand}"/>
 
-                        <Button Content="Share"
+                        <!--Share-->
+                    <RadioButton Grid.Row="5" Content="Share"
                                 Tag="{StaticResource ShareButtonIcon}"
                                 Style="{StaticResource MenuButton}" 
                                 Command="{Binding ShareMenuCommand}" />
 
-                    </StackPanel>
+                    <!--Vacant space-->
+                    <Border Grid.Row="6" Height="20" VerticalAlignment="Bottom" Margin="0" />
 
-                    <!-- Bottom group -->
-                    <StackPanel Grid.Row="1"
-                                VerticalAlignment="Bottom">
+                    <!--Settings-->
+                    <RadioButton Grid.Row="7" Content="Settings"
+                            Tag="{StaticResource SettingButtonIcon}"
+                            Style="{StaticResource MenuButton}"
+                            Command="{Binding SettingsMenuCommand}"/>
 
-                        <Button Content="Settings"
-                                Tag="{StaticResource SettingButtonIcon}"
-                                Style="{StaticResource MenuButton}"
-                                Command="{Binding SettingsMenuCommand}"/>
-
-                        <Button Content="Trash"
-                                Tag="{StaticResource TrashButtonIcon}"
-                                Style="{StaticResource MenuButton}" 
-                                Command="{Binding TrashMenuCommand}"/>
-
-                    </StackPanel>
+                    <!--Trash-->
+                    <RadioButton Grid.Row="8" Content="Trash"
+                            Tag="{StaticResource TrashButtonIcon}"
+                            Style="{StaticResource MenuButton}" 
+                            Command="{Binding TrashMenuCommand}"/>
 
                     <!-- Footer -->
-                    <Border Grid.Row="2" Height="20" VerticalAlignment="Bottom" Margin="0" />
+                    <Border Grid.Row="9" VerticalAlignment="Bottom" Margin="0" />
 
                 </Grid>
 

@@ -5,24 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
-             d:DataContext="{x:Static local:TabControlDesignModel.Instance}">
+             DataContext="{x:Static local:TabControlDesignModel.Instance}" >
+    
+    
+    <ScrollViewer VerticalScrollBarVisibility="Disabled" 
+                  HorizontalScrollBarVisibility="Hidden">
 
-    <Grid Height="36" Width="180" Background="{StaticResource DarkBrush}" >
-        <!-- Bottom bar -->
-        <Border Height="4" Width="180" 
-                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                Background="{StaticResource BlueBrush}" Visibility="{Binding IsSelected, Converter={local:BooleanToVisibilityConverter}}" />
+        <StackPanel Orientation="Horizontal" >
 
-        <!-- Title and button -->
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding TabHeader}" FontSize="{StaticResource XSmall}"
-                   Margin="10, 0, 0, 0" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
-                   Foreground="{StaticResource GrayBrush}" Width="120" />
-            <Button Height="22" Width="22" Margin="20, 0, 6, 0" Content="{StaticResource CloseIcon}"/>
-            <!-- Right bar -->
-            <Border Height="36" Width="2" HorizontalAlignment="Right" Background="{StaticResource GrayBrush}" />
+            <ItemsControl ItemsSource="{Binding Items}"  >
+                <!--Panel template-->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <!--Item template-->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate >
+                        <local:TabItemControl HorizontalAlignment="Left" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!--Add tab button-->
+            <Button Width="28" Height="28" Margin="5"
+                    Style="{StaticResource AddIconStyle}"
+                    Content="{StaticResource AddIcon}" 
+                    Command="{Binding AddNewTabCommand}"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
             
         </StackPanel>
 
-    </Grid>
+    </ScrollViewer>
+
 </UserControl>

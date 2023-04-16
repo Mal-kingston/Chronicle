@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -14,19 +14,23 @@ namespace Chronicle
     public class TabControlViewModel : BaseViewModel
     {
         /// <summary>
-        /// Title of tab to display
+        /// List of tabs 
         /// </summary>
-        public string TabHeader { get; set; }
+        public ObservableCollection<TabItemViewModel>? Items { get; set; }
 
         /// <summary>
-        /// True if tab is currently selected in the view
-        /// Otherwise false
+        /// Command to add a new tab
         /// </summary>
-        public bool IsSelected { get; set; }
+        public ICommand? AddNewTabCommand { get; set; }
 
-        /// <summary>
-        /// A command to close a tab
-        /// </summary>
-        public ICommand CloseTabCommand { get; set; }
+        public TabControlViewModel()
+        {
+            AddNewTabCommand = new RelayCommand(AddNewTab);
+        }
+
+        private void AddNewTab()
+        {
+            Items?.Add(new TabItemViewModel { TabHeader = "Untitled" });
+        }
     }
 }
