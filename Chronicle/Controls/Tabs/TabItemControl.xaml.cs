@@ -25,17 +25,15 @@ namespace Chronicle
             InitializeComponent();
         }
 
-
-
-        public bool Selected
+        public bool IsSelected
         {
-            get { return (bool)GetValue(SelectedProperty); }
-            set { SetValue(SelectedProperty, value); }
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Selected.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProperty =
-            DependencyProperty.Register("Selected", typeof(bool), typeof(TabItemControl), new PropertyMetadata(defaultValue: false));
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(TabItemControl), new PropertyMetadata(defaultValue: false));
 
     }
 }

@@ -19,28 +19,21 @@ namespace Chronicle
         public static TabControlDesignModel Instance => new TabControlDesignModel();
 
         /// <summary>
-        /// Default contructor
+        /// Default constructor
         /// </summary>
         public TabControlDesignModel() 
         {
             // Set default tab item in the view (dummy item)
-            Items = new ObservableCollection<TabItemViewModel> { new TabItemViewModel { TabHeader = "Untitled"}  };
+            //Items = new ObservableCollection<TabItemViewModel> 
+            //{
+            //    new TabItemViewModel
+            //    { 
+            //        TabHeader = "Untitled", 
+            //        IsSelected = true,
+            //    }  
+            //};
 
-            // Create commands
-            AddNewTabCommand = new RelayCommand(AddNewTab);
         }
 
-        /// <summary>
-        /// Command to add dummy tab item to Items
-        /// </summary>
-        private void AddNewTab()
-        {
-            if (Items.Count == 4)
-                return;
-
-            // Add dummy item
-            Items?.Add(new TabItemViewModel { TabHeader = $"Untitled - {Items.Count}" });
-            OnPropertyChanged(nameof(Items));
-        }
     }
 }

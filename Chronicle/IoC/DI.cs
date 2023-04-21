@@ -15,7 +15,12 @@ namespace Chronicle
         /// <summary>
         /// Shortcut to access the <see cref="MainViewModel"/>
         /// </summary>
-        public static MainViewModel MainAppViewModel => Framework.Service<MainViewModel>();
+        public static MainViewModel MainVM => Framework.Service<MainViewModel>();
+
+        /// <summary>
+        /// Shortcut to access the <see cref="TabControlViewModel"/>
+        /// </summary>
+        public static TabControlViewModel TabControlVM => Framework.Service<TabControlViewModel>();
 
     }
 }

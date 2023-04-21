@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
-             DataContext="{x:Static local:TabControlDesignModel.Instance}" >
+             d:DataContext="{x:Static local:TabControlDesignModel.Instance}">
     
     
     <ScrollViewer VerticalScrollBarVisibility="Disabled" 
@@ -13,7 +13,7 @@
 
         <StackPanel Orientation="Horizontal" >
 
-            <ItemsControl ItemsSource="{Binding Items}"  >
+            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" >
                 <!--Panel template-->
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -23,7 +23,10 @@
                 <!--Item template-->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate >
-                        <local:TabItemControl HorizontalAlignment="Left" />
+                        <Grid>
+                            <local:TabItemControl HorizontalAlignment="Left" />
+                            
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -34,8 +37,7 @@
                     Content="{StaticResource AddIcon}" 
                     Command="{Binding AddNewTabCommand}"
                     HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            
-        </StackPanel>
+                  </StackPanel>
 
     </ScrollViewer>
 

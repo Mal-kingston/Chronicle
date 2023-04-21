@@ -17,7 +17,12 @@ namespace Chronicle
         /// <summary>
         /// The main application view model
         /// </summary>
-        public MainViewModel Application => MainAppViewModel;
+        public MainViewModel LocateMainVM => MainVM;
+
+        /// <summary>
+        /// The view model for the tab control
+        /// </summary>
+        public TabControlViewModel LocateTabControlVM => TabControlVM;
 
         #endregion
     }

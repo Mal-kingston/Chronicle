@@ -104,10 +104,10 @@ namespace Chronicle
             // Create Commands
             NoteMenuCommand = new RelayCommand(OpenNotes);
             BookMenuCommand = new RelayCommand(OpenBooks);
-            CalendarMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Calendar); });
-            ShareMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Share); });
-            SettingsMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Settings); });
-            TrashMenuCommand = new RelayCommand(() => { DI.MainAppViewModel.GotoPage(ApplicationPage.Trash); });
+            CalendarMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Calendar); });
+            ShareMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Share); });
+            SettingsMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Settings); });
+            TrashMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Trash); });
 
             // Update properties
             OnPropertyChanged(nameof(IsNoteSubMenuOpen));

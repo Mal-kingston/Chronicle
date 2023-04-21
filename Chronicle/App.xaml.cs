@@ -38,8 +38,8 @@ namespace Chronicle
                  .AddViewModels()
                  .Build();
 
-            // Set note page as initial or default view
-            MainAppViewModel.CurrentPage = ApplicationPage.NoteFile;
+            // Set note page as default view on start up
+            MainVM.CurrentPage = ApplicationPage.NoteFile;
         }
     }
 }

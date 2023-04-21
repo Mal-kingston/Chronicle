@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -26,14 +27,18 @@ namespace Chronicle
         public bool IsSelected { get; set; }
 
         /// <summary>
-        /// A command to close a tab
+        /// Default constructor
         /// </summary>
-        public ICommand CloseTabCommand { get; set; }
-
         public TabItemViewModel()
         {
+            // Set properties defaults
             IsSelected = false;
+            TabHeader = string.Empty;
 
+            // Update properties
+            OnPropertyChanged(nameof(TabHeader));
+            OnPropertyChanged(nameof(IsSelected));
         }
+
     }
 }

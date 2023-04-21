@@ -18,8 +18,9 @@ namespace Chronicle
         /// <returns></returns>
         public static FrameworkConstruction AddViewModels(this FrameworkConstruction construction)
         {
-            // Inject singleton instance of the main view model
+            // Inject singleton instances of view models
             construction.Services.AddSingleton<MainViewModel>();
+            construction.Services.AddSingleton<TabControlViewModel>();
 
             // Return the construction for chaining
             return construction;

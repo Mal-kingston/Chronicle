@@ -23,6 +23,8 @@ namespace Chronicle
         public TabControl()
         {
             InitializeComponent();
+
+            DataContext = new TabControlViewModel();
         }
     }
 }
