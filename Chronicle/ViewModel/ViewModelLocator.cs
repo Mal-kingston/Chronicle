@@ -24,6 +24,11 @@ namespace Chronicle
         /// </summary>
         public TabControlViewModel LocateTabControlVM => TabControlVM;
 
+        /// <summary>
+        /// The view model for the tab item
+        /// </summary>
+        public TabItemViewModel LocateTabItemVM => TabItemVM;
+
         #endregion
     }
 }

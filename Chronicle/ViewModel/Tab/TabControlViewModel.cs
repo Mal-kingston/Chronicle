@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -19,7 +17,13 @@ namespace Chronicle
         /// <summary>
         /// List of tabs 
         /// </summary>
-        public ObservableCollection<TabItemViewModel>? Items { get; }
+        public ObservableCollection<TabItemViewModel>? Items { get; set; }
+
+        /// <summary>
+        /// Unique identification for each tab in the collection
+        ///         NOTE: Use GUID
+        /// </summary>
+        public int TabId { get; set; }
 
         #endregion
 
@@ -52,13 +56,12 @@ namespace Chronicle
             // Set properties default
             Items = new ObservableCollection<TabItemViewModel>
             {
-                // Default dummy tab item
-                new TabItemViewModel
-                {
-                    TabHeader = "Untitled",
-                    IsSelected = true,
-                }
+                // Default tab item
+                new TabItemViewModel()
             };
+
+            TabId = 1;
+
 
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
@@ -67,6 +70,7 @@ namespace Chronicle
 
             // Update properties
             OnPropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(TabId));
         }
 
         #endregion
@@ -81,8 +85,19 @@ namespace Chronicle
             if (Items?.Count == 4)
                 return;
 
+            // Reset selection
+            Items?.ToList().ForEach(item => item.TabIsSelected = false);
+
+            //TODO: Update id properly when item is removed or added
+            TabId = TabId + 1;
+            
+
             // Add new tab
-            Items?.Add(new TabItemViewModel { TabHeader = $"Untitled-{Items.Count}" });
+            Items?.Add(new TabItemViewModel
+            {
+                TabHeader = $"Untitled-{TabId}",
+                TabIsSelected = true,
+            });
         }
 
         /// <summary>
@@ -91,8 +106,27 @@ namespace Chronicle
         /// <param name="parameter">The specific unique tab header of the tab to be removed / closed</param>
         private void CloseTab(object parameter)
         {
+            if (Items?.Count == 1)
+                return;
+
             // Close tab
             Items?.Remove(Items.Where(item => item.TabHeader == parameter.ToString()).Single());
+
+            //TODO:  Update untitled tab header sequence
+
+
+            /* TODO: Keep track of the history of tab selection 
+                     and select the most recently selected, when a currently selected tab is closed
+            
+            Select the default tab for now   */
+            foreach (var item in Items)
+            {
+                // If tab header match
+                if (item.TabHeader == "Untitled")
+                    // Set new selection
+                    item.TabIsSelected = true;
+            }
+
         }
 
         /// <summary>
@@ -101,17 +135,24 @@ namespace Chronicle
         /// <param name="parameter">Unique header of the tab item to select</param>
         private void SelectTab(object parameter)
         {
-
+            // Make sure we have tabs
             if (Items == null)
                 return;
 
-            foreach(var item in Items)
+            // Reset selection
+            Items.ToList().ForEach(item => item.TabIsSelected = false);
+
+            // For every tabs in the collection
+            foreach (var item in Items)
             {
-                if(item.TabHeader == parameter.ToString())
-                    item.IsSelected = true;
-                else
-                    item.IsSelected = false;
+                // If tab header match
+                if (item.TabHeader == parameter.ToString())
+                    // Set new selection
+                    item.TabIsSelected = true;
             }
+
+            // switch between different tabs and set their view models
+
         }
 
         #endregion

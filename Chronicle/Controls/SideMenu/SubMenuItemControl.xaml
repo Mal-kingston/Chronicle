@@ -55,6 +55,8 @@
     </UserControl.Resources>
 
     <!-- Main control -->
-    <Button Style="{StaticResource SubItem}" Opacity=".5" />
+    <Button Opacity=".5" 
+            Command="{Binding OpenFileCommand}"
+            Style="{StaticResource SubItem}" />
 
 </UserControl>

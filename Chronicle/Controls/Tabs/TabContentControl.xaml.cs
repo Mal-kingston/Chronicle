@@ -16,14 +16,21 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for NotePage.xaml
+    /// Interaction logic for NoteFileControl.xaml
     /// </summary>
-    public partial class NotePage : BasePage<NotePageViewModel>
+    public partial class TabContentControl : UserControl
     {
-        public NotePage()
+        public TabContentControl()
         {
             InitializeComponent();
         }
 
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+{
+            if(e.Key == Key.Enter)
+            {
+                MainContent.Focus();
+            }
+        }
     }
 }

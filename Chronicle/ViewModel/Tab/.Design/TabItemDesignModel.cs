@@ -22,7 +22,7 @@ namespace Chronicle
         public TabItemDesignModel()
         {
             TabHeader = "Untitled";
-            IsSelected = true;
+            TabIsSelected = true;
         }
     }
 }

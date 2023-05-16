@@ -21,12 +21,10 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <!--Item template-->
-                <ItemsControl.ItemTemplate>
+                <ItemsControl.ItemTemplate >
                     <DataTemplate >
-                        <Grid>
-                            <local:TabItemControl HorizontalAlignment="Left" />
-                            
-                        </Grid>
+                        <local:TabItemControl HorizontalAlignment="Left"
+                                              IsSelected="{Binding TabIsSelected}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -36,8 +34,9 @@
                     Style="{StaticResource AddIconStyle}"
                     Content="{StaticResource AddIcon}" 
                     Command="{Binding AddNewTabCommand}"
-                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                  </StackPanel>
+                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            
+         </StackPanel>
 
     </ScrollViewer>
 

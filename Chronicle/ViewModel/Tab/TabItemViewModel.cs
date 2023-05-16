@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Chronicle;
 using static Chronicle.DI;
 
 namespace Chronicle
@@ -15,6 +16,8 @@ namespace Chronicle
     /// </summary>
     public class TabItemViewModel : BaseViewModel
     {
+        private TabContentViewModel _tabContent;
+
         /// <summary>
         /// Title of tab to display
         /// </summary>
@@ -24,7 +27,24 @@ namespace Chronicle
         /// True if tab is currently selected in the view
         /// Otherwise false
         /// </summary>
-        public bool IsSelected { get; set; }
+        public bool TabIsSelected { get; set; }
+
+        /// <summary>
+        /// The content associated with this tab
+        /// </summary>
+        public TabContentViewModel TabContent  
+        {
+            get { return _tabContent; }
+            set
+            {
+                if (_tabContent == value)
+                    return;
+
+                _tabContent = value;
+                OnPropertyChanged(nameof(TabContent));
+            }
+
+        }
 
         /// <summary>
         /// Default constructor
@@ -32,12 +52,21 @@ namespace Chronicle
         public TabItemViewModel()
         {
             // Set properties defaults
-            IsSelected = false;
+            TabIsSelected = true;
             TabHeader = string.Empty;
+
+            _tabContent = new TabContentViewModel();
+            
+            if (string.IsNullOrEmpty(_tabContent.Title))
+                TabHeader = "Untitled";
+            else
+                TabHeader = _tabContent.Title;
 
             // Update properties
             OnPropertyChanged(nameof(TabHeader));
-            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(TabIsSelected));
+            OnPropertyChanged(nameof(TabContent));
+            OnPropertyChanged(nameof(_tabContent));
         }
 
     }

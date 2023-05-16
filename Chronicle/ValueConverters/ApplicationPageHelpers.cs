@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Controls;
 
+using static Chronicle.DI;
+
 namespace Chronicle
 {
 
@@ -15,7 +17,7 @@ namespace Chronicle
 			switch(page)
 			{
 				case ApplicationPage.NoteFile:
-					return new NotePage { DataContext = new NotePageViewModel() };
+					return NotePageInstance;
 
                 case ApplicationPage.BookFile:
                     return new BookPage { DataContext = new BookPageViewModel() };

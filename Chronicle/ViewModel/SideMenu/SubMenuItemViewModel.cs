@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -21,6 +18,23 @@ namespace Chronicle
         /// </summary>
         public IconType SubMenuIcon { get; set; }
 
+        /// <summary>
+        /// Command to open file
+        /// </summary>
+        public ICommand OpenFileCommand { get; set; }
 
+        public SubMenuItemViewModel()
+        {
+            OpenFileCommand = new RelayCommand(OpenFile);
+        }
+
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        private void OpenFile()
+        {
+            // Simulate going opening a note file
+            MainVM.GotoPage(ApplicationPage.NoteFile);
+        }
     }
 }

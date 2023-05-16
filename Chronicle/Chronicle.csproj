@@ -21,8 +21,8 @@
   <ItemGroup>
     <Compile Include="ViewModel\SideMenu\.Design\SubMenuDesignModel.cs" />
     <Compile Include="ViewModel\SideMenu\.Design\SubMenuItemDesignModel.cs" />
-    <Compile Include="ViewModel\Tabs\.Design\TabControlDesignModel.cs" />
-    <Compile Include="ViewModel\Tabs\.Design\TabItemDesignModel.cs" />
+    <Compile Include="ViewModel\Tab\.Design\TabControlDesignModel.cs" />
+    <Compile Include="ViewModel\Tab\.Design\TabItemDesignModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +44,11 @@
 
   <ItemGroup>
     <PackageReference Include="Dna.Framework" Version="1.0.7.19" />
+    <PackageReference Include="Fody" Version="6.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>

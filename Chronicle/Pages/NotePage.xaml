@@ -1,4 +1,4 @@
-﻿<Page x:Class="Chronicle.NotePage"
+﻿<local:BasePage x:TypeArguments="local:NotePageViewModel" x:Class="Chronicle.NotePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,15 +17,16 @@
 
         <!-- Tab -->
         <Canvas Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="36">
-            <local:TabControl VerticalAlignment="Top" HorizontalAlignment="Left" Height="36" />
+            <local:TabControl DataContext="{Binding TabControl}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="36" />
         </Canvas>
 
-        <!-- Text Area -->
+        <!-- Tab content -->
         <Grid Grid.Row="1" Background="{StaticResource DarkBrush}">
-            <TextBox Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap"
-                     AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
-                     FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Padding="20 20 40 5" CaretBrush="{StaticResource GrayBrush}"  />
+
+            <local:TabContentControl DataContext="{Binding TabContent}" />
+
         </Grid>
 
     </Grid>
-</Page>
+    
+</local:BasePage>

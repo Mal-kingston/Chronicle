@@ -1,4 +1,5 @@
-﻿using Dna;
+﻿using Chronicle;
+using Dna;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Chronicle
     public static class FrameworkConstructionExtensions
     {
         /// <summary>
-        /// Injects the view models needed for the application
+        /// Injects the instances as needed for the application
         /// </summary>
         /// <param name="construction"></param>
         /// <returns></returns>
@@ -21,6 +22,15 @@ namespace Chronicle
             // Inject singleton instances of view models
             construction.Services.AddSingleton<MainViewModel>();
             construction.Services.AddSingleton<TabControlViewModel>();
+            construction.Services.AddSingleton<TabItemViewModel>();
+            construction.Services.AddSingleton<TabContentViewModel>();
+
+            construction.Services.AddSingleton<NotePage>();
+            construction.Services.AddSingleton<BookPage>();
+            construction.Services.AddSingleton<CalendarPage>();
+            construction.Services.AddSingleton<SharePage>();
+            construction.Services.AddSingleton<SettingsPage>();
+            construction.Services.AddSingleton<TrashPage>();
 
             // Return the construction for chaining
             return construction;

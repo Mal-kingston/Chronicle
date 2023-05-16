@@ -24,7 +24,9 @@ namespace Chronicle
         {
             InitializeComponent();
 
+            // Set data context
             DataContext = new TabControlViewModel();
         }
+
     }
 }

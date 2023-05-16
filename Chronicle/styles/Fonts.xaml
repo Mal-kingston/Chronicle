@@ -28,5 +28,5 @@
     <system:String x:Key="FeatherIcon">&#xf56b;</system:String>
     <system:String x:Key="CloseIcon">&#xf00d;</system:String>
     <system:String x:Key="AddIcon">&#xf067;</system:String>
-
-</ResourceDictionary>
+    
+   </ResourceDictionary>

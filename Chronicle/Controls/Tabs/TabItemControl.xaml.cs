@@ -25,6 +25,9 @@ namespace Chronicle
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Selection functionality for this control
+        /// </summary>
         public bool IsSelected
         {
             get { return (bool)GetValue(IsSelectedProperty); }
