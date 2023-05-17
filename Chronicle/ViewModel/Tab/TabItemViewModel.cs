@@ -19,6 +19,11 @@ namespace Chronicle
         private TabContentViewModel _tabContent;
 
         /// <summary>
+        /// The unique tab ID for each tab item
+        /// </summary>
+        public Guid TabID { get; set; }
+
+        /// <summary>
         /// Title of tab to display
         /// </summary>
         public string TabHeader { get; set; }
@@ -54,9 +59,11 @@ namespace Chronicle
             // Set properties defaults
             TabIsSelected = true;
             TabHeader = string.Empty;
+            TabID = Guid.NewGuid();
 
             _tabContent = new TabContentViewModel();
             
+            // Default header for new tab
             if (string.IsNullOrEmpty(_tabContent.Title))
                 TabHeader = "Untitled";
             else

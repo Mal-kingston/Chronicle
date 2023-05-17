@@ -25,7 +25,6 @@
                 
                 <TextBox  Background="Transparent" BorderThickness="0" MaxLength="32" 
                           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
-                          local:MonitorNoteTitleTextAttachedProperty.Value="True"
                           Keyboard.KeyDown="TextBox_KeyDown" TextWrapping="NoWrap" 
                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" 
                           CaretBrush="{StaticResource GrayBrush}"/>

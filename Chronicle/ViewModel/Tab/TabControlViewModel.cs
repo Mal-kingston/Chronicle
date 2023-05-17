@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -18,12 +19,6 @@ namespace Chronicle
         /// List of tabs 
         /// </summary>
         public ObservableCollection<TabItemViewModel>? Items { get; set; }
-
-        /// <summary>
-        /// Unique identification for each tab in the collection
-        ///         NOTE: Use GUID
-        /// </summary>
-        public int TabId { get; set; }
 
         #endregion
 
@@ -60,9 +55,6 @@ namespace Chronicle
                 new TabItemViewModel()
             };
 
-            TabId = 1;
-
-
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
             CloseTabCommand = new ParameterizedRelayCommand((parameter) => CloseTab(parameter));
@@ -70,7 +62,6 @@ namespace Chronicle
 
             // Update properties
             OnPropertyChanged(nameof(Items));
-            OnPropertyChanged(nameof(TabId));
         }
 
         #endregion
@@ -88,15 +79,11 @@ namespace Chronicle
             // Reset selection
             Items?.ToList().ForEach(item => item.TabIsSelected = false);
 
-            //TODO: Update id properly when item is removed or added
-            TabId = TabId + 1;
-            
-
             // Add new tab
             Items?.Add(new TabItemViewModel
             {
-                TabHeader = $"Untitled-{TabId}",
                 TabIsSelected = true,
+                TabID = Guid.NewGuid(),
             });
         }
 
@@ -106,26 +93,21 @@ namespace Chronicle
         /// <param name="parameter">The specific unique tab header of the tab to be removed / closed</param>
         private void CloseTab(object parameter)
         {
+            // Do not close the default tab
             if (Items?.Count == 1)
                 return;
 
-            // Close tab
-            Items?.Remove(Items.Where(item => item.TabHeader == parameter.ToString()).Single());
-
-            //TODO:  Update untitled tab header sequence
-
-
-            /* TODO: Keep track of the history of tab selection 
-                     and select the most recently selected, when a currently selected tab is closed
-            
-            Select the default tab for now   */
+            // Go through items in the collections...
             foreach (var item in Items)
             {
-                // If tab header match
-                if (item.TabHeader == "Untitled")
-                    // Set new selection
-                    item.TabIsSelected = true;
+                // If tab ID matched... and item being closed is selected
+                if (item.TabID == (Guid)parameter && item.TabIsSelected == true)
+                    // Set new selection to the last tab added to the collection
+                    Items[Items.Count - 2].TabIsSelected = true;
             }
+
+            // Close tab
+            Items?.Remove(Items.Where(item => item.TabID == (Guid)parameter).Single());
 
         }
 
@@ -146,8 +128,8 @@ namespace Chronicle
             foreach (var item in Items)
             {
                 // If tab header match
-                if (item.TabHeader == parameter.ToString())
-                    // Set new selection
+                if (item.TabID == (Guid)parameter)
+                    // Set new selection 
                     item.TabIsSelected = true;
             }
 
