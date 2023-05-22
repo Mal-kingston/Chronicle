@@ -7,25 +7,10 @@
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Grid.Row="1" Margin="0, 15, 0, 0">
-        <Grid.RowDefinitions>
-            <!-- Tab -->
-            <RowDefinition Height="Auto" />
-            <!-- Main content area -->
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid Margin="0, 15, 0, 0">
 
-        <!-- Tab -->
-        <Canvas Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="36">
-            <local:TabControl DataContext="{Binding TabControl}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="36" />
-        </Canvas>
-
-        <!-- Tab content -->
-        <Grid Grid.Row="1" Background="{StaticResource DarkBrush}">
-
-            <local:TabContentControl DataContext="{Binding TabContent}" />
-
-        </Grid>
+        <!-- Tab Control -->
+        <local:TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
     </Grid>
     

@@ -9,6 +9,7 @@
              d:DataContext="{x:Static local:TabItemDesignModel.Instance}" >
 
     <UserControl.Resources>
+        
         <Style x:Key="TabItem" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -37,6 +38,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
     </UserControl.Resources>
 
     <Grid>

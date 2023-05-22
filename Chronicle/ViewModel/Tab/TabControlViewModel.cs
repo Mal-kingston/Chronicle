@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Windows.Input;
 using static Chronicle.DI;
 
@@ -13,12 +14,65 @@ namespace Chronicle
     /// </summary>
     public class TabControlViewModel : BaseViewModel
     {
+        /// <summary>
+        /// List of tabs 
+        /// </summary>
+        private ObservableCollection<TabItemViewModel>? _tabs;
+
+        /// <summary>
+        /// Content of the tabs
+        /// </summary>
+        private TabContentViewModel _tabContent;
+
         #region Public Properties
 
         /// <summary>
         /// List of tabs 
         /// </summary>
-        public ObservableCollection<TabItemViewModel>? Items { get; set; }
+        public ObservableCollection<TabItemViewModel>? Tabs 
+        {
+            get { return _tabs; }
+            set
+            {
+                // If value hasn't changed...
+                if (_tabs == value)
+                    // Do nothing
+                    return;
+
+                // Set value
+                _tabs = value;
+            }
+        }
+
+        /// <summary>
+        /// Each tab item
+        /// </summary>
+        public TabItemViewModel TabItem { get; set; }
+
+        /// <summary>
+        /// Content of the tabs
+        /// </summary>
+        public TabContentViewModel TabContent 
+        {
+            get { return _tabContent; } 
+            set
+            {
+                // If content is the same...
+                if(_tabContent == value) 
+                    // Do nothing 
+                    return;
+
+                // Set value
+                _tabContent = value;
+
+                if (_tabContent != null)
+                    TabItem.TabHeader = _tabContent.Title;
+
+                // Update content
+                OnPropertyChanged(nameof(TabContent));
+                OnPropertyChanged(nameof(TabItem));
+            }
+        }
 
         #endregion
 
@@ -49,11 +103,15 @@ namespace Chronicle
         public TabControlViewModel()
         {
             // Set properties default
-            Items = new ObservableCollection<TabItemViewModel>
+            TabItem = new TabItemViewModel();
+            _tabs = new ObservableCollection<TabItemViewModel>
             {
                 // Default tab item
-                new TabItemViewModel()
+                TabItem
             };
+
+            // Set tab content
+            _tabContent = TabItem.TabContent;
 
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
@@ -61,7 +119,11 @@ namespace Chronicle
             SelectTabCommand = new ParameterizedRelayCommand((parameter) => SelectTab(parameter));
 
             // Update properties
-            OnPropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(Tabs));
+            OnPropertyChanged(nameof(_tabs));
+            OnPropertyChanged(nameof(TabContent));
+            OnPropertyChanged(nameof(_tabContent));
+            OnPropertyChanged(nameof(TabItem));
         }
 
         #endregion
@@ -73,18 +135,27 @@ namespace Chronicle
         /// </summary>
         private void AddNewTab()
         {
-            if (Items?.Count == 4)
+            // Make sure tab isn't null
+            if (Tabs == null)
+                return;
+
+            // TODO: handle opening unlimited tabs
+            if (Tabs?.Count == 4)
                 return;
 
             // Reset selection
-            Items?.ToList().ForEach(item => item.TabIsSelected = false);
+            Tabs?.ToList().ForEach(item => item.TabIsSelected = false);
 
             // Add new tab
-            Items?.Add(new TabItemViewModel
+            Tabs?.Add(new TabItemViewModel
             {
                 TabIsSelected = true,
                 TabID = Guid.NewGuid(),
+                TabContent = new TabContentViewModel(),
             });
+
+            // Update tab content
+            UpdateTabContent();
         }
 
         /// <summary>
@@ -94,20 +165,24 @@ namespace Chronicle
         private void CloseTab(object parameter)
         {
             // Do not close the default tab
-            if (Items?.Count == 1)
+            if (Tabs?.Count == 1)
+                return;
+
+            // Make sure we have items
+            if (Tabs == null)
                 return;
 
             // Go through items in the collections...
-            foreach (var item in Items)
+            foreach (var item in Tabs)
             {
                 // If tab ID matched... and item being closed is selected
                 if (item.TabID == (Guid)parameter && item.TabIsSelected == true)
                     // Set new selection to the last tab added to the collection
-                    Items[Items.Count - 2].TabIsSelected = true;
+                    Tabs[Tabs.Count - 2].TabIsSelected = true;
             }
 
             // Close tab
-            Items?.Remove(Items.Where(item => item.TabID == (Guid)parameter).Single());
+            Tabs?.Remove(Tabs.Where(item => item.TabID == (Guid)parameter).Single());
 
         }
 
@@ -118,23 +193,45 @@ namespace Chronicle
         private void SelectTab(object parameter)
         {
             // Make sure we have tabs
-            if (Items == null)
+            if (Tabs == null)
                 return;
 
             // Reset selection
-            Items.ToList().ForEach(item => item.TabIsSelected = false);
+            Tabs.ToList().ForEach(item => item.TabIsSelected = false);
 
             // For every tabs in the collection
-            foreach (var item in Items)
+            foreach (var item in Tabs)
             {
                 // If tab header match
                 if (item.TabID == (Guid)parameter)
+                {
                     // Set new selection 
                     item.TabIsSelected = true;
+                }
             }
 
-            // switch between different tabs and set their view models
+            // Update tab content
+            UpdateTabContent();
+        }
 
+        /// <summary>
+        /// Updates the view with the current content of the tab selected
+        /// </summary>
+        public void UpdateTabContent()
+        {
+            // Go through all tabs in the collection...
+            foreach (var item in Tabs!)
+            {
+                // If tab is selected...
+                if (item.TabIsSelected == true)
+                {
+                    // Set it's content to the view
+                    _tabContent = item.TabContent;
+                    
+                    // Update UI
+                    OnPropertyChanged(nameof(TabContent));
+                }
+            }
         }
 
         #endregion

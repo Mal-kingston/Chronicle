@@ -29,8 +29,9 @@ namespace Chronicle
 {
             if(e.Key == Key.Enter)
             {
-                MainContent.Focus();
+               MainContent.Focus();
             }
         }
+
     }
 }

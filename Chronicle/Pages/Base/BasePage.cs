@@ -47,18 +47,6 @@ namespace Chronicle
 
         #endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BasePage()
-        {
-
-        }
-
-        #endregion
-
         /// <summary>
         /// Fired when the view model changes
         /// </summary>

@@ -16,6 +16,9 @@ namespace Chronicle
     /// </summary>
     public class TabItemViewModel : BaseViewModel
     {
+        /// <summary>
+        /// The content associated with this tab
+        /// </summary>
         private TabContentViewModel _tabContent;
 
         /// <summary>
@@ -42,11 +45,14 @@ namespace Chronicle
             get { return _tabContent; }
             set
             {
+                // If content hasn't changed
                 if (_tabContent == value)
+                    // Do nothing
                     return;
 
+                // Set content to value
                 _tabContent = value;
-                OnPropertyChanged(nameof(TabContent));
+
             }
 
         }
@@ -60,7 +66,6 @@ namespace Chronicle
             TabIsSelected = true;
             TabHeader = string.Empty;
             TabID = Guid.NewGuid();
-
             _tabContent = new TabContentViewModel();
             
             // Default header for new tab

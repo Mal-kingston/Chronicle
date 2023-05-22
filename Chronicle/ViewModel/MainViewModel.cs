@@ -163,10 +163,6 @@ namespace Chronicle
         {            
             // Sets current page value
             CurrentPage = page;
-
-            // If page hasn't changed fire off notification to update page
-            // Fire off a currentPage changed event
-            OnPropertyChanged(nameof(CurrentPage));
           
         }
 

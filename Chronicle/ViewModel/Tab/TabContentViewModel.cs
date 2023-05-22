@@ -11,6 +11,9 @@ namespace Chronicle
     /// </summary>
     public class TabContentViewModel : BaseViewModel
     {
+        /// <summary>
+        /// Title of this content
+        /// </summary>
         private string _title;
 
         /// <summary>
@@ -30,12 +33,11 @@ namespace Chronicle
                     return;
 
                 _title = value;
-
             }
         }
 
         /// <summary>
-        /// Main content as text
+        /// Main content 
         /// </summary>
         public string Content { get; set; }
 

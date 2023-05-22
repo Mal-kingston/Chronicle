@@ -24,7 +24,9 @@ namespace Chronicle
             construction.Services.AddSingleton<TabControlViewModel>();
             construction.Services.AddSingleton<TabItemViewModel>();
             construction.Services.AddSingleton<TabContentViewModel>();
+            construction.Services.AddSingleton<NotePageViewModel>();
 
+            // Inject singleton instances of pages
             construction.Services.AddSingleton<NotePage>();
             construction.Services.AddSingleton<BookPage>();
             construction.Services.AddSingleton<CalendarPage>();
