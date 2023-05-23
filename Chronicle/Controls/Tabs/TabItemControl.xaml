@@ -17,12 +17,12 @@
 
                         <Grid x:Name="container"
                               Height="36" Width="180" 
-                              Opacity="0.7"
                               Background="{StaticResource DarkBrush}" >
 
-                            <!-- Title and button -->
+                            <!-- Title -->
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding TabHeader, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextAlignment="Center" FontSize="{StaticResource XSmall}"
+                                <TextBlock Text="{TemplateBinding Content}"
+                                           TextAlignment="Center" FontSize="{StaticResource XSmall}"
                                            Margin="10, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
                                            TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                            Foreground="{StaticResource GrayBrush}" Width="120" />
@@ -41,25 +41,25 @@
         
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Opacity="{Binding IsSelected, ElementName=TabItem, Converter={local:OpacityConverter}, Mode=TwoWay}">
 
         <!--Custom tab item-->
-        <Button x:Name="MainTab" Style="{StaticResource TabItem}" 
-                    Command="{Binding DataContext.SelectTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
-                    CommandParameter="{Binding TabID}" />
+        <Button x:Name="MainTab" Style="{StaticResource TabItem}"
+                Content="{Binding Header, ElementName=TabItem, FallbackValue=Untitled}"
+                Command="{Binding DataContext.SelectTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
+                CommandParameter="{Binding TabID}" />
         
         <!--Close button for the tab item-->
-        <Button Height="22" Width="22" Margin="0, 0, 8, 0" HorizontalAlignment="Right"
-            Content="{StaticResource CloseIcon}" 
-            Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
-            CommandParameter="{Binding TabID}"/>
+        <Button Height="22" Width="22" Margin="0, 0, 8, 0" HorizontalAlignment="Right" Focusable="False"
+                Content="{StaticResource CloseIcon}" 
+                Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
+                CommandParameter="{Binding TabID}"/>
 
         <!-- Bottom bar -->
         <Border Height="4" Margin="0 0 2 0"
-            VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-            Background="{StaticResource BlueBrush}" 
-            Visibility="{Binding IsSelected, ElementName=TabItem, Converter={local:BooleanToVisibilityConverter}, Mode=TwoWay}" />
-
+                VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+                Background="{StaticResource BlueBrush}" 
+                Visibility="{Binding IsSelected, ElementName=TabItem, Converter={local:BooleanToVisibilityConverter}, Mode=TwoWay}" />
 
     </Grid>
 

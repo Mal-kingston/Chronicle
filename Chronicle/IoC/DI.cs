@@ -75,6 +75,5 @@ namespace Chronicle
         public static TrashPage TrashPageInstance => Framework.Service<TrashPage>();
 
         #endregion
-
     }
 }

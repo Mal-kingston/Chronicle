@@ -38,5 +38,20 @@ namespace Chronicle
         public static readonly DependencyProperty IsSelectedProperty =
             DependencyProperty.Register("IsSelected", typeof(bool), typeof(TabItemControl), new PropertyMetadata(defaultValue: false));
 
+        /// <summary>
+        /// Header for each tab
+        /// </summary>
+        public string Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(string), typeof(TabItemControl), new PropertyMetadata(defaultValue: "Untitled"));
+
+
+
     }
 }

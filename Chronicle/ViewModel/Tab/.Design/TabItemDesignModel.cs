@@ -21,7 +21,6 @@ namespace Chronicle
         /// </summary>
         public TabItemDesignModel()
         {
-            TabHeader = "Untitled";
             TabIsSelected = true;
         }
     }

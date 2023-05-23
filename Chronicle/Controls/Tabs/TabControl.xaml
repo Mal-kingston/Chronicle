@@ -33,8 +33,9 @@
                     <!--Item template-->
                     <ItemsControl.ItemTemplate >
                         <DataTemplate >
-                            <local:TabItemControl HorizontalAlignment="Left"
-                                              IsSelected="{Binding TabIsSelected}" />
+                            <local:TabItemControl HorizontalAlignment="Left" Focusable="False"
+                                                  Header="{Binding TabContent.Header}"
+                                                  IsSelected="{Binding TabIsSelected}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -44,6 +45,7 @@
                     Style="{StaticResource AddIconStyle}"
                     Content="{StaticResource AddIcon}" 
                     Command="{Binding AddNewTabCommand}"
+                    Focusable="False"
                     HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             </StackPanel>

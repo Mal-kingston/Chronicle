@@ -33,6 +33,10 @@ namespace Chronicle
                     return;
 
                 _title = value;
+
+                // Set header
+                if(_title.Length > 0)
+                    Header = _title;
             }
         }
 
@@ -42,19 +46,27 @@ namespace Chronicle
         public string Content { get; set; }
 
         /// <summary>
+        /// Header of tab content
+        /// </summary>
+        public string Header { get; set; }
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public TabContentViewModel()
         {
             // Set default properties values
             TitleLabel = "Title";
+            Header = "Untitled";
             _title = string.Empty;
             Content = string.Empty;
 
             // Update properties
             OnPropertyChanged(nameof(Content));
             OnPropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(Header));
             OnPropertyChanged(nameof(_title));
+            
         }
     }
 }

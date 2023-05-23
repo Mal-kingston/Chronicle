@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Chronicle;
 using static Chronicle.DI;
 
@@ -25,11 +26,6 @@ namespace Chronicle
         /// The unique tab ID for each tab item
         /// </summary>
         public Guid TabID { get; set; }
-
-        /// <summary>
-        /// Title of tab to display
-        /// </summary>
-        public string TabHeader { get; set; }
 
         /// <summary>
         /// True if tab is currently selected in the view
@@ -64,18 +60,10 @@ namespace Chronicle
         {
             // Set properties defaults
             TabIsSelected = true;
-            TabHeader = string.Empty;
             TabID = Guid.NewGuid();
             _tabContent = new TabContentViewModel();
-            
-            // Default header for new tab
-            if (string.IsNullOrEmpty(_tabContent.Title))
-                TabHeader = "Untitled";
-            else
-                TabHeader = _tabContent.Title;
 
             // Update properties
-            OnPropertyChanged(nameof(TabHeader));
             OnPropertyChanged(nameof(TabIsSelected));
             OnPropertyChanged(nameof(TabContent));
             OnPropertyChanged(nameof(_tabContent));

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Windows.Input;
+using System.Windows.Threading;
 using static Chronicle.DI;
 
 namespace Chronicle
@@ -15,7 +16,7 @@ namespace Chronicle
     public class TabControlViewModel : BaseViewModel
     {
         /// <summary>
-        /// List of tabs 
+        /// Collection of tabs 
         /// </summary>
         private ObservableCollection<TabItemViewModel>? _tabs;
 
@@ -27,7 +28,7 @@ namespace Chronicle
         #region Public Properties
 
         /// <summary>
-        /// List of tabs 
+        /// Collection of tabs 
         /// </summary>
         public ObservableCollection<TabItemViewModel>? Tabs 
         {
@@ -65,12 +66,8 @@ namespace Chronicle
                 // Set value
                 _tabContent = value;
 
-                if (_tabContent != null)
-                    TabItem.TabHeader = _tabContent.Title;
-
                 // Update content
                 OnPropertyChanged(nameof(TabContent));
-                OnPropertyChanged(nameof(TabItem));
             }
         }
 
@@ -112,7 +109,7 @@ namespace Chronicle
 
             // Set tab content
             _tabContent = TabItem.TabContent;
-
+            
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
             CloseTabCommand = new ParameterizedRelayCommand((parameter) => CloseTab(parameter));
@@ -227,7 +224,7 @@ namespace Chronicle
                 {
                     // Set it's content to the view
                     _tabContent = item.TabContent;
-                    
+
                     // Update UI
                     OnPropertyChanged(nameof(TabContent));
                 }
