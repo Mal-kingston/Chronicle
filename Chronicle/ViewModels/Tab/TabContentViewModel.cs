@@ -35,8 +35,9 @@ namespace Chronicle
                 _title = value;
 
                 // Set header
-                if(_title.Length > 0)
+                if (_title.Length > 0)
                     Header = _title;
+                else Header = "Untitled";
             }
         }
 
@@ -55,6 +56,7 @@ namespace Chronicle
         /// </summary>
         public TabContentViewModel()
         {
+            // TODO: Localization
             // Set default properties values
             TitleLabel = "Title";
             Header = "Untitled";

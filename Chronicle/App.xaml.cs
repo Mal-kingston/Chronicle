@@ -31,12 +31,17 @@ namespace Chronicle
         /// <summary>
         /// Configure this application
         /// </summary>
-        private void ApplicationSetup()
+        private async void ApplicationSetup()
         {
             // Setup the Dna framework
             Framework.Construct<DefaultFrameworkConstruction>()
+                 .AddPages()
                  .AddViewModels()
+                 .AddClientDataStore()
                  .Build();
+
+            // Make sure data store is available
+            await ClientDataStore.DataStoreAvailable();
 
         }
     }

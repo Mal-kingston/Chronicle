@@ -13,6 +13,15 @@ namespace Chronicle
     /// </summary>
     public static class DI
     {
+        #region Client Data Store
+
+        /// <summary>
+        /// Shortcut to access the <see cref="IClientDataStore"/>
+        /// </summary>
+        public static IClientDataStore ClientDataStore => Framework.Service<IClientDataStore>();
+
+        #endregion
+
         #region ViewModels
 
         /// <summary>
