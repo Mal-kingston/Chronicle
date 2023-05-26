@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <!--Context menu overlay-->
-        <Border Grid.Row="0" Grid.RowSpan="2"
+        <Border Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding IsContextMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
                 Panel.ZIndex="1" Background="Transparent">
             <Border.InputBindings>
                 <MouseBinding Command="{Binding CloseContextMenuCommand}" MouseAction="LeftClick" />
@@ -53,7 +53,7 @@
             
             <!--Context menu button-->
             <Button Grid.Column="1" Width="50" Height="50" Margin="0" Panel.ZIndex="2"
-                    Style="{StaticResource VerticalDotsButtonStyle}"
+                    Style="{StaticResource VerticalDotsButtonStyle}" Focusable="False"
                     Content="{StaticResource VerticalDotButtonIcon}"
                     Command="{Binding OpenFileContextMenuCommand}"/>
 
@@ -61,12 +61,12 @@
 
         <!--Content-->
         <TextBox Grid.Row="1" x:Name="MainContent" Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="0 20 0 0"
-                 AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
+                 AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled" 
                  FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="20 20 40 5" CaretBrush="{StaticResource GrayBrush}" 
                  Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         <!--Context menu-->
-        <local:ContextMenuControl Grid.Row="1" Margin="0 10 10 0" Visibility="{Binding IsContextMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=false}"
+        <local:ContextMenuControl Grid.Row="1" Margin="0 10 10 0" Visibility="{Binding IsContextMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
                                   HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="2" />
 
     </Grid>

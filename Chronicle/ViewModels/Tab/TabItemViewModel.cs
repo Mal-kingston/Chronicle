@@ -49,6 +49,8 @@ namespace Chronicle
                 // Set content to value
                 _tabContent = value;
 
+                OnPropertyChanged(nameof(TabContent));
+                OnPropertyChanged(nameof(_tabContent));
             }
 
         }

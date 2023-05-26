@@ -67,7 +67,7 @@ namespace Chronicle
                 _tabContent = value;
 
                 // Update content
-                OnPropertyChanged(nameof(TabContent));
+                UpdateTabContent();
             }
         }
 
@@ -169,17 +169,20 @@ namespace Chronicle
             if (Tabs == null)
                 return;
 
-            // Go through items in the collections...
-            foreach (var item in Tabs)
-            {
-                // If tab ID matched... and item being closed is selected
-                if (item.TabID == (Guid)parameter && item.TabIsSelected == true)
-                    // Set new selection to the last tab added to the collection
-                    Tabs[Tabs.Count - 2].TabIsSelected = true;
-            }
-
             // Close tab
             Tabs?.Remove(Tabs.Where(item => item.TabID == (Guid)parameter).Single());
+
+            // Go through items in the collections...
+            foreach (var item in Tabs!)
+            {
+                // If no tab is selected
+                if (item.TabIsSelected == false)
+                    // Set new selection to the last tab added to the collection
+                    Tabs.LastOrDefault(item).TabIsSelected = true;
+            }
+
+            // Update tab content
+            UpdateTabContent();
 
         }
 

@@ -179,7 +179,7 @@
                         Orientation="Horizontal" HorizontalAlignment="Right" >
 
                 <!-- Search -->
-                <Border Background="{StaticResource DarkBrush}" Width="600" Height="30" Margin="30, 30, 0, 0">
+                <Border Background="{StaticResource DarkBrush}" Width="600" Height="30" Margin="30, 30, 0, 0" Padding="10 0 0 0">
                     <Grid Margin="20, 4">
 
                         <TextBlock Text="Search" Foreground="{StaticResource GrayBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -200,7 +200,7 @@
                 <Border Background="{StaticResource DarkBrush}"
                     Width="100" Height="30" Margin="20, 30, 0, 0">
 
-                    <Grid Margin="6, 0">
+                    <Grid Margin="8, 0">
 
                         <TextBlock Text="Heather" Foreground="{StaticResource GrayBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"
                                 FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
