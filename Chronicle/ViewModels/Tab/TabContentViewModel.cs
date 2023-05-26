@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Chronicle
 {
@@ -11,10 +12,16 @@ namespace Chronicle
     /// </summary>
     public class TabContentViewModel : BaseViewModel
     {
+        #region Private Fields
+
         /// <summary>
         /// Title of this content
         /// </summary>
         private string _title;
+
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
         /// Label for title
@@ -52,16 +59,44 @@ namespace Chronicle
         public string Header { get; set; }
 
         /// <summary>
+        /// True if the context menu is open
+        /// Otherwise false
+        /// </summary>
+        public bool IsContextMenuOpen { get; set; }
+
+        #endregion
+
+        #region Public Commands
+
+        /// <summary>
+        /// Opens and also closes context menu
+        /// </summary>
+        public ICommand OpenFileContextMenuCommand { get; set; }
+
+        /// <summary>
+        /// Closes context menu if open
+        /// </summary>
+        public ICommand CloseContextMenuCommand { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public TabContentViewModel()
         {
-            // TODO: Localization
             // Set default properties values
             TitleLabel = "Title";
             Header = "Untitled";
             _title = string.Empty;
             Content = string.Empty;
+            IsContextMenuOpen = false;
+
+            // Create commands
+            OpenFileContextMenuCommand = new RelayCommand(OpenFileContextMenu);
+            CloseContextMenuCommand = new RelayCommand(() => IsContextMenuOpen = false);
 
             // Update properties
             OnPropertyChanged(nameof(Content));
@@ -70,5 +105,17 @@ namespace Chronicle
             OnPropertyChanged(nameof(_title));
             
         }
+
+        #endregion
+
+        #region Command Methods
+
+        /// <summary>
+        /// Opens / Closes file context menu
+        /// </summary>
+        private void OpenFileContextMenu() => IsContextMenuOpen ^= true;
+
+        #endregion
+
     }
 }

@@ -16,31 +16,59 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--Title-->
-        <StackPanel Grid.Row="0" 
-                    Orientation="Horizontal">
-            <TextBlock VerticalAlignment="Bottom" Text="{Binding TitleLabel}" Margin="50 0 0 0" 
+        <!--Context menu overlay-->
+        <Border Grid.Row="0" Grid.RowSpan="2"
+                Panel.ZIndex="1" Background="Transparent">
+            <Border.InputBindings>
+                <MouseBinding Command="{Binding CloseContextMenuCommand}" MouseAction="LeftClick" />
+            </Border.InputBindings>
+        </Border> 
+                
+        <!--Title and context menu-->
+        <Grid Grid.Row="0" Panel.ZIndex="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <!--Title-->
+            <StackPanel Grid.Column="0" 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <TextBlock VerticalAlignment="Bottom" Text="{Binding TitleLabel}" Margin="50 0 0 0" 
                        FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" />
 
-            <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource GrayBrush}" 
+                <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource GrayBrush}" 
                     Width="200" Margin="10 0 0 0" Padding="10 0 0 0" VerticalAlignment="Bottom">
-                
-                <TextBox  x:Name="Title" Background="Transparent" BorderThickness="0" MaxLength="32" 
+
+                    <TextBox  x:Name="Title" Background="Transparent" BorderThickness="0" MaxLength="32" 
                           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                           local:IsFocusedAttachedProperties.Value="True"
                           Keyboard.KeyDown="TextBox_KeyDown" TextWrapping="NoWrap" 
                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" 
                           CaretBrush="{StaticResource GrayBrush}"/>
 
-            </Border>
+                </Border>
+            </StackPanel>
+            
+            <!--Context menu button-->
+            <Button Grid.Column="1" Width="50" Height="50" Margin="0" Panel.ZIndex="2"
+                    Style="{StaticResource VerticalDotsButtonStyle}"
+                    Content="{StaticResource VerticalDotButtonIcon}"
+                    Command="{Binding OpenFileContextMenuCommand}"/>
 
-        </StackPanel>
+        </Grid>
 
         <!--Content-->
         <TextBox Grid.Row="1" x:Name="MainContent" Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="0 20 0 0"
                  AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
                  FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="20 20 40 5" CaretBrush="{StaticResource GrayBrush}" 
                  Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <!--Context menu-->
+        <local:ContextMenuControl Grid.Row="1" Margin="0 10 10 0" Visibility="{Binding IsContextMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=false}"
+                                  HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="2" />
+
     </Grid>
 
 </UserControl>
