@@ -169,17 +169,26 @@ namespace Chronicle
             if (Tabs == null)
                 return;
 
+            // Status of selection of closing tab
+            // (true if currently selected at the time of closing... false otherwise).
+            var IsClosingTabSelected = false;
+
+            // Go through tab...
+            foreach (var tab in Tabs)
+            {
+                // If closing tab is currently selected...
+                if ((Guid)parameter == tab.TabID && tab.TabIsSelected == true)
+                    // Set in-memo variable
+                    IsClosingTabSelected = true;             
+            }
+
             // Close tab
             Tabs?.Remove(Tabs.Where(item => item.TabID == (Guid)parameter).Single());
 
-            // Go through items in the collections...
-            foreach (var item in Tabs!)
-            {
-                // If no tab is selected
-                if (item.TabIsSelected == false)
-                    // Set new selection to the last tab added to the collection
-                    Tabs.LastOrDefault(item).TabIsSelected = true;
-            }
+            // Update tab selection if closing tab was selected 
+            // at the time user wants to close it
+            if (IsClosingTabSelected)
+                Tabs.LastOrDefault(TabItem).TabIsSelected = true;
 
             // Update tab content
             UpdateTabContent();
