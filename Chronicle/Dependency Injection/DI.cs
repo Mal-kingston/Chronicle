@@ -1,4 +1,4 @@
-﻿using Chronicle;
+﻿using Chronicle.Services;
 using Dna;
 using System;
 using System.Collections.Generic;
@@ -13,12 +13,22 @@ namespace Chronicle
     /// </summary>
     public static class DI
     {
-        #region Client Data Store
+        #region Services
 
         /// <summary>
         /// Shortcut to access the <see cref="IClientDataStore"/>
         /// </summary>
         public static IClientDataStore ClientDataStore => Framework.Service<IClientDataStore>();
+
+        /// <summary>
+        /// Shortcut to access the <see cref="ILogFactory"/>
+        /// </summary>
+        public static ILogFactory Logger => Framework.Service<ILogFactory>();
+
+        /// <summary>
+        /// Shortcut to access the <see cref="IFileManager"/>
+        /// </summary>
+        public static IFileManager FileManager => Framework.Service<IFileManager>();
 
         #endregion
 
@@ -45,9 +55,10 @@ namespace Chronicle
         public static TabItemViewModel TabItemVM => Framework.Service<TabItemViewModel>();
 
         /// <summary>
-        /// Shortcut to access the <see cref="TabControlViewModel"/>
+        /// Shortcut to access the <see cref="TabContentViewModel"/>
         /// </summary>
-        public static TabContentViewModel FileTemplateVM => Framework.Service<TabContentViewModel>();
+        public static TabContentViewModel TabContentVM => Framework.Service<TabContentViewModel>();
+
 
         #endregion
 

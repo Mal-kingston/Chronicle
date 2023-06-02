@@ -14,7 +14,6 @@ namespace Chronicle
 		/// An action to run
 		/// </summary>
 		private Action mAction;
-        private ICommand? openFileContextMenu;
 
         #endregion
 
@@ -60,11 +59,6 @@ namespace Chronicle
 		{
 			mAction = action;
 		}
-
-        public RelayCommand(ICommand? openFileContextMenu)
-        {
-            this.openFileContextMenu = openFileContextMenu;
-        }
 
         #endregion
     }

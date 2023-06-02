@@ -29,7 +29,6 @@ namespace Chronicle
         {
             if(e.Key == Key.Enter || e.Key == Key.Tab)
                 MainContent.Focus();
-            
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -64,6 +65,11 @@ namespace Chronicle
         /// </summary>
         public bool IsContextMenuOpen { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public ContextMenuViewModel ContextMenu { get; set; }
+
         #endregion
 
         #region Public Commands
@@ -93,6 +99,7 @@ namespace Chronicle
             _title = string.Empty;
             Content = string.Empty;
             IsContextMenuOpen = false;
+            ContextMenu = new ContextMenuViewModel();
 
             // Create commands
             OpenFileContextMenuCommand = new RelayCommand(OpenFileContextMenu);
@@ -116,6 +123,8 @@ namespace Chronicle
         private void OpenFileContextMenu() => IsContextMenuOpen ^= true;
 
         #endregion
+
+        
 
     }
 }

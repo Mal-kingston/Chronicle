@@ -1,10 +1,7 @@
-﻿using Chronicle;
+﻿using Chronicle.Services;
 using Dna;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Chronicle
 {
@@ -29,6 +26,7 @@ namespace Chronicle
 
             // Return the construction for chaining
             return construction;
+
         }
 
         /// <summary>
@@ -61,16 +59,43 @@ namespace Chronicle
             construction.Services.AddDbContext<ClientDataStoreDbContext>(options =>
             {
                 // Setup connection string
-                options.UseSqlite("Data Source=C:\\Users\\mal\\Documents\\GitHub\\Chronicle\\Chronicle.db");
+                options.UseSqlite("Data Source=C:\\Users\\mal\\Documents\\GitHub\\Chronicle\\Services\\Database\\Chronicle.db");
             }, contextLifetime: ServiceLifetime.Transient);
 
             // Inject the database
             construction.Services.AddTransient<IClientDataStore>(
-                provider => new BaseClientDataStore(provider.GetService<ClientDataStoreDbContext>()));
+                provider => new BaseClientDataStore(provider.GetService<ClientDataStoreDbContext>()!));
 
             // Return the construction for chaining
             return construction;
         }
 
+        /// <summary>
+        /// Injects logging system 
+        /// </summary>
+        /// <param name="construction"></param>
+        /// <returns></returns>
+        public static FrameworkConstruction AddLoggers(this FrameworkConstruction construction)
+        {
+            // Add log factory
+            construction.Services.AddTransient<ILogFactory>(logs => new LogFactory(new ILogger[] { new FileLogger("C:\\Users\\mal\\Documents\\GitHub\\Chronicle\\Services\\logs\\Chronicle-log.txt") }));
+
+            // Return the construction for chaining
+            return construction;
+        }
+
+        /// <summary>
+        /// Inject file manager
+        /// </summary>
+        /// <param name="construction"></param>
+        /// <returns></returns>
+        public static FrameworkConstruction AddFileManager(this FrameworkConstruction construction)
+        {
+            // Add file manager
+            construction.Services.AddTransient<IFileManager>(fileManage => new BaseFileManager());
+
+            // Return the construction for chaining
+            return construction;
+        }
     }
 }

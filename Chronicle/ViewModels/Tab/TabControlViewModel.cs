@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using static Chronicle.DI;
@@ -15,6 +16,8 @@ namespace Chronicle
     /// </summary>
     public class TabControlViewModel : BaseViewModel
     {
+        #region Private Fields
+
         /// <summary>
         /// Collection of tabs 
         /// </summary>
@@ -24,6 +27,8 @@ namespace Chronicle
         /// Content of the tabs
         /// </summary>
         private TabContentViewModel _tabContent;
+
+        #endregion
 
         #region Public Properties
 
@@ -109,6 +114,8 @@ namespace Chronicle
 
             // Set tab content
             _tabContent = TabItem.TabContent;
+
+            _tabContent.ContextMenu.SaveCommand = new RelayCommand(async () => await Save());
             
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
@@ -121,6 +128,18 @@ namespace Chronicle
             OnPropertyChanged(nameof(TabContent));
             OnPropertyChanged(nameof(_tabContent));
             OnPropertyChanged(nameof(TabItem));
+        }
+
+        private async Task Save()
+        {
+
+            //await ClientDataStore.SaveFile(new NoteDataModel
+            //{
+            //    Id = TabItem.TabID.ToString(),
+            //    Header = TabContent.Header,
+            //    Content = TabContent.Content,
+            //});
+
         }
 
         #endregion
@@ -188,7 +207,10 @@ namespace Chronicle
             // Update tab selection if closing tab was selected 
             // at the time user wants to close it
             if (IsClosingTabSelected)
-                Tabs.LastOrDefault(TabItem).TabIsSelected = true;
+            {
+                if(Tabs != null)
+                    Tabs.LastOrDefault(TabItem).TabIsSelected = true;
+            }
 
             // Update tab content
             UpdateTabContent();

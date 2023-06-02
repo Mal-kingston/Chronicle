@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chronicle.Services;
 
 namespace Chronicle
 {
@@ -50,7 +51,7 @@ namespace Chronicle
         /// Removes data from the client data store if it exist
         /// </summary>
         /// <param name="file">The file to remove from the data store</param>
-        public async Task DeleteFile(FileDataModel file)
+        public async Task DeleteFile(NoteDataModel file)
         {
             // If such file doesn't exist...
             if (file == null)
@@ -58,7 +59,7 @@ namespace Chronicle
                 return;
 
             // Otherwise, Remove file from data store
-            _DbContext.FilesDataModel.Remove(file);
+            _DbContext.NoteData.Remove(file);
 
             // Save changes 
             await _DbContext.SaveChangesAsync();
@@ -76,9 +77,9 @@ namespace Chronicle
         /// <summary>
         /// Gets the stored data from the client data store if it exist
         /// </summary>
-        public Task<FileDataModel> GetFile()
+        public Task<NoteDataModel> GetFile()
         {
-            return Task.FromResult(_DbContext.FilesDataModel.FirstOrDefault());
+            return Task.FromResult(_DbContext.NoteData.FirstOrDefault())!;
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace Chronicle
         /// </summary>
         /// <param name="file">The data to commit to the database</param>
         /// <returns>Returns a task that will finish once setup is complete</returns>
-        public async Task SaveFile(FileDataModel file)
+        public async Task SaveFile(NoteDataModel file)
         {
             // If we have nothing to save...
             if (file == null)
@@ -94,10 +95,11 @@ namespace Chronicle
                 return;
 
             // Otherwise, Add file to data store
-            _DbContext.FilesDataModel.Add(file);
+            _DbContext.NoteData.Add(file);
 
             // Save changes 
             await _DbContext.SaveChangesAsync();
+
         }
 
         #endregion

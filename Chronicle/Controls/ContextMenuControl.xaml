@@ -4,20 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
-             mc:Ignorable="d" >
+             mc:Ignorable="d"
+             d:DataContext="{x:Static local:ContextMenuDesignModel.Instance}">
 
     <!--Context menu outline-->
-    <Border Width="150" Padding="8" local:DropShadowAttachedProperty.Value="True"
-            Background="{StaticResource DarkBrush}">
+    <Border Width="150" Padding="8 0" local:DropShadowAttachedProperty.Value="True"
+          Background="{StaticResource DarkBrush}" >
+
         <StackPanel Orientation="Vertical" local:ContexMenuButtonStyleAttachedProperties.Value="True">
-            <Button Content="Save" />
-            <Button Content="SaveAs" />
-            <Button Content="Delete" />
+            <Button Content="{Binding Save, FallbackValue=Save}"
+                    Command="{Binding SaveCommand}"/>
+            <Button Content="{Binding SaveAs, FallbackValue=SaveAs}" />
+            <Button Content="{Binding Delete, FallbackValue=Delete}" />
             <Border BorderThickness="0.5" BorderBrush="{StaticResource GrayBrush}" />
-            <Button Content="Print" />
-            <Button Content="Share" />
+            <Button Content="{Binding Print, FallbackValue=Print}" />
+            <Button Content="{Binding Share, FallbackValue=Share}" />
             <Border BorderThickness="0.5" BorderBrush="{StaticResource GrayBrush}" />
-            <Button Content="Templates" />
+            <Button Content="{Binding Template, FallbackValue=Template}" />
         </StackPanel>
+
     </Border>
 </UserControl>

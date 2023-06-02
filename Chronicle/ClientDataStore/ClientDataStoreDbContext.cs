@@ -12,9 +12,9 @@ namespace Chronicle
         #region DbSets
 
         /// <summary>
-        /// The client file data entry (row in database)
+        /// The client note file data entry
         /// </summary>
-        public DbSet<FileDataModel> FilesDataModel { get; set; }
+        public DbSet<NoteDataModel> NoteData { get; set; }
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace Chronicle
             // --------------------------
             //
             // Set Id as primary key
-            modelBuilder.Entity<FileDataModel>().HasKey(x => x.Id);
+            modelBuilder.Entity<NoteDataModel>().HasKey(x => x.Id);
 
         }
 

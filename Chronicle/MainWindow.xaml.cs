@@ -39,8 +39,6 @@ namespace Chronicle
         /// <summary>
         /// Update side menu size whenever size of the window changes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             // Update side menu height

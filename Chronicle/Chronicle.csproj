@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ViewModels\.Design\ContextMenuDesignModel.cs" />
     <Compile Include="ViewModels\SideMenu\.Design\SubMenuDesignModel.cs" />
     <Compile Include="ViewModels\SideMenu\.Design\SubMenuItemDesignModel.cs" />
     <Compile Include="ViewModels\Tab\.Design\TabContentDesignModel.cs" />
@@ -50,6 +51,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
   </ItemGroup>
 

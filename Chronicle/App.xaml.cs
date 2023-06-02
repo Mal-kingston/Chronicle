@@ -15,6 +15,10 @@ namespace Chronicle
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Manually handle application starting up
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -22,6 +26,8 @@ namespace Chronicle
             // Setup the main application
             ApplicationSetup();
 
+            // Log inforamtion
+            Logger.Log("Application services setup completed.");
 
             // Show the main window
             Current.MainWindow = new MainWindow();
@@ -38,6 +44,8 @@ namespace Chronicle
                  .AddPages()
                  .AddViewModels()
                  .AddClientDataStore()
+                 .AddFileManager()
+                 .AddLoggers()
                  .Build();
 
             // Make sure data store is available

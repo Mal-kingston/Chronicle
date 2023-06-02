@@ -9,6 +9,10 @@ using System.Windows;
 
 namespace Chronicle
 {
+    /// <summary>
+    /// Sets visibilty of control based on boolean
+    /// Visible when True, Collapsed when false
+    /// </summary>
     public class BooleanToVisibilityConverter : BaseValueConverter<BooleanToVisibilityConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

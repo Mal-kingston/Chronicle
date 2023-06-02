@@ -82,8 +82,8 @@ namespace Chronicle
         /// </summary>
         public BasePage() : base()
         {
-                // Create a default view model
-                ViewModel = Framework.Service<VM>() ?? new VM();
+            // Create a default view model
+            ViewModel = Framework.Service<VM>() ?? new VM();
         }
 
         /// <summary>
