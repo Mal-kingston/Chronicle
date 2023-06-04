@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chronicle.Services
+namespace Chronicle
 {
     /// <summary>
     /// Information store for client files
@@ -12,7 +12,7 @@ namespace Chronicle.Services
     public interface IClientDataStore
     {
         /// <summary>
-        /// Checks if a file exists in the data store
+        /// Checks if data store is null
         /// </summary>
         Task<bool> FileExists();
 
@@ -30,9 +30,9 @@ namespace Chronicle.Services
         Task SaveFile(NoteDataModel file);
 
         /// <summary>
-        /// Gets the stored data from the client data store if it exist
+        /// Gets the list of stored data from the client data store if they exist
         /// </summary>
-        Task<NoteDataModel> GetFile();
+        Task<List<NoteDataModel>> GetFiles();
 
         /// <summary>
         /// Removes data from the client data store if it exist

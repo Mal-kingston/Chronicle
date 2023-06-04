@@ -23,8 +23,12 @@ namespace Chronicle
         /// </summary>
         public ICommand OpenFileCommand { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public SubMenuItemViewModel()
         {
+            // Create command
             OpenFileCommand = new RelayCommand(OpenFile);
         }
 

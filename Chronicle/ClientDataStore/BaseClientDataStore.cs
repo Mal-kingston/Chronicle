@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text;
+using System.Runtime.Intrinsics.X86;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Chronicle.Services;
+using System.Windows.Documents;
 
 namespace Chronicle
 {
@@ -66,20 +66,20 @@ namespace Chronicle
         }
 
         /// <summary>
-        /// Checks if a file exists in the data store
+        /// Checks if data store is null
         /// </summary>
-        /// <returns>True if file exists, Otherwise false.</returns>
+        /// <returns>True if database isn't null, Otherwise false.</returns>
         public async Task<bool> FileExists()
         {
-            return await GetFile() != null;
+            return await GetFiles() != null;
         }
 
         /// <summary>
-        /// Gets the stored data from the client data store if it exist
+        /// Gets the list of stored data from the client data store if they exist
         /// </summary>
-        public Task<NoteDataModel> GetFile()
+        public Task<List<NoteDataModel>> GetFiles()
         {
-            return Task.FromResult(_DbContext.NoteData.FirstOrDefault())!;
+            return Task.FromResult(_DbContext.NoteData.ToList()!); 
         }
 
         /// <summary>

@@ -34,6 +34,12 @@ namespace Chronicle
         /// </summary>
         public TabContentViewModel LocateTabContentVM => TabContentVM;
 
+        /// <summary>
+        /// The view model for submenu view model
+        /// </summary>
+        public SubMenuViewModel LocateSubMenuVM => SubMenuVM;
+
+
         #endregion
     }
 }

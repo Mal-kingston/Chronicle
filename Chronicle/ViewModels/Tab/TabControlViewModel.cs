@@ -114,13 +114,14 @@ namespace Chronicle
 
             // Set tab content
             _tabContent = TabItem.TabContent;
-
-            _tabContent.ContextMenu.SaveCommand = new RelayCommand(async () => await Save());
             
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
             CloseTabCommand = new ParameterizedRelayCommand((parameter) => CloseTab(parameter));
             SelectTabCommand = new ParameterizedRelayCommand((parameter) => SelectTab(parameter));
+
+            // Transaction data store commands
+            _tabContent.ContextMenu.SaveCommand = new RelayCommand(async () => await Save());
 
             // Update properties
             OnPropertyChanged(nameof(Tabs));
@@ -130,15 +131,38 @@ namespace Chronicle
             OnPropertyChanged(nameof(TabItem));
         }
 
+        #endregion
+
+        #region Transactional Data Store Commands
+
+        /// <summary>
+        /// Saves a tab content to the data store
+        /// </summary>
         private async Task Save()
         {
+            // If we don't have anything to save...
+            if (string.IsNullOrEmpty(_tabContent.Content) || TabItem?.TabID == null)
+                // Do nothing
+                return;
 
-            //await ClientDataStore.SaveFile(new NoteDataModel
-            //{
-            //    Id = TabItem.TabID.ToString(),
-            //    Header = TabContent.Header,
-            //    Content = TabContent.Content,
-            //});
+            // TODO: If content doesn't have title or user want to save note with a specific name
+            //       Invoke prompt window to give user the ability to enter desired name for the file before saving to database.
+
+            // Save note data to database
+            await ClientDataStore.SaveFile(new NoteDataModel
+            {
+                // TODO: Remeber template of note
+                // Note data | Id | Header | Content |
+                Id = TabItem.TabID.ToString(),
+                Header = _tabContent.Header,
+                Content = _tabContent.Content,
+            });
+
+            // Log data
+            Logger.Log("Note information saved to database");
+
+            // Update UI list 
+            SubMenuVM.UpdateNoteList();
 
         }
 

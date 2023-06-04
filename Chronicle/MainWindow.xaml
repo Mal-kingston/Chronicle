@@ -80,7 +80,7 @@
                     <!--Note Sub-Menu-->
 
                     <Border Background="{StaticResource DarkBrush}" Grid.Row="1"
-                            BorderThickness="0" ClipToBounds="True"
+                            BorderThickness="0" ClipToBounds="True" MaxHeight="120"
                             Visibility="{Binding IsNoteSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
 
                         <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
@@ -89,14 +89,20 @@
                                 <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
                             </Border.Effect>
 
-                            <ItemsControl ItemsSource="{Binding NoteSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <local:SubMenuItemControl />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Hidden">
+                                
+                                <ItemsControl ItemsSource="{Binding LocateSubMenuVM.NoteSubMenu, UpdateSourceTrigger=PropertyChanged,
+                                                        Source={x:Static local:ViewModelLocator.Instance}}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:SubMenuItemControl />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
 
+                            </ScrollViewer>
+                            
                         </Border>
 
                     </Border>

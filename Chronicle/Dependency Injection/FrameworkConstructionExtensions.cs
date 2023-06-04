@@ -1,5 +1,4 @@
-﻿using Chronicle.Services;
-using Dna;
+﻿using Dna;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +22,7 @@ namespace Chronicle
             construction.Services.AddSingleton<TabItemViewModel>();
             construction.Services.AddSingleton<TabContentViewModel>();
             construction.Services.AddSingleton<NotePageViewModel>();
+            construction.Services.AddSingleton<SubMenuViewModel>();
 
             // Return the construction for chaining
             return construction;

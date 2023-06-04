@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -69,7 +70,7 @@ namespace Chronicle
         public void Log(string message, LogLevel level = LogLevel.Information, [CallerFilePath] string filePath = "", [CallerMemberName] string origin = "", [CallerLineNumber] int lineNumber = 0)
         {
             // Format message
-            message = $"{message} > [{Path.GetFileName(filePath)}] > {origin}() > Line : {lineNumber} ";
+            message = $"{message} > [{Path.GetFileName(filePath)}] > {origin}() > Line : {lineNumber} {Environment.NewLine}";
 
             // Send out message to all loggers in the factory
             _loggers.ForEach(logger => logger.LogInformation(message, level));

@@ -16,9 +16,9 @@ namespace Chronicle
         public void LogInformation(string message, LogLevel level)
         {
             // Use current time to log the message
-            var logTime = DateTimeOffset.Now.ToString("MM-dd-yyyyy");
+            var logDateAndTime = DateTimeOffset.Now.ToString("hh:mm:ss MM-dd-yyyy");
 
-            FileManager.WriteTextToFile($"[{level}] : [{logTime}] {message}", FilePath);
+            FileManager.WriteTextToFile($"[{level}] : [{logDateAndTime}] {message}", FilePath);
         }
     }
 }

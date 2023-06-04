@@ -1,5 +1,4 @@
-﻿using Chronicle.Services;
-using Dna;
+﻿using Dna;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +58,10 @@ namespace Chronicle
         /// </summary>
         public static TabContentViewModel TabContentVM => Framework.Service<TabContentViewModel>();
 
+        /// <summary>
+        /// Shortcut to access the <see cref="SubMenuViewModel"/>
+        /// </summary>
+        public static SubMenuViewModel SubMenuVM => Framework.Service<SubMenuViewModel>();
 
         #endregion
 
