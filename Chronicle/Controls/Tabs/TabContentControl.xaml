@@ -39,7 +39,7 @@
                        FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" />
 
                 <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource GrayBrush}" 
-                    Width="200" Margin="10 0 0 0" Padding="10 0 0 0" VerticalAlignment="Bottom">
+                        Width="200" Margin="10 0 0 0" Padding="10 0 0 0" VerticalAlignment="Bottom">
 
                     <TextBox  x:Name="Title" Background="Transparent" BorderThickness="0" MaxLength="32" 
                           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

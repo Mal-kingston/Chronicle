@@ -51,11 +51,6 @@ namespace Chronicle
         }
 
         /// <summary>
-        /// Each tab item
-        /// </summary>
-        public TabItemViewModel TabItem { get; set; }
-
-        /// <summary>
         /// Content of the tabs
         /// </summary>
         public TabContentViewModel TabContent 
@@ -75,6 +70,12 @@ namespace Chronicle
                 UpdateTabContent();
             }
         }
+
+        /// <summary>
+        /// Each tab item
+        /// </summary>
+        public TabItemViewModel TabItem { get; set; }
+
 
         #endregion
 
@@ -164,6 +165,8 @@ namespace Chronicle
             // Update UI list 
             SubMenuVM.UpdateNoteList();
 
+            // Close context menu
+            _tabContent.IsContextMenuOpen = false;
         }
 
         #endregion

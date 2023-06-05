@@ -78,9 +78,8 @@
                                  Command="{Binding NoteMenuCommand}"/>
 
                     <!--Note Sub-Menu-->
-
                     <Border Background="{StaticResource DarkBrush}" Grid.Row="1"
-                            BorderThickness="0" ClipToBounds="True" MaxHeight="120"
+                            BorderThickness="0" ClipToBounds="True" Height="120"
                             Visibility="{Binding IsNoteSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
 
                         <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
@@ -91,16 +90,31 @@
 
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                           VerticalScrollBarVisibility="Hidden">
-                                
-                                <ItemsControl ItemsSource="{Binding LocateSubMenuVM.NoteSubMenu, UpdateSourceTrigger=PropertyChanged,
-                                                        Source={x:Static local:ViewModelLocator.Instance}}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <local:SubMenuItemControl />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
 
+                                <Grid>
+
+                                    <!--Tag for empty list-->
+                                    <Label Content="- E m p t y -" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                           Foreground="{StaticResource WhiteBrush}" Margin="0 8 0 0" Opacity="0.7" FontFamily="{StaticResource JostFont}"
+                                           Visibility="{Binding LocateSubMenuVM.IsNoteListEmpty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                                                        Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+
+                                    <ItemsControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                                  ItemsSource="{Binding LocateSubMenuVM.NoteSubMenu, UpdateSourceTrigger=PropertyChanged,
+                                                                Source={x:Static local:ViewModelLocator.Instance}}" >
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+
+                                                <!--The actual list-->
+                                                <local:SubMenuItemControl />
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </Grid>
+                                
                             </ScrollViewer>
                             
                         </Border>
@@ -125,14 +139,32 @@
                                 <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
                             </Border.Effect>
 
-                            <ItemsControl ItemsSource="{Binding BookSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <local:SubMenuItemControl />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Hidden">
 
+                                <Grid>
+
+                                    <!--Tag for empty list-->
+                                    <Label Content="- E m p t y -" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                           Foreground="{StaticResource WhiteBrush}" Margin="0 8 0 0" Opacity="0.7" FontFamily="{StaticResource JostFont}"
+                                           Visibility="{Binding LocateSubMenuVM.IsBookListEmpty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                                                        Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+
+
+                                    <ItemsControl ItemsSource="{Binding BookSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                
+                                                <!--The actual list-->
+                                                <local:SubMenuItemControl />
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </Grid>
+
+                            </ScrollViewer>
                         </Border>
                     </Border>
 

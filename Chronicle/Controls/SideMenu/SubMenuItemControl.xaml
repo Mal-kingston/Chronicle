@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
              d:DataContext="{x:Static local:SubMenuItemDesignModel.Instance}">
-    
+
     <UserControl.Resources >
 
         <!-- Submenu item style -->

@@ -94,6 +94,8 @@ namespace Chronicle
                 // Do nothing
                 return;
 
+            // TODO: Do not save same file more than once
+
             // Otherwise, Add file to data store
             _DbContext.NoteData.Add(file);
 

@@ -15,6 +15,8 @@ namespace Chronicle
     /// </summary>
     public class SubMenuViewModel : BaseViewModel
     {
+        #region Public Properties
+
         /// <summary>
         /// The list of book submenu
         /// </summary>
@@ -26,6 +28,22 @@ namespace Chronicle
         public ObservableCollection<SubMenuItemViewModel> NoteSubMenu { get; set; }
 
         /// <summary>
+        /// True if note list is empty
+        /// Otherwise false
+        /// </summary>
+        public bool IsNoteListEmpty { get; set; }
+
+        /// <summary>
+        /// True if note list is empty
+        /// Otherwise false
+        /// </summary>
+        public bool IsBookListEmpty { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public SubMenuViewModel()
@@ -33,10 +51,22 @@ namespace Chronicle
             // Set default properties
             BookSubMenu = new ObservableCollection<SubMenuItemViewModel>();
             NoteSubMenu = new ObservableCollection<SubMenuItemViewModel>();
+            IsNoteListEmpty = false;
+            IsBookListEmpty = false;
 
             // Update list of notes
             UpdateNoteList();
+
+            // Update properties
+            OnPropertyChanged(nameof(NoteSubMenu));
+            OnPropertyChanged(nameof(BookSubMenu));
+            OnPropertyChanged(nameof(IsNoteListEmpty));
+            OnPropertyChanged(nameof(IsBookListEmpty));
         }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Fetch data from the data store and updates the list of notes
@@ -54,6 +84,28 @@ namespace Chronicle
 
             // Log list updated
             Logger.Log("List of list updated");
+
+            // If we have no note...
+            if (NoteSubMenu.Count == 0)
+                // Mark UI to be empty
+                IsNoteListEmpty = true;
+            // Otherwise...
+            else
+                // Mark UI to not be empty
+                IsNoteListEmpty = false;
+
+            // If we have no book...
+            if (BookSubMenu.Count == 0)
+                // Mark UI to be empty
+                IsBookListEmpty = true;
+            // Otherwise...
+            else
+                // Mark UI to not be empty
+                IsBookListEmpty = false;
+
+            // Update properties
+            OnPropertyChanged(nameof(IsNoteListEmpty));
+            OnPropertyChanged(nameof(IsBookListEmpty));
         }
 
         /// <summary>
@@ -92,6 +144,7 @@ namespace Chronicle
             Logger.Log("Sub menu item removed");
         }
 
+        #endregion
 
     }
 }
