@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using static Chronicle.DI;
@@ -75,7 +76,6 @@ namespace Chronicle
         /// Each tab item
         /// </summary>
         public TabItemViewModel TabItem { get; set; }
-
 
         #endregion
 
@@ -153,9 +153,10 @@ namespace Chronicle
             await ClientDataStore.SaveFile(new NoteDataModel
             {
                 // TODO: Remeber template of note
-                // Note data | Id | Header | Content |
-                Id = TabItem.TabID.ToString(),
+                // Note data | Id | Header | Title | Content |
+                Id = TabItem.TabID,
                 Header = _tabContent.Header,
+                Title = _tabContent.Title,
                 Content = _tabContent.Content,
             });
 
@@ -176,22 +177,23 @@ namespace Chronicle
         /// <summary>
         /// Add new tab to the collection
         /// </summary>
-        private void AddNewTab()
+        public void AddNewTab()
         {
             // Make sure tab isn't null
-            if (Tabs == null)
+            if (_tabs == null)
                 return;
 
             // TODO: handle opening unlimited tabs
-            if (Tabs?.Count == 4)
+            if (_tabs?.Count == 4)
                 return;
 
             // Reset selection
-            Tabs?.ToList().ForEach(item => item.TabIsSelected = false);
+            _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
 
             // Add new tab
-            Tabs?.Add(new TabItemViewModel
+            _tabs?.Add(new TabItemViewModel
             {
+                // Set defaults
                 TabIsSelected = true,
                 TabID = Guid.NewGuid(),
                 TabContent = new TabContentViewModel(),
@@ -205,7 +207,7 @@ namespace Chronicle
         /// Remove tab from the collection
         /// </summary>
         /// <param name="parameter">The specific unique tab header of the tab to be removed / closed</param>
-        private void CloseTab(object parameter)
+        public void CloseTab(object parameter)
         {
             // Do not close the default tab
             if (Tabs?.Count == 1)
@@ -272,13 +274,70 @@ namespace Chronicle
             UpdateTabContent();
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Constructs and load saved file by adding it to the tabs
+        /// </summary>
+        /// <param name="note">The data to construct the file with</param>
+        public void LoadNote(NoteDataModel note)
+        {
+            // Make sure we have data
+            if(note == null) 
+                return;
+
+           // Check every tab in the view...
+           foreach(var tab in _tabs!)
+           {
+              // If note is already loaded...
+              if (tab.TabID == note.Id)
+              {
+                    // TODO: Make tab selection method
+
+                  // Reset selection
+                  _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
+                  // Select the tab
+                  tab.TabIsSelected = true;
+                  // Update UI
+                  UpdateTabContent();
+                  // Do nothing else
+                  return;
+              }
+           }
+
+            // Construct and load new tab
+            // ----------------------------
+
+            // Reset selection
+            _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
+
+            // Add new tab
+            _tabs?.Add(new TabItemViewModel
+            {
+                // Set data
+                TabIsSelected = true,
+                TabID = note.Id,
+                TabContent = new TabContentViewModel
+                {
+                    Header = note.Header,
+                    Title = note.Title,
+                    Content = note.Content,
+                },
+            });
+
+            // Update tab content
+            UpdateTabContent();
+        }
+
         /// <summary>
         /// Updates the view with the current content of the tab selected
         /// </summary>
         public void UpdateTabContent()
         {
             // Go through all tabs in the collection...
-            foreach (var item in Tabs!)
+            foreach (var item in _tabs!)
             {
                 // If tab is selected...
                 if (item.TabIsSelected == true)

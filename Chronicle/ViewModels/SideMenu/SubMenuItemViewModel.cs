@@ -1,5 +1,10 @@
 ﻿using SQLitePCL;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using static Chronicle.DI;
 
 namespace Chronicle
@@ -30,18 +35,41 @@ namespace Chronicle
         /// </summary>
         public SubMenuItemViewModel()
         {
-            // Create command
-            OpenFileCommand = new RelayCommand(OpenFile);
+            // Set properties
+            SubMenuTitle = string.Empty;
+            SubMenuIcon = IconType.Note;
+
+            // Create commands
+            OpenFileCommand = new ParameterizedRelayCommand((parameter) => OpenFile(parameter));
 
         }
 
         /// <summary>
         /// Opens a file
         /// </summary>
-        private void OpenFile()
+        /// <param name="parameter">The name of the file to open</param>
+        private async void OpenFile(object parameter)
         {
-            // Simulate going opening a note file
+            // TODO: Get only the file requested
+
+            // Get files in database
+            var data = await ClientDataStore.GetFiles();
+
+            // Go through data...
+            foreach (var item in data)
+            {
+                // if we have a match with parameter...
+                if(item.Header == parameter.ToString())
+                    // Load it
+                    TabControlVM.LoadNote(item);
+                // Log 
+                Logger.Log($"{item.Header} file opened");
+            }
+
+            // Show note file view
             MainVM.GotoPage(ApplicationPage.NoteFile);
+
         }
+
     }
 }

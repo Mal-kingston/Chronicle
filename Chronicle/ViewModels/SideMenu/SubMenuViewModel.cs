@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Packaging;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -74,12 +75,15 @@ namespace Chronicle
         /// </summary>
         public async void UpdateNoteList()
         {
+            // Reset list
+            NoteSubMenu.Clear();
+
             // Get data from data store
             var data = await ClientDataStore.GetFiles();
 
             // Go through all note data in the db.
             foreach (var file in data)
-                // Add them to the list
+                // Construct and add them to the list
                 AddToNoteList(new SubMenuItemViewModel { SubMenuTitle = file.Header });
 
             // Log list updated
@@ -118,9 +122,11 @@ namespace Chronicle
             if (subMenuItem == null)
                 // Do nothing
                 return;
-            
-            // Add item to the list
-            NoteSubMenu.Add(subMenuItem);
+
+            // If item does not exists on the list...
+            if (!NoteSubMenu.Contains(subMenuItem))
+                // Add item to the list
+                NoteSubMenu.Add(subMenuItem);
 
             // Log sub-menu item added
             Logger.Log("Sub menu item added");
@@ -137,8 +143,10 @@ namespace Chronicle
                 // Do nothing
                 return;
 
-            // Remove item to the list
-            NoteSubMenu.Remove(subMenuItem);
+            // If item exists on the list...
+            if(NoteSubMenu.Contains(subMenuItem))
+                // Remove item to the list
+                NoteSubMenu.Remove(subMenuItem);
 
             // Log sub-menu item removed
             Logger.Log("Sub menu item removed");

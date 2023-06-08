@@ -17,12 +17,17 @@ namespace Chronicle
         /// Unique id associated with this file as a 
         /// Unique id or primary key for db.
         /// </summary>
-        public string Id { get; set; } = string.Empty;
+        public Guid Id { get; set; }
 
         /// <summary>
-        /// Header or title of this file
+        /// Header of this file
         /// </summary>
         public string Header { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Title of this file
+        /// </summary>
+        public string Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Main content of this file

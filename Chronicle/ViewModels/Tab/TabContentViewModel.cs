@@ -123,8 +123,5 @@ namespace Chronicle
         private void OpenFileContextMenu() => IsContextMenuOpen ^= true;
 
         #endregion
-
-        
-
     }
 }
