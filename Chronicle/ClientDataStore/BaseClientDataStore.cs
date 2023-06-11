@@ -86,7 +86,6 @@ namespace Chronicle
         /// Commits data to the data store
         /// </summary>
         /// <param name="file">The data to commit to the database</param>
-        /// <returns>Returns a task that will finish once setup is complete</returns>
         public async Task SaveFile(NoteDataModel file)
         {
             // If we have nothing to save...
@@ -94,14 +93,47 @@ namespace Chronicle
                 // Do nothing
                 return;
 
-            // TODO: Do not save same file more than once
+            // Go through file in the database...
+            foreach(var item in _DbContext.NoteData)
+            {
+                // If this file is already in the database...
+                if (item.Id == file.Id)
+                    // Update the file
+                    await UpdateFile(file);
+                // Do nothing else
+                return;
+            }
 
-            // Otherwise, Add file to data store
+            // Otherwise, add new file to data store
             _DbContext.NoteData.Add(file);
 
             // Save changes 
             await _DbContext.SaveChangesAsync();
 
+        }
+
+        /// <summary>
+        /// Updates data that is already existing in the database
+        /// </summary>
+        /// <param name="file">The information to update to the database</param>
+        public async Task UpdateFile(NoteDataModel file)
+        {
+            // Make sure we have infomation
+            if (file == null)
+                // Otherwise, do nothing
+                return;
+
+            // Get the saved data to update
+            var savedData = _DbContext.NoteData.Single(data => data.Id == file.Id);
+
+            // Pass new inforamtion
+            savedData.Id = file.Id;
+            savedData.Header = file.Header;
+            savedData.Title = file.Title;
+            savedData.Content = file.Content;
+
+            // Commit changes
+            await _DbContext.SaveChangesAsync();
         }
 
         #endregion

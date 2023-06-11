@@ -66,7 +66,8 @@ namespace Chronicle
         public bool IsContextMenuOpen { get; set; }
 
         /// <summary>
-        /// 
+        /// The context menu to allow saving, sharing, printing of files
+        /// as well as other functions
         /// </summary>
         public ContextMenuViewModel ContextMenu { get; set; }
 
@@ -110,6 +111,7 @@ namespace Chronicle
             OnPropertyChanged(nameof(Title));
             OnPropertyChanged(nameof(Header));
             OnPropertyChanged(nameof(_title));
+            OnPropertyChanged(nameof(ContextMenu));
             
         }
 

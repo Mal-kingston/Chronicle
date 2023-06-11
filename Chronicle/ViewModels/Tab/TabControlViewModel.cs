@@ -77,6 +77,12 @@ namespace Chronicle
         /// </summary>
         public TabItemViewModel TabItem { get; set; }
 
+        /// <summary>
+        /// The context menu to allow saving, sharing, printing of files
+        /// as well as other functions
+        /// </summary>
+        public ContextMenuViewModel ContextMenu { get; set; }
+
         #endregion
 
         #region Public Commands
@@ -113,15 +119,16 @@ namespace Chronicle
                 TabItem
             };
 
-            // Set tab content
+            // Wire tab features
             _tabContent = TabItem.TabContent;
-            
+            ContextMenu = _tabContent.ContextMenu;
+
             // Create commands
             AddNewTabCommand = new RelayCommand(AddNewTab);
             CloseTabCommand = new ParameterizedRelayCommand((parameter) => CloseTab(parameter));
             SelectTabCommand = new ParameterizedRelayCommand((parameter) => SelectTab(parameter));
 
-            // Transaction data store commands
+            // Transactional data store commands
             _tabContent.ContextMenu.SaveCommand = new RelayCommand(async () => await Save());
 
             // Update properties
@@ -143,8 +150,13 @@ namespace Chronicle
         {
             // If we don't have anything to save...
             if (string.IsNullOrEmpty(_tabContent.Content) || TabItem?.TabID == null)
+            {
+                // Close context menu
+                _tabContent.IsContextMenuOpen = false;
+
                 // Do nothing
                 return;
+            }
 
             // TODO: If content doesn't have title or user want to save note with a specific name
             //       Invoke prompt window to give user the ability to enter desired name for the file before saving to database.
@@ -348,7 +360,9 @@ namespace Chronicle
                     // Update UI
                     OnPropertyChanged(nameof(TabContent));
                 }
+
             }
+
         }
 
         #endregion

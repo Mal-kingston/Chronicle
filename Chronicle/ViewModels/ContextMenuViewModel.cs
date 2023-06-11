@@ -99,7 +99,7 @@ namespace Chronicle
             Template = "Template";
 
             // Create commands
-            SaveCommand = new RelayCommand(SaveToDataStore);
+            //SaveCommand = new RelayCommand(SaveToDataStore);
         }
 
         #endregion
@@ -109,7 +109,7 @@ namespace Chronicle
         /// <summary>
         /// Save data to the datastore
         /// </summary>
-        private void SaveToDataStore() { }
+        //private void SaveToDataStore() { }
 
         #endregion
 
