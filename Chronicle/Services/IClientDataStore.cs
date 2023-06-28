@@ -26,8 +26,13 @@ namespace Chronicle
         /// Commits data to the data store
         /// </summary>
         /// <param name="file">The data to commit to the database</param>
-        /// <returns>Returns a task that will finish once setup is complete</returns>
         Task SaveFile(NoteDataModel file);
+
+        /// <summary>
+        /// Updates data that is already existing in the database
+        /// </summary>
+        /// <param name="file">The information to update to the database</param>
+        Task UpdateFile(NoteDataModel file);
 
         /// <summary>
         /// Gets the list of stored data from the client data store if they exist
@@ -39,5 +44,6 @@ namespace Chronicle
         /// </summary>
         /// <param name="file">The file to remove from the data store</param>
         Task DeleteFile(NoteDataModel file);
+
     }
 }

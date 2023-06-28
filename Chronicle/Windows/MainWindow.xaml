@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         MinHeight="{Binding MinimumHeight}"
         MinWidth="{Binding MinimumWidth}"
-        Icon=".resources/icons/chronicle_icon.ico">
+        Icon="\.resources\icons\chronicle_icon.ico">
 
     <Grid Background="{StaticResource LightDarkBrush}">
 
@@ -20,6 +20,7 @@
             <!-- Main window -->
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
 
         <!-- Side menu -->
         <!-- make the border width resizable -->

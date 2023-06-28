@@ -29,6 +29,12 @@ namespace Chronicle
         /// </summary>
         public static IFileManager FileManager => Framework.Service<IFileManager>();
 
+        /// <summary>
+        /// Shortcut to access the <see cref="IUIManager "/>
+        /// </summary>
+        public static IUIManager UIManager => Framework.Service<IUIManager>();
+
+
         #endregion
 
         #region ViewModels
@@ -62,6 +68,11 @@ namespace Chronicle
         /// Shortcut to access the <see cref="SubMenuViewModel"/>
         /// </summary>
         public static SubMenuViewModel SubMenuVM => Framework.Service<SubMenuViewModel>();
+
+        /// <summary>
+        /// Shortcut to access the <see cref="PromptQueryViewModel"/>
+        /// </summary>
+        public static PromptQueryViewModel PromptQueryVM => Framework.Service<PromptQueryViewModel>();
 
         #endregion
 

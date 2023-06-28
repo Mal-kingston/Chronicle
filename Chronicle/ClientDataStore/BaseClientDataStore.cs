@@ -4,6 +4,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System;
 
 namespace Chronicle
 {
@@ -63,6 +64,7 @@ namespace Chronicle
 
             // Save changes 
             await _DbContext.SaveChangesAsync();
+
         }
 
         /// <summary>
@@ -98,13 +100,15 @@ namespace Chronicle
             {
                 // If this file is already in the database...
                 if (item.Id == file.Id)
+                {
                     // Update the file
                     await UpdateFile(file);
-                // Do nothing else
-                return;
+                    // Do nothing else
+                    return;
+                }
             }
 
-            // Otherwise, add new file to data store
+            // Add file to data store
             _DbContext.NoteData.Add(file);
 
             // Save changes 
@@ -134,6 +138,7 @@ namespace Chronicle
 
             // Commit changes
             await _DbContext.SaveChangesAsync();
+
         }
 
         #endregion

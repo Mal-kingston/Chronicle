@@ -8,9 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BookPage">
 
-    <Grid >
+    <Grid  >
         <Label Content="{Binding Label}" 
                FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
     </Grid>
 </Page>

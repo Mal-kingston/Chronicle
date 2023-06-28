@@ -1,6 +1,8 @@
 ﻿using Dna;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using System.Linq;
 
 namespace Chronicle
 {
@@ -23,6 +25,7 @@ namespace Chronicle
             construction.Services.AddSingleton<TabContentViewModel>();
             construction.Services.AddSingleton<NotePageViewModel>();
             construction.Services.AddSingleton<SubMenuViewModel>();
+            construction.Services.AddSingleton<PromptQueryViewModel>();
 
             // Return the construction for chaining
             return construction;
@@ -58,8 +61,13 @@ namespace Chronicle
             // Inject SQLite EF data store
             construction.Services.AddDbContext<ClientDataStoreDbContext>(options =>
             {
+                // TODO: Use configuration locate file/folder using appsettings.json file
+
+                // Get the folder where database will be created and stored
+                var pathToLogFile = GetFullPathToFile(@"Database\Chronicle.db");
+
                 // Setup connection string
-                options.UseSqlite("Data Source=C:\\Users\\mal\\Documents\\GitHub\\Chronicle\\Services\\Database\\Chronicle.db");
+                options.UseSqlite($"Data Source={pathToLogFile}");
             }, contextLifetime: ServiceLifetime.Transient);
 
             // Inject the database
@@ -77,8 +85,13 @@ namespace Chronicle
         /// <returns></returns>
         public static FrameworkConstruction AddLoggers(this FrameworkConstruction construction)
         {
+            // TODO: Use configuration locate file/folder using appsettings.json file
+
+            // Get the folder where log file will be created and stored
+            var pathToLogFile = GetFullPathToFile(@"logs\Chronicle-log.txt");
+
             // Add log factory
-            construction.Services.AddTransient<ILogFactory>(logs => new LogFactory(new ILogger[] { new FileLogger("C:\\Users\\mal\\Documents\\GitHub\\Chronicle\\Services\\logs\\Chronicle-log.txt") }));
+            construction.Services.AddTransient<ILogFactory>(logs => new LogFactory(new ILogger[] { new FileLogger(pathToLogFile) }));
 
             // Return the construction for chaining
             return construction;
@@ -97,5 +110,43 @@ namespace Chronicle
             // Return the construction for chaining
             return construction;
         }
+
+        /// <summary>
+        /// Inject UI manager
+        /// </summary>
+        /// <param name="construction"></param>
+        /// <returns></returns>
+        public static FrameworkConstruction AddUIManager(this FrameworkConstruction construction)
+        {
+            // Add UI manager
+            construction.Services.AddSingleton<IUIManager>(UI => new UIManager());
+
+            // Return the construction for chaining
+            return construction;
+        }
+
+        #region Helpers
+
+        /// <summary>
+        /// Temporary function that points to the services directory of this application
+        /// to create and locate files for utilization 
+        /// 
+        /// -----------------------------------------------------------------------------
+        /// NOTE: Remove this function, once configuration is setup and in use
+        /// 
+        /// </summary>
+        /// <param name="path">The path to services folder</param>
+        /// <returns>Full path to the services folder</returns>
+        public static string GetFullPathToFile(string path)
+        {
+            // Get the absolute path
+            var absolutePath = Directory.GetDirectories(Directory.GetCurrentDirectory());
+
+            // Navigate to the folder where file will be created and stored
+             return Path.GetFullPath(Path.Combine(absolutePath.ToString()!, $@"..\..\..\..\..\Services\{path}"));
+        }
+
+        #endregion
+
     }
 }

@@ -40,6 +40,10 @@ namespace Chronicle
         public SubMenuViewModel LocateSubMenuVM => SubMenuVM;
 
 
+        //....................................................
+        public PromptQueryViewModel LocatePromptQueryVM => PromptQueryVM;
+
+
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -24,16 +25,28 @@ namespace Chronicle
         /// </summary>
         public event EventHandler? CanExecuteChanged = (sender, e) => { };
 
-		#endregion
+        #endregion
 
-		#region Command Methods
+        #region Constructor
 
-		/// <summary>
-		/// Can always execute 
-		/// </summary>
-		/// <param name="parameter"></param>
-		/// <returns></returns>
-		public bool CanExecute(object? parameter)
+        /// <summary>
+        /// Defualt constructor
+        /// </summary>
+        public RelayCommand(Action action)
+        {
+            mAction = action;
+        }
+
+        #endregion
+
+        #region Command Methods
+
+        /// <summary>
+        /// Can always execute 
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public virtual bool CanExecute(object? parameter)
 		{
 			return true;
 		}
@@ -50,16 +63,5 @@ namespace Chronicle
 
 		#endregion
 
-		#region Constructor
-
-		/// <summary>
-		/// Defualt constructor
-		/// </summary>
-		public RelayCommand(Action action)
-		{
-			mAction = action;
-		}
-
-        #endregion
     }
 }

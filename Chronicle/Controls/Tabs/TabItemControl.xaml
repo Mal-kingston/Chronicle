@@ -21,7 +21,8 @@
 
                             <!-- Title -->
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{TemplateBinding Content}"
+                                <TextBlock x:Name="Header" 
+                                           Text="{TemplateBinding Content}"
                                            TextAlignment="Center" FontSize="{StaticResource XSmall}"
                                            Margin="10, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
                                            TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
@@ -33,6 +34,13 @@
                             </StackPanel>
 
                         </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <!--Set header selection when selected-->
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True" >
+                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="Header" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
 
                     </ControlTemplate>
                 </Setter.Value>
@@ -48,7 +56,7 @@
                 Content="{Binding Header, ElementName=TabItem, FallbackValue=Untitled}"
                 Command="{Binding DataContext.SelectTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
                 CommandParameter="{Binding TabID}" />
-        
+
         <!--Close button for the tab item-->
         <Button Height="22" Width="22" Margin="0, 0, 8, 0" HorizontalAlignment="Right" Focusable="False"
                 Content="{StaticResource CloseIcon}" 

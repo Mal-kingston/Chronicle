@@ -13,7 +13,7 @@
 
         <StackPanel Orientation="Vertical" local:ContexMenuButtonStyleAttachedProperties.Value="True">
             <Button Content="{Binding Save, FallbackValue=Save}"
-                    Command="{Binding SaveCommand}"/>
+                    Command="{Binding SaveCommand}" />
             <Button Content="{Binding SaveAs, FallbackValue=SaveAs}" />
             <Button Content="{Binding Delete, FallbackValue=Delete}" />
             <Border BorderThickness="0.5" BorderBrush="{StaticResource GrayBrush}" />

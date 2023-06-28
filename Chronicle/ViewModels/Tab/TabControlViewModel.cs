@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using static Chronicle.DI;
@@ -139,6 +140,8 @@ namespace Chronicle
             OnPropertyChanged(nameof(TabItem));
         }
 
+        
+
         #endregion
 
         #region Transactional Data Store Commands
@@ -146,7 +149,7 @@ namespace Chronicle
         /// <summary>
         /// Saves a tab content to the data store
         /// </summary>
-        private async Task Save()
+        public async Task Save()
         {
             // If we don't have anything to save...
             if (string.IsNullOrEmpty(_tabContent.Content) || TabItem?.TabID == null)
@@ -180,6 +183,8 @@ namespace Chronicle
 
             // Close context menu
             _tabContent.IsContextMenuOpen = false;
+
+            // TODO: notify user in the UI that file has been saved
         }
 
         #endregion
@@ -233,13 +238,26 @@ namespace Chronicle
             // (true if currently selected at the time of closing... false otherwise).
             var IsClosingTabSelected = false;
 
+            // Configure prompt box buttons
+            var buttons = new PromptBoxButtonsViewModel[]
+            {
+                new PromptBoxButtonsViewModel { ButtonContent = "Save", HighlightButton = true, },
+                new PromptBoxButtonsViewModel { ButtonContent = "Ignore" },
+                new PromptBoxButtonsViewModel { ButtonContent = "Cancel" },
+            };
+
+            // Prompt
+            var message = "Do you want to save file";
+
+
             // Go through tab...
             foreach (var tab in Tabs)
             {
                 // If closing tab is currently selected...
                 if ((Guid)parameter == tab.TabID && tab.TabIsSelected == true)
                     // Set in-memo variable
-                    IsClosingTabSelected = true;             
+                    IsClosingTabSelected = true;
+
             }
 
             // Close tab
@@ -306,8 +324,6 @@ namespace Chronicle
               // If note is already loaded...
               if (tab.TabID == note.Id)
               {
-                    // TODO: Make tab selection method
-
                   // Reset selection
                   _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
                   // Select the tab
@@ -341,6 +357,7 @@ namespace Chronicle
 
             // Update tab content
             UpdateTabContent();
+
         }
 
         /// <summary>

@@ -8,34 +8,47 @@ using static Chronicle.DI;
 
 namespace Chronicle
 {
-
+	/// <summary>
+	/// Helper to convert and provide pages
+	/// </summary>
 	public static class ApplicationPageHelpers
 	{
+		/// <summary>
+		/// Sort and provide the appropriate requested page
+		/// </summary>
+		/// <param name="page">The page requested</param>
 		public static Page ToBasePage(this ApplicationPage page)
 		{
 			// Find the appropriate page
 			switch(page)
 			{
+				// Note
 				case ApplicationPage.NoteFile:
 					return NotePageInstance;
 
+				// Book
                 case ApplicationPage.BookFile:
                     return new BookPage { DataContext = new BookPageViewModel() };
 				
+				// Calendar
 				case ApplicationPage.Calendar:
                     return new CalendarPage { DataContext = new CalendarPageViewModel() };
 
+				// Share
                 case ApplicationPage.Share:
                     return new SharePage { DataContext = new SharePageViewModel() };
 
+				// Settings
                 case ApplicationPage.Settings:
                     return new SettingsPage { DataContext = new SettingsPageViewModel() };
 
+				// Trash
                 case ApplicationPage.Trash:
                     return new TrashPage { DataContext = new TrashPageViewModel() };
 
+				// Notify developer if something is wrong
                 default:
-					Debugger.Break();
+                    Debugger.Break();
 					return null!;
 			}
 		}

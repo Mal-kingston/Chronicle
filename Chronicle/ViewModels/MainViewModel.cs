@@ -134,6 +134,7 @@ namespace Chronicle
             // Update properties
             OnPropertyChanged(nameof(IsNoteSubMenuOpen));
             OnPropertyChanged(nameof(IsBookSubMenuOpen));
+
         }
 
         /// <summary>
@@ -160,10 +161,9 @@ namespace Chronicle
 
 
         public void GotoPage(ApplicationPage page)
-        {            
+        {
             // Sets current page value
             CurrentPage = page;
-          
         }
 
         #endregion

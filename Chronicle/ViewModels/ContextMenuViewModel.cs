@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -98,20 +99,8 @@ namespace Chronicle
             Share = "Share";
             Template = "Template";
 
-            // Create commands
-            //SaveCommand = new RelayCommand(SaveToDataStore);
         }
 
         #endregion
-
-        #region Command Methods
-
-        /// <summary>
-        /// Save data to the datastore
-        /// </summary>
-        //private void SaveToDataStore() { }
-
-        #endregion
-
     }
 }

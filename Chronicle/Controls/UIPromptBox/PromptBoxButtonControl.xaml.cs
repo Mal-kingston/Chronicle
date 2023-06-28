@@ -16,21 +16,14 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for NoteFileControl.xaml
+    /// Interaction logic for PromptBoxButtonControl.xaml
     /// </summary>
-    public partial class TabContentControl : UserControl
+    public partial class PromptBoxButtonControl : UserControl
     {
-        public TabContentControl()
+        public PromptBoxButtonControl()
         {
             InitializeComponent();
 
         }
-
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Enter || e.Key == Key.Tab)
-                MainContent.Focus();
-        }
-
     }
 }

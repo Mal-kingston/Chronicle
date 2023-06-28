@@ -46,6 +46,7 @@ namespace Chronicle
                  .AddClientDataStore()
                  .AddFileManager()
                  .AddLoggers()
+                 .AddUIManager()
                  .Build();
 
             // Make sure data store is available

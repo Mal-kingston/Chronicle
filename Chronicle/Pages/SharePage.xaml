@@ -12,5 +12,6 @@
         <Label Content="{Binding Label}" 
                FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
     </Grid>
 </Page>

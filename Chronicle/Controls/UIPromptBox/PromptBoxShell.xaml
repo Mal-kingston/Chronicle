@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Chronicle.PromptBoxShell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Chronicle"
+             mc:Ignorable="d" 
+             Height="{Binding PromptBoxHeight}" Width="{Binding PromptBoxWidth}" >
+
+    <Grid Background="{StaticResource LightDarkBrush}"
+          local:DropShadowAttachedProperty.Value="True" >
+
+        <Grid.RowDefinitions>
+            <!--Prompt box content -->
+            <RowDefinition MinHeight="100" />
+            <!--Prompt box buttons-->
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <!--Prompt box content-->
+        <Grid Grid.Row="0" Background="{StaticResource DarkBrush}"
+              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ContentControl Content="{Binding PromptBoxContent, Converter={local:PromptBoxContentConverter}}" 
+                            VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        </Grid>
+
+        <!--Prompt box buttons-->
+        <Border Grid.Row="1">
+
+            <ItemsControl ItemsSource="{Binding Buttons}" >
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+
+                        <!--Buttons orientaiton-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    CanHorizontallyScroll="False" CanVerticallyScroll="False" />
+                        
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate >
+
+                        <!--Actual button-->
+                        <local:PromptBoxButtonControl />
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Border>
+                
+    </Grid>
+</UserControl>
