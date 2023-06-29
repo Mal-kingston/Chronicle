@@ -1,8 +1,12 @@
 ﻿using Dna;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
 
 namespace Chronicle
 {
@@ -125,7 +129,7 @@ namespace Chronicle
             return construction;
         }
 
-        #region Helpers
+        #region Temporary Helpers
 
         /// <summary>
         /// Temporary function that points to the services directory of this application
@@ -140,10 +144,49 @@ namespace Chronicle
         public static string GetFullPathToFile(string path)
         {
             // Get the absolute path
-            var absolutePath = Directory.GetDirectories(Directory.GetCurrentDirectory());
+            var absolutePath = Directory.GetDirectories(Directory.GetCurrentDirectory().Replace(@"\\", @"\")).ToList();
 
-            // Navigate to the folder where file will be created and stored
-             return Path.GetFullPath(Path.Combine(absolutePath.ToString()!, $@"..\..\..\..\..\Services\{path}"));
+            // Copy of full path a string
+            var absolutePathCopy = absolutePath[0];
+
+            // Tracks instances of folders named chronicle
+            var trackInstancesOfChronicleFolder = 0;
+
+            // Pointer to the services folder
+            var pathToServicesFolder = string.Empty;
+            
+            // While we have full path...
+            while(absolutePath != null)
+            {
+                // if we can't find service folder
+                if(pathToServicesFolder.EndsWith(@":\"))
+                {
+                    // Let developer know
+                    Debugger.Break();
+                    // Exit this loop
+                    break;
+                }
+
+                // Extract folder name from absolute path
+                pathToServicesFolder = Path.GetDirectoryName(absolutePathCopy);
+
+                // Adjust path to re-check for the services folder
+                absolutePathCopy = pathToServicesFolder;
+
+                // If the instance of the folder we are looking for is found...
+                if (pathToServicesFolder!.EndsWith("Chronicle") && trackInstancesOfChronicleFolder == 1)
+                    // Exit loop
+                    break;
+
+                // If first instance of the folder is found, Ignore 
+                if (pathToServicesFolder!.EndsWith("Chronicle") && trackInstancesOfChronicleFolder == 0)
+                    // And update tracking variable
+                    trackInstancesOfChronicleFolder = 1;
+
+            }
+
+            // Return the folder where folder / file will be created and stored
+            return Path.GetFullPath(Path.Combine($@"{pathToServicesFolder}\Services\", path));
         }
 
         #endregion
