@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -58,6 +53,11 @@ namespace Chronicle
         /// Header of tab content
         /// </summary>
         public string Header { get; set; }
+
+        /// <summary>
+        /// Notifies user when file has been successfully saved to the datbabase
+        /// </summary>
+        public bool NotifyUser { get; set; } = false;
 
         /// <summary>
         /// True if the context menu is open
@@ -125,5 +125,30 @@ namespace Chronicle
         private void OpenFileContextMenu() => IsContextMenuOpen ^= true;
 
         #endregion
+
+        #region Event Methods
+
+        /// <summary>
+        /// Pushes notiification to user when content of this object is saved to the database
+        /// </summary>
+        /// <param name="sender">The publisher of this event</param>
+        /// <param name="tabContent">The property to change</param>
+        public void OnContentSaved(object sender, TabContentViewModel tabContent)
+        {
+            // If we haven't notified user yet
+            if (tabContent.NotifyUser == false)
+            {
+                // Notify user for few seconds and then reset to original value
+                Task.Run(async () =>
+                {
+                    tabContent.NotifyUser = true;
+                    await Task.Delay(1500);
+                    tabContent.NotifyUser = false;
+                });
+            }
+        }
+
+        #endregion
+
     }
 }

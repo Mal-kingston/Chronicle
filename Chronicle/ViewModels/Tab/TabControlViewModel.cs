@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using static Chronicle.DI;
 
 namespace Chronicle
@@ -86,6 +81,19 @@ namespace Chronicle
 
         #endregion
 
+        #region Public Events
+
+        /// <summary>
+        /// TODO: Get direct info from db that file has saved successfully
+        /// --------------------------------------------------------------
+        /// 
+        /// 
+        /// The event that gets fired when content of a tab is successfully saved to the database
+        /// </summary>
+        public event EventHandler<TabContentViewModel> ContentSaved;
+
+        #endregion
+
         #region Public Commands
 
         /// <summary>
@@ -120,7 +128,7 @@ namespace Chronicle
                 TabItem
             };
 
-            // Wire tab features
+            // Wire tabs UI and data
             _tabContent = TabItem.TabContent;
             ContextMenu = _tabContent.ContextMenu;
 
@@ -128,6 +136,9 @@ namespace Chronicle
             AddNewTabCommand = new RelayCommand(AddNewTab);
             CloseTabCommand = new ParameterizedRelayCommand((parameter) => CloseTab(parameter));
             SelectTabCommand = new ParameterizedRelayCommand((parameter) => SelectTab(parameter));
+
+            // Event subscription
+            ContentSaved += _tabContent.OnContentSaved!;
 
             // Transactional data store commands
             _tabContent.ContextMenu.SaveCommand = new RelayCommand(async () => await Save());
@@ -139,8 +150,6 @@ namespace Chronicle
             OnPropertyChanged(nameof(_tabContent));
             OnPropertyChanged(nameof(TabItem));
         }
-
-        
 
         #endregion
 
@@ -161,6 +170,9 @@ namespace Chronicle
                 return;
             }
 
+            // Get the current tab id
+            var currentTabID = (Guid)(_tabs?.FirstOrDefault(x => x.TabIsSelected == true))?.TabID!;
+
             // TODO: If content doesn't have title or user want to save note with a specific name
             //       Invoke prompt window to give user the ability to enter desired name for the file before saving to database.
 
@@ -168,8 +180,8 @@ namespace Chronicle
             await ClientDataStore.SaveFile(new NoteDataModel
             {
                 // TODO: Remeber template of note
-                // Note data | Id | Header | Title | Content |
-                Id = TabItem.TabID,
+                // Note_data | Id | Header | Title | Content |
+                Id = currentTabID,
                 Header = _tabContent.Header,
                 Title = _tabContent.Title,
                 Content = _tabContent.Content,
@@ -184,7 +196,9 @@ namespace Chronicle
             // Close context menu
             _tabContent.IsContextMenuOpen = false;
 
-            // TODO: notify user in the UI that file has been saved
+            // notify user that file has been saved
+            OnContentSaved();
+
         }
 
         #endregion
@@ -207,7 +221,7 @@ namespace Chronicle
             // Reset selection
             _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
 
-            // Add new tab
+            // Construct and add new tab
             _tabs?.Add(new TabItemViewModel
             {
                 // Set defaults
@@ -224,19 +238,26 @@ namespace Chronicle
         /// Remove tab from the collection
         /// </summary>
         /// <param name="parameter">The specific unique tab header of the tab to be removed / closed</param>
-        public void CloseTab(object parameter)
+        public async void CloseTab(object parameter)
         {
             // Do not close the default tab
-            if (Tabs?.Count == 1)
+            if (_tabs?.Count == 1)
                 return;
 
             // Make sure we have items
-            if (Tabs == null)
+            if (_tabs == null)
                 return;
+
+            // TODO: Handle try saving a file with content and no title but 
+            //       prompt user to enter title or suggest using the first few words as title of the note
+            // ===========================================================================================
+
 
             // Status of selection of closing tab
             // (true if currently selected at the time of closing... false otherwise).
             var IsClosingTabSelected = false;
+
+            #region Closing Prompt Set-up and Query
 
             // Configure prompt box buttons
             var buttons = new PromptBoxButtonsViewModel[]
@@ -246,29 +267,49 @@ namespace Chronicle
                 new PromptBoxButtonsViewModel { ButtonContent = "Cancel" },
             };
 
-            // Prompt
-            var message = "Do you want to save file";
+            // Prompt message
+            var message = "Do you want to save this file";
 
+            // Get the actual closing tab
+            var closingTab = _tabs.Single(t => t.TabID == (Guid)parameter);
+
+            // TODO: expand on the logic (also prompt user if they want to save changes made on an existing file)
+            // If file has content...
+            if (!(string.IsNullOrEmpty(closingTab.TabContent.Title) || string.IsNullOrEmpty(closingTab.TabContent.Content)))
+            {
+                // Get compatible format for looking infomation up in the database
+                var FileInQuestion = (await ClientDataStore.GetFiles()).Find(x => x.Id == closingTab.TabID);
+
+                // Check if Id it exists
+                var result = await ClientDataStore.FileExists(FileInQuestion!);
+
+                // If we have no record of the Id...
+                if (!result)
+                    // Spin-up prompt box 
+                    DI.UIManager.InvokePromptBox(PromptBoxContent.PromptQueryContent, query: message, buttons: buttons);
+            }
+
+            #endregion
 
             // Go through tab...
-            foreach (var tab in Tabs)
+            foreach (var tab in _tabs)
             {
-                // If closing tab is currently selected...
+                // Get the closing tab
                 if ((Guid)parameter == tab.TabID && tab.TabIsSelected == true)
-                    // Set in-memo variable
+                    // Mark tab selected at the time closing is requested
                     IsClosingTabSelected = true;
 
             }
 
             // Close tab
-            Tabs?.Remove(Tabs.Where(item => item.TabID == (Guid)parameter).Single());
+            _tabs?.Remove(_tabs.Where(item => item.TabID == (Guid)parameter).Single());
 
             // Update tab selection if closing tab was selected 
             // at the time user wants to close it
             if (IsClosingTabSelected)
             {
-                if(Tabs != null)
-                    Tabs.LastOrDefault(TabItem).TabIsSelected = true;
+                if(_tabs != null)
+                    _tabs.LastOrDefault(TabItem).TabIsSelected = true;
             }
 
             // Update tab content
@@ -306,6 +347,19 @@ namespace Chronicle
 
         #endregion
 
+        #region Event Definition
+
+        /// <summary>
+        /// Invokes the content-saved event
+        /// </summary>
+        public virtual void OnContentSaved()
+        {
+            // Pass event down to subscribers
+            ContentSaved?.Invoke(this, _tabContent);
+        }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -335,13 +389,14 @@ namespace Chronicle
               }
            }
 
-            // Construct and load new tab
-            // ----------------------------
+            // ==================================
+            // --- Construct and load new tab ---
+            // ==================================
 
             // Reset selection
             _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
 
-            // Add new tab
+            // Construct and new file  to tab
             _tabs?.Add(new TabItemViewModel
             {
                 // Set data
@@ -349,6 +404,7 @@ namespace Chronicle
                 TabID = note.Id,
                 TabContent = new TabContentViewModel
                 {
+                    // Content detail
                     Header = note.Header,
                     Title = note.Title,
                     Content = note.Content,

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO.Packaging;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
 using static Chronicle.DI;
 
 namespace Chronicle
@@ -78,7 +70,7 @@ namespace Chronicle
             // Reset list
             NoteSubMenu.Clear();
 
-            // Get data from data store
+            // Get data from data-store
             var data = await ClientDataStore.GetFiles();
 
             // Go through all note data in the db.
@@ -86,8 +78,8 @@ namespace Chronicle
                 // Construct and add them to the list
                 AddToNoteList(new SubMenuItemViewModel { SubMenuTitle = file.Header });
 
-            // Log list updated
-            Logger.Log("List of list updated");
+            // Log this information
+            Logger.Log("Note list updated");
 
             // If we have no note...
             if (NoteSubMenu.Count == 0)
@@ -98,18 +90,8 @@ namespace Chronicle
                 // Mark UI to not be empty
                 IsNoteListEmpty = false;
 
-            // If we have no book...
-            if (BookSubMenu.Count == 0)
-                // Mark UI to be empty
-                IsBookListEmpty = true;
-            // Otherwise...
-            else
-                // Mark UI to not be empty
-                IsBookListEmpty = false;
-
             // Update properties
             OnPropertyChanged(nameof(IsNoteListEmpty));
-            OnPropertyChanged(nameof(IsBookListEmpty));
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -70,6 +71,7 @@ namespace Chronicle
         private void Feedback(object parameter)
         {
             // TODO: render UI in-accessible if we haven't gotten feedback from user
+           
         }
 
         /// <summary>

@@ -1,10 +1,4 @@
-﻿using SQLitePCL;
-using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
+﻿using System.Windows.Input;
 using static Chronicle.DI;
 
 namespace Chronicle
@@ -14,6 +8,7 @@ namespace Chronicle
     /// </summary>
     public class SubMenuItemViewModel : BaseViewModel
     {
+        #region Public Properties
 
         /// <summary>
         /// The title of a submenu item
@@ -30,6 +25,10 @@ namespace Chronicle
         /// </summary>
         public ICommand OpenFileCommand { get; set; }
 
+        #endregion
+
+        #region Constructor
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -44,32 +43,33 @@ namespace Chronicle
 
         }
 
+        #endregion
+
+        #region Command Methods
+
         /// <summary>
         /// Opens a file
         /// </summary>
         /// <param name="parameter">The name of the file to open</param>
         private async void OpenFile(object parameter)
         {
-            // TODO: Get only the file requested
+            // Get the requested file from database
+            var fileToOpen = (await ClientDataStore.GetFiles()).Find(x => x.Header == parameter.ToString()); 
 
-            // Get files in database
-            var data = await ClientDataStore.GetFiles();
+            // Load it
+            TabControlVM.LoadNote(fileToOpen!);
 
-            // Go through data...
-            foreach (var item in data)
-            {
-                // if we have a match with parameter...
-                if(item.Header == parameter.ToString())
-                    // Load it
-                    TabControlVM.LoadNote(item);
-                // Log 
-                Logger.Log($"{item.Header} file opened");
-            }
+            // Log info
+            Logger.Log($"{fileToOpen?.Header} file opened");
 
-            // Show note file view
-            MainVM.GotoPage(ApplicationPage.NoteFile);
-
+            // If main view current page isn't notefile...
+            if(MainVM.CurrentPage != ApplicationPage.NoteFile)
+                // Show notefile page
+                MainVM.GotoPage(ApplicationPage.NoteFile);
+            
         }
+
+        #endregion
 
     }
 }

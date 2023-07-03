@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Chronicle
@@ -8,6 +9,16 @@ namespace Chronicle
     /// </summary>
     public class UIManager : IUIManager
     {
+        public Window ?PromptWindow { get; set; }
+
+        public async void ClosePromptBox()
+        {
+            await Task.Run(() =>
+            {
+                PromptWindow?.Close();
+            });
+        }
+
         /// <summary>
         /// Invoke the prompt box
         /// </summary>
@@ -22,9 +33,9 @@ namespace Chronicle
             if(query != null)
                 // Set it
                 DI.PromptQueryVM.Query = query;
-            
+
             // Get prompt window
-            var window = new PromptBoxWindow();
+            PromptWindow = new PromptBoxWindow();
 
             // Get prompt box shell view-model
             var promptShell = new PromptBoxShellViewModel();
@@ -38,16 +49,20 @@ namespace Chronicle
 
             foreach (var button in buttons)
                 button.ButtonAction = promptShell.FeedbackCommand;
-            
+
             // Set prompt window content
-            window.Content = new PromptBoxShell { DataContext = promptShell };
-            
+            PromptWindow.Content = new PromptBoxShell { DataContext = promptShell };
+
             // Set main window as owner of prompt box window
-            window.Owner = Application.Current.MainWindow;
+            PromptWindow.Owner = Application.Current.MainWindow;
             // Make sure we show in the center of the application
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            PromptWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             // Show the window
-            window.Show();
+            PromptWindow.Show();
+
+
+            Thread.Sleep(5000);
+            PromptWindow?.Close();
 
         }
     }

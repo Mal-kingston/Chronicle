@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Chronicle
@@ -12,9 +9,10 @@ namespace Chronicle
     public interface IClientDataStore
     {
         /// <summary>
-        /// Checks if data store is null
+        /// Checks if a file exists in the data base
         /// </summary>
-        Task<bool> FileExists();
+        /// <returns>Returns true if file exists, otherwise false</returns>
+        Task<bool> FileExists(NoteDataModel file);
 
         /// <summary>
         /// Make sure the data store is setup correctly

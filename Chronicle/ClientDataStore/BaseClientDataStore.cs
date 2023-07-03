@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Chronicle
 {
@@ -68,12 +66,13 @@ namespace Chronicle
         }
 
         /// <summary>
-        /// Checks if data store is null
+        /// Checks if a file exists in the data base
         /// </summary>
-        /// <returns>True if database isn't null, Otherwise false.</returns>
-        public async Task<bool> FileExists()
+        /// <returns>Returns true if file exists, otherwise false</returns>
+        public async Task<bool> FileExists(NoteDataModel file)
         {
-            return await GetFiles() != null;
+            // return result
+            return await _DbContext.NoteData.ContainsAsync(file);
         }
 
         /// <summary>
@@ -95,17 +94,13 @@ namespace Chronicle
                 // Do nothing
                 return;
 
-            // Go through file in the database...
-            foreach(var item in _DbContext.NoteData)
+            // If this file is already in the database...
+            if (_DbContext.NoteData.Contains(file))
             {
-                // If this file is already in the database...
-                if (item.Id == file.Id)
-                {
-                    // Update the file
-                    await UpdateFile(file);
-                    // Do nothing else
-                    return;
-                }
+                // Update the file
+                await UpdateFile(file);
+                // Do nothing else
+                return;
             }
 
             // Add file to data store
@@ -130,8 +125,7 @@ namespace Chronicle
             // Get the saved data to update
             var savedData = _DbContext.NoteData.Single(data => data.Id == file.Id);
 
-            // Pass new inforamtion
-            savedData.Id = file.Id;
+            // Pass new inforamtion that needs updating
             savedData.Header = file.Header;
             savedData.Title = file.Title;
             savedData.Content = file.Content;
