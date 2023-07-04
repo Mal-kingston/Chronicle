@@ -55,6 +55,11 @@ namespace Chronicle
         public string Header { get; set; }
 
         /// <summary>
+        /// The text for a notification that appears for a short period of time
+        /// </summary>
+        public string BriefNotificationText { get; set; }
+
+        /// <summary>
         /// Notifies user when file has been successfully saved to the datbabase
         /// </summary>
         public bool NotifyUser { get; set; } = false;

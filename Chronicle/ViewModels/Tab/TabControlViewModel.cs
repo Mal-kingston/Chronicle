@@ -25,6 +25,11 @@ namespace Chronicle
         /// </summary>
         private TabContentViewModel _tabContent;
 
+        /// <summary>
+        /// The tab id of tab that is currently selected
+        /// </summary>
+        private Guid _selectedTab_TabID => (Guid)(_tabs?.FirstOrDefault(x => x.TabIsSelected == true))?.TabID!;
+
         #endregion
 
         #region Public Properties
@@ -141,7 +146,8 @@ namespace Chronicle
             ContentSaved += _tabContent.OnContentSaved!;
 
             // Transactional data store commands
-            _tabContent.ContextMenu.SaveCommand = new RelayCommand(async () => await Save());
+            _tabContent.ContextMenu.SaveCommand = new ParameterizedRelayCommand(async (parameter) => await Save(parameter));
+            _tabContent.ContextMenu.DeleteCommand = new ParameterizedRelayCommand(async (parameter) => await Delete(parameter));
 
             // Update properties
             OnPropertyChanged(nameof(Tabs));
@@ -158,7 +164,7 @@ namespace Chronicle
         /// <summary>
         /// Saves a tab content to the data store
         /// </summary>
-        public async Task Save()
+        public async Task Save(object parameter)
         {
             // If we don't have anything to save...
             if (string.IsNullOrEmpty(_tabContent.Content) || TabItem?.TabID == null)
@@ -171,7 +177,7 @@ namespace Chronicle
             }
 
             // Get the current tab id
-            var currentTabID = (Guid)(_tabs?.FirstOrDefault(x => x.TabIsSelected == true))?.TabID!;
+            //var currentTabID = (Guid)(_tabs?.FirstOrDefault(x => x.TabIsSelected == true))?.TabID!;
 
             // TODO: If content doesn't have title or user want to save note with a specific name
             //       Invoke prompt window to give user the ability to enter desired name for the file before saving to database.
@@ -181,7 +187,7 @@ namespace Chronicle
             {
                 // TODO: Remeber template of note
                 // Note_data | Id | Header | Title | Content |
-                Id = currentTabID,
+                Id = _selectedTab_TabID,
                 Header = _tabContent.Header,
                 Title = _tabContent.Title,
                 Content = _tabContent.Content,
@@ -197,7 +203,44 @@ namespace Chronicle
             _tabContent.IsContextMenuOpen = false;
 
             // notify user that file has been saved
-            OnContentSaved();
+            OnContentSaved(parameter);
+
+        }
+
+        /// <summary>
+        /// Deletes a file from database
+        /// </summary>
+        public async Task Delete(object parameter)
+        {
+            // Get compatible format for looking infomation up in the database
+            var fileInQuestion = (await ClientDataStore.GetFiles()).Find(x => x.Id == _selectedTab_TabID);
+
+            // Check if Id it exists
+            var result = await ClientDataStore.FileExists(fileInQuestion!);
+
+            // If file exists...
+            if(result && fileInQuestion != null)
+            {
+                // If default tab is being deleted...
+                if (_tabs?.Count == 1)
+                    // Add a new tab before removing the old tab
+                    AddNewTab();
+
+                // Close the tab
+                CloseTab(fileInQuestion.Id);
+
+                // Remove it
+                await ClientDataStore.DeleteFile(fileInQuestion!);
+            }
+
+            // Update UI list
+            SubMenuVM.UpdateNoteList();
+
+            // Close context menu
+            _tabContent.IsContextMenuOpen = false;
+
+            // notify user that file has been deleted
+            OnContentSaved(parameter);
 
         }
 
@@ -214,7 +257,7 @@ namespace Chronicle
             if (_tabs == null)
                 return;
 
-            // TODO: handle opening unlimited tabs
+            // TODO: handle opening unlimited tabs 
             if (_tabs?.Count == 4)
                 return;
 
@@ -352,8 +395,11 @@ namespace Chronicle
         /// <summary>
         /// Invokes the content-saved event
         /// </summary>
-        public virtual void OnContentSaved()
+        public virtual void OnContentSaved(object parameter)
         {
+            // Set the notificaiton text
+            _tabContent.BriefNotificationText = (string)parameter;
+
             // Pass event down to subscribers
             ContentSaved?.Invoke(this, _tabContent);
         }
@@ -372,8 +418,8 @@ namespace Chronicle
             if(note == null) 
                 return;
 
-           // Check every tab in the view...
-           foreach(var tab in _tabs!)
+            // Check every tab in the view...
+            foreach (var tab in _tabs!)
            {
               // If note is already loaded...
               if (tab.TabID == note.Id)
@@ -388,6 +434,10 @@ namespace Chronicle
                   return;
               }
            }
+
+            // TODO: handle opening unlimited tabs 
+            if (_tabs?.Count == 4)
+                return;
 
             // ==================================
             // --- Construct and load new tab ---

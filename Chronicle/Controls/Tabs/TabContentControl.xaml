@@ -74,18 +74,20 @@
 
         </Border>
 
-        
+        <!--Notification-->         
         <Border Grid.Row="0" Grid.RowSpan="2" Margin="0 0 0 200" Padding="10 2"
                 Background="{StaticResource LightDarkBrush}" BorderBrush="{StaticResource GrayBrush}" BorderThickness="2"
                 VerticalAlignment="Center" HorizontalAlignment="Center" 
                 Visibility="{Binding NotifyUser, Converter={local:BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, FallbackValue=Visible}">
             
             <StackPanel Orientation="Horizontal">
-                
-                <Label Content="Saved" FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Regular}"
+
+                <!--Text-->
+                <Label Content="{Binding BriefNotificationText}" FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Regular}"
                        Foreground="{StaticResource GrayBrush}" Margin="0 0 4 0"
                        VerticalAlignment="Center" HorizontalAlignment="Center" />
 
+                <!--Icon-->
                 <Label Content="{StaticResource CheckGoodIcon}" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="{StaticResource Regular}"
                        Foreground="{StaticResource GrayBrush}" Margin="4 0 0 0"
                        VerticalAlignment="Center" HorizontalAlignment="Center" />

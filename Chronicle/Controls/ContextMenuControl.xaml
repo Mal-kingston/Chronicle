@@ -11,11 +11,14 @@
     <Border Width="150" Padding="8 0" local:DropShadowAttachedProperty.Value="True"
           Background="{StaticResource DarkBrush}" >
 
+        <!--Buttons-->
         <StackPanel Orientation="Vertical" local:ContexMenuButtonStyleAttachedProperties.Value="True">
             <Button Content="{Binding Save, FallbackValue=Save}"
-                    Command="{Binding SaveCommand}" />
-            <Button Content="{Binding SaveAs, FallbackValue=SaveAs}" />
-            <Button Content="{Binding Delete, FallbackValue=Delete}" />
+                    Command="{Binding SaveCommand}" CommandParameter="File saved" />
+            <Button Content="{Binding SaveAs, FallbackValue=SaveAs}"
+                    Command="{Binding SaveAsCommand}" />
+            <Button Content="{Binding Delete, FallbackValue=Delete}" 
+                    Command="{Binding DeleteCommand}" CommandParameter="File deleted" />
             <Border BorderThickness="0.5" BorderBrush="{StaticResource GrayBrush}" />
             <Button Content="{Binding Print, FallbackValue=Print}" />
             <Button Content="{Binding Share, FallbackValue=Share}" />
