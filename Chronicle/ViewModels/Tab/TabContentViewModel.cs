@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -60,7 +61,7 @@ namespace Chronicle
         public string BriefNotificationText { get; set; }
 
         /// <summary>
-        /// Notifies user when file has been successfully saved to the datbabase
+        /// Notifies user when file has been successfully saved to the database
         /// </summary>
         public bool NotifyUser { get; set; } = false;
 
@@ -83,7 +84,7 @@ namespace Chronicle
         /// <summary>
         /// Opens and also closes context menu
         /// </summary>
-        public ICommand OpenFileContextMenuCommand { get; set; }
+        public ICommand OpenContextMenuCommand { get; set; }
 
         /// <summary>
         /// Closes context menu if open
@@ -108,7 +109,7 @@ namespace Chronicle
             ContextMenu = new ContextMenuViewModel();
 
             // Create commands
-            OpenFileContextMenuCommand = new RelayCommand(OpenFileContextMenu);
+            OpenContextMenuCommand = new RelayCommand(() => IsContextMenuOpen ^= true);
             CloseContextMenuCommand = new RelayCommand(() => IsContextMenuOpen = false);
 
             // Update properties
@@ -127,30 +128,32 @@ namespace Chronicle
         /// <summary>
         /// Opens / Closes file context menu
         /// </summary>
-        private void OpenFileContextMenu() => IsContextMenuOpen ^= true;
+        //private void OpenFileContextMenu() => IsContextMenuOpen ^= true;
 
         #endregion
 
         #region Event Methods
 
         /// <summary>
-        /// Pushes notiification to user when content of this object is saved to the database
+        /// Pushes notification to user when content of this object is saved to the database
         /// </summary>
         /// <param name="sender">The publisher of this event</param>
         /// <param name="tabContent">The property to change</param>
-        public void OnContentSaved(object sender, TabContentViewModel tabContent)
+        public void OnContentUpdated(object sender, TabContentViewModel tabContent)
         {
+
             // If we haven't notified user yet
             if (tabContent.NotifyUser == false)
             {
                 // Notify user for few seconds and then reset to original value
-                Task.Run(async () =>
+                Task.Run(async () => 
                 {
                     tabContent.NotifyUser = true;
                     await Task.Delay(1500);
                     tabContent.NotifyUser = false;
                 });
             }
+
         }
 
         #endregion

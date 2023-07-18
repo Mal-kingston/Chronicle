@@ -10,8 +10,11 @@ namespace Chronicle
 
             switch((PromptBoxContent)value)
             {
-                case PromptBoxContent.PromptQueryContent:
-                    return new PromptQueryControl { DataContext = DI.PromptQueryVM };
+                case PromptBoxContent.SaveAndExitContent:
+                    return new SaveAndExitControl { DataContext = DI.SaveAndExitPromptVM };
+
+                case PromptBoxContent.SaveAsContent:
+                    return new SaveAsControl { DataContext = DI.SaveAsPromptVM };
 
                 default:
                     break;

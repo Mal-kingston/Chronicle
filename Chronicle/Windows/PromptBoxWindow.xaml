@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         AllowsTransparency="True"
-        WindowStyle="None">
-    
+        WindowStyle="None"
+        ShowInTaskbar="False" >
     <Window.Resources>
         <Style TargetType="{x:Type local:PromptBoxWindow}" >
             <Setter Property="Template">

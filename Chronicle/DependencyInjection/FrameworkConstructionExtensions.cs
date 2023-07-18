@@ -29,7 +29,8 @@ namespace Chronicle
             construction.Services.AddSingleton<TabContentViewModel>();
             construction.Services.AddSingleton<NotePageViewModel>();
             construction.Services.AddSingleton<SubMenuViewModel>();
-            construction.Services.AddSingleton<PromptQueryViewModel>();
+            construction.Services.AddSingleton<SaveAndExitPromptViewModel>();
+            construction.Services.AddSingleton<SaveAsPromptViewModel>();
 
             // Return the construction for chaining
             return construction;

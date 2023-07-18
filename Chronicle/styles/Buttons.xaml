@@ -89,6 +89,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
         <Setter Property="FontSize" Value="{StaticResource Small}" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Height" Value="40" />
         <Setter Property="Width" Value="270" />
 
@@ -201,7 +202,7 @@
         <Setter Property="FontSize" Value="{StaticResource Small}" />
         <Setter Property="FontFamily" Value="{StaticResource JostFont}" />
         <Setter Property="Height" Value="40" />
-        <Setter Property="Width" Value="80" />
+        <Setter Property="Width" Value="100" />
         <Setter Property="Margin" Value="15 0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -214,12 +215,14 @@
                 <ControlTemplate TargetType="{x:Type Button}">
 
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="4" >
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            Padding="10" >
+                        <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
+                                          VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+
+                        <Trigger Property="IsMouseOver"  Value="True">
                             <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
                         </Trigger>
 

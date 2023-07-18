@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -85,14 +88,43 @@ namespace Chronicle
         {
             // Set properties
             Save = "Save";
-            SaveAs = "SaveAs";
+            SaveAs = "Save as";
             Delete = "Delete";
             Print = "Print";
             Share = "Share";
             Template = "Template";
 
+            // Create commands
+            SaveCommand = new ParameterizedRelayCommand(async (parameter) => await SaveData(parameter));
+            DeleteCommand  = new ParameterizedRelayCommand(async (parameter) => await DeleteData(parameter));
+
+        }
+
+        #region Public Command Methods
+
+        /// <summary>
+        /// Deletes data from data base
+        /// </summary>
+        /// <param name="parameter">Signature of data to delete</param>
+        /// <returns></returns>
+        private async Task DeleteData(object parameter)
+        {
+            await TabControlVM.Delete(parameter);
+        }
+
+        /// <summary>
+        /// Saves data to database
+        /// </summary>
+        /// <param name="parameter">Signature of data to save</param>
+        /// <returns></returns>
+        private async Task SaveData(object parameter)
+        {
+            await TabControlVM.Save(parameter);
         }
 
         #endregion
+
+        #endregion
+
     }
 }

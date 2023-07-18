@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d" 
-             Height="{Binding PromptBoxHeight}" Width="{Binding PromptBoxWidth}" >
+             Height="{Binding PromptBoxHeight}" MinWidth="{Binding PromptBoxWidth}" >
 
-    <Grid Background="{StaticResource LightDarkBrush}"
+    <Grid Background="{StaticResource DarkBrush}"
           local:DropShadowAttachedProperty.Value="True" >
 
         <Grid.RowDefinitions>
@@ -18,14 +18,15 @@
         </Grid.RowDefinitions>
 
         <!--Prompt box content-->
-        <Grid Grid.Row="0" Background="{StaticResource DarkBrush}"
+        <Grid Grid.Row="0"
               VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <ContentControl Content="{Binding PromptBoxContent, Converter={local:PromptBoxContentConverter}}" 
-                            VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                            Margin="20 40 20 10"/>
         </Grid>
 
         <!--Prompt box buttons-->
-        <Border Grid.Row="1">
+        <Border Grid.Row="1" Background="{StaticResource LightDarkBrush}">
 
             <ItemsControl ItemsSource="{Binding Buttons}" >
 

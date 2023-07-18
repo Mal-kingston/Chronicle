@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for PromptQueryControl.xaml
+    /// Interaction logic for SaveAndExitControl.xaml
     /// </summary>
-    public partial class PromptQueryControl : UserControl
+    public partial class SaveAndExitControl : UserControl
     {
-        public PromptQueryControl()
+        public SaveAndExitControl()
         {
             InitializeComponent();
 

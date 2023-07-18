@@ -28,6 +28,11 @@ namespace Chronicle
         public double BorderThickness => HighlightButton ? 1 : 0;
 
         /// <summary>
+        /// The type of feedback from user
+        /// </summary>
+        public PromptBoxFeedBackType FeedBackType { get; set; }
+
+        /// <summary>
         /// Function to run when button is clicked
         /// </summary>
         public ICommand? ButtonAction { get; set; } 

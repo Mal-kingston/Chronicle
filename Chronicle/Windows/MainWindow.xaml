@@ -10,7 +10,9 @@
         WindowStartupLocation="CenterScreen"
         MinHeight="{Binding MinimumHeight}"
         MinWidth="{Binding MinimumWidth}"
-        Icon="\.resources\icons\chronicle_icon.ico">
+        Icon="\.resources\icons\chronicle_icon.ico"
+        Activated="Main_Activated"
+        Deactivated="Main_Deactivated">
 
     <Grid Background="{StaticResource LightDarkBrush}">
 

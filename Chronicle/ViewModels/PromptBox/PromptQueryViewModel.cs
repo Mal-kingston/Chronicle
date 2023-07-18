@@ -1,14 +1,14 @@
 ﻿namespace Chronicle
 {
     /// <summary>
-    /// View model for <see cref="PromptQueryControl"/>
+    /// View model for <see cref="SaveAndExitControl"/>
     /// (Basic prompt message)
     /// </summary>
-    public class PromptQueryViewModel
+    public class SaveAndExitPromptViewModel
     {
         /// <summary>
         /// Query for user
         /// </summary>
-        public string? Query { get; set; }
+        public string? Query { get; set; } = "Do you want to save this file ?";
     }
 }

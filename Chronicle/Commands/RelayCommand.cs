@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -14,7 +15,7 @@ namespace Chronicle
 		/// <summary>
 		/// An action to run
 		/// </summary>
-		private Action mAction;
+		private Action _action;
 
         #endregion
 
@@ -34,7 +35,7 @@ namespace Chronicle
         /// </summary>
         public RelayCommand(Action action)
         {
-            mAction = action;
+            _action = action;
         }
 
         #endregion
@@ -58,7 +59,7 @@ namespace Chronicle
 		public void Execute(object? parameter)
 		{
 			// The action
-			mAction();
+			_action();
 		}
 
 		#endregion

@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for PromptBoxButtonControl.xaml
+    /// Interaction logic for SaveAsControl.xaml
     /// </summary>
-    public partial class PromptBoxButtonControl : UserControl
+    public partial class SaveAsControl : UserControl
     {
-        public PromptBoxButtonControl()
+        public SaveAsControl()
         {
             InitializeComponent();
         }
+
     }
 }

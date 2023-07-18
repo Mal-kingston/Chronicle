@@ -45,5 +45,14 @@ namespace Chronicle
             SideMenu.Height = this.ActualHeight - AppTitle.ActualHeight;
         }
 
+        private void Main_Activated(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Main_Deactivated(object sender, EventArgs e)
+        {
+
+        }
     }
 }

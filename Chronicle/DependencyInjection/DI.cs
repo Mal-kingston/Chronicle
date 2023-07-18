@@ -70,9 +70,14 @@ namespace Chronicle
         public static SubMenuViewModel SubMenuVM => Framework.Service<SubMenuViewModel>();
 
         /// <summary>
-        /// Shortcut to access the <see cref="PromptQueryViewModel"/>
+        /// Shortcut to access the <see cref="SaveAndExitPromptViewModel"/>
         /// </summary>
-        public static PromptQueryViewModel PromptQueryVM => Framework.Service<PromptQueryViewModel>();
+        public static SaveAndExitPromptViewModel SaveAndExitPromptVM => Framework.Service<SaveAndExitPromptViewModel>();
+
+        /// <summary>
+        /// Shortcut to access the <see cref="SaveAsPromptViewModel"/>
+        /// </summary>
+        public static SaveAsPromptViewModel SaveAsPromptVM => Framework.Service<SaveAsPromptViewModel>();
 
         #endregion
 

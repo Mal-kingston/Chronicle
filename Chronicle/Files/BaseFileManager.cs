@@ -61,7 +61,10 @@ namespace Chronicle
             {
                 // Write message to log file
                 await using (var fileStream = (TextWriter)new StreamWriter(File.Open(path, append ? FileMode.Append : FileMode.Create)))
+                {
                     fileStream.Write(message);
+                    fileStream.Close();
+                }
             });
         }
     }

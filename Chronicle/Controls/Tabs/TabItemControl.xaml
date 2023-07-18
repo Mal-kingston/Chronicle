@@ -58,7 +58,7 @@
                 CommandParameter="{Binding TabID}" />
 
         <!--Close button for the tab item-->
-        <Button Height="22" Width="22" Margin="0, 0, 8, 0" HorizontalAlignment="Right" Focusable="False"
+        <Button Height="22" Width="22" Margin="0, 0, 8, 0" HorizontalAlignment="Right" 
                 Content="{StaticResource CloseIcon}" 
                 Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
                 CommandParameter="{Binding TabID}"/>

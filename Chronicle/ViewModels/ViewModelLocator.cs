@@ -3,7 +3,7 @@
 namespace Chronicle
 {
     /// <summary>
-    /// Locates view model from the IoC for the use in binding for the Xaml files
+    /// Locates view model from the DI for the use in binding for the Xaml files
     /// </summary>
     public class ViewModelLocator
     {
@@ -39,9 +39,10 @@ namespace Chronicle
         /// </summary>
         public SubMenuViewModel LocateSubMenuVM => SubMenuVM;
 
-
-        //....................................................
-        public PromptQueryViewModel LocatePromptQueryVM => PromptQueryVM;
+        /// <summary>
+        /// The view model for save and exit prompt
+        /// </summary>
+        public SaveAndExitPromptViewModel LocatePromptQueryVM => SaveAndExitPromptVM;
 
 
         #endregion

@@ -13,7 +13,7 @@ namespace Chronicle
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var control = (sender as TextBox);
+            var control = (sender as FrameworkElement);
 
             if (control == null)
                 return;

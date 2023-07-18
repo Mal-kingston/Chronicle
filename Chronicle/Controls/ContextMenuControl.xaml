@@ -9,7 +9,7 @@
 
     <!--Context menu outline-->
     <Border Width="150" Padding="8 0" local:DropShadowAttachedProperty.Value="True"
-          Background="{StaticResource DarkBrush}" >
+            Background="{StaticResource DarkBrush}">
 
         <!--Buttons-->
         <StackPanel Orientation="Vertical" local:ContexMenuButtonStyleAttachedProperties.Value="True">
