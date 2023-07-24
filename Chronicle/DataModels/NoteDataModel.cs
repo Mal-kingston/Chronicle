@@ -34,6 +34,17 @@ namespace Chronicle
         /// </summary>
         public string Content { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Flag indicating if this item is in recycle bin
+        /// </summary>
+        public bool IsInRecycle { get; set; } = false;
+
+        /// <summary>
+        /// Date time associated with this file
+        /// (Such as date file was created, modified or deleted)
+        /// </summary>
+        public DateTime AssociatedDate { get; set; } 
+
     }
 
 }

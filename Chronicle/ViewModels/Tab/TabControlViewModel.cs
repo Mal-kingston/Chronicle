@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -188,7 +189,13 @@ namespace Chronicle
                 Header = _tabContent.Header,
                 Title = _tabContent.Title,
                 Content = _tabContent.Content,
+                AssociatedDate = DateTime.Now,
             });
+
+
+            // TODO: Remove once db calls has been channeled to the in memory db clone class
+            // Update in memory db 
+            AccessInMemoryDb.GetCopyOfDbData();
 
             // Log data
             Logger.Log("Note information saved to database");
@@ -209,25 +216,18 @@ namespace Chronicle
         /// </summary>
         public async Task Delete(object parameter)
         {
-            // Get compatible format for looking information up in the database
-            var fileInQuestion = (await ClientDataStore.GetFiles()).Find(x => x.Id == _selectedTab_TabID);
-
-            // Check if Id it exists
-            var result = await ClientDataStore.FileExists(fileInQuestion!);
+            // Get in memory db clone
+            var fileInQuestion = AccessInMemoryDb.InMemoryData?.FirstOrDefault(x => x.Key == _selectedTab_TabID);
 
             // If file exists...
-            if(result && fileInQuestion != null)
+            if(fileInQuestion != null)
             {
-                // If default tab is being deleted...
-                if (_tabs?.Count == 1)
-                    // Add a new tab before removing the old tab
-                    AddNewTab();
-
-                // Close the tab
-                await CloseTab(fileInQuestion.Id);
+               // Close the tab
+                await CloseTab(fileInQuestion.Value.Key);
 
                 // Remove it
-                await ClientDataStore.DeleteFile(fileInQuestion!);
+                AccessInMemoryDb.ProcessAndDataForRecycling(fileInQuestion);
+
             }
 
             // Update UI list
@@ -281,7 +281,7 @@ namespace Chronicle
         public async Task CloseTab(object parameter)
         {
             // Do not close the default tab
-            if (_tabs?.Count == 1)
+            if (_tabs?.Count == 1 && string.IsNullOrEmpty(_tabContent.Title) && string.IsNullOrEmpty(_tabContent.Content))
                 return;
 
             // Make sure we have items
@@ -358,6 +358,11 @@ namespace Chronicle
                     IsClosingTabSelected = true;
 
             }
+
+            // If default tab is being closed...
+            if (_tabs?.Count == 1)
+                // Add a new tab before removing the old tab
+                AddNewTab();
 
             // Close tab
             _tabs?.Remove(_tabs.Where(item => item.TabID == (Guid)parameter).Single());
@@ -506,6 +511,8 @@ namespace Chronicle
             // Try and save the closing tab
             tabInQuestion?.TabContent.ContextMenu.SaveCommand.Execute(closingParameter);
 
+            // Log information
+            Logger.Log("File saved before exit");
         }
 
         #endregion

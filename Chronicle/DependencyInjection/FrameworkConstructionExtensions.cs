@@ -31,6 +31,7 @@ namespace Chronicle
             construction.Services.AddSingleton<SubMenuViewModel>();
             construction.Services.AddSingleton<SaveAndExitPromptViewModel>();
             construction.Services.AddSingleton<SaveAsPromptViewModel>();
+            construction.Services.AddSingleton<RecycleBinViewModel>();
 
             // Return the construction for chaining
             return construction;
@@ -50,7 +51,7 @@ namespace Chronicle
             construction.Services.AddSingleton<CalendarPage>();
             construction.Services.AddSingleton<SharePage>();
             construction.Services.AddSingleton<SettingsPage>();
-            construction.Services.AddSingleton<TrashPage>();
+            construction.Services.AddSingleton<RecycleBinPage>();
 
             // Return the construction for chaining
             return construction;

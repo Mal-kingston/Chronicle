@@ -100,6 +100,8 @@ namespace Chronicle
 
         }
 
+        #endregion
+
         #region Public Command Methods
 
         /// <summary>
@@ -124,7 +126,6 @@ namespace Chronicle
 
         #endregion
 
-        #endregion
 
     }
 }

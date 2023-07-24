@@ -12,13 +12,15 @@
 
         <!-- Submenu item style -->
         <Style TargetType="{x:Type Button}" x:Key="SubItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}" >
-                        <Border Background="Transparent" BorderThickness="0" Padding="8, 2" Opacity="0.7">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2" Opacity="0.7">
 
-                            <Grid Margin="2">
+                            <Grid Margin="2" >
 
                                 <!-- icon & title -->
                                 <Grid.ColumnDefinitions>
@@ -56,7 +58,23 @@
     </UserControl.Resources>
 
     <!-- Main control -->
-    <Button Style="{StaticResource SubItem}"  
-            Command="{Binding OpenFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
+    <Grid HorizontalAlignment="Stretch" >
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <Button Grid.Column="0" HorizontalAlignment="Left"
+                Style="{StaticResource SubItem}"  
+                Command="{Binding OpenFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
+
+        <Button Grid.Column="1" Height="22" Width="22" Padding="10, 5" Margin="0 0 10 0" Opacity="0.7" HorizontalAlignment="Right"
+                Content="{StaticResource CloseIcon}" Foreground="{StaticResource WhiteBrush}" 
+                FontSize="{StaticResource XSmall}"
+                Style="{StaticResource SubMenuDeleteButtonStyle}"
+                Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
+
+    </Grid>
 
 </UserControl>

@@ -1,0 +1,117 @@
+﻿<local:BasePage x:TypeArguments="local:RecycleBinViewModel" 
+                x:Class="Chronicle.RecycleBinPage"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:Chronicle"
+                mc:Ignorable="d" 
+                d:DesignHeight="450" d:DesignWidth="800"
+                Title="BookPage">
+
+    <Grid Margin="0 15 0 5" Background="{StaticResource LightDarkBrush}" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--Function buttons Clear selection | Select or Deselect all | Recover | Delete-->
+        <Grid Grid.Row="0" Margin="0 0 0 10" Height="40">
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="30 0">
+
+                <!--Clear selection-->
+                <!--<Button Content="Clear Selection" HorizontalAlignment="Right" Margin="20 0 40 0" Width="140"
+                        Style="{StaticResource RecycleBinFunctionButtonStyle}"
+                        Command="{Binding ClearAllSelectionCommand}"/>-->
+
+                <!--Select or Unselect all items-->
+                <Button Content="{Binding SelectAllText, FallbackValue=Select all}" Width="160"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource RecycleBinFunctionButtonStyle}"
+                        Command="{Binding SelectAllCommand}"/>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="30 0">
+
+                <!--Recover-->
+                <Button Content="Recover" HorizontalAlignment="Right" Margin="40 0"
+                        Style="{StaticResource RecycleBinFunctionButtonStyle}"
+                        Command="{Binding RecoverCommand}"/>
+
+                <!--Delete-->
+                <Button  Content="Delete" HorizontalAlignment="Right" Margin="40 0"                    
+                         Style="{StaticResource RecycleBinFunctionButtonStyle}"
+                         Command="{Binding DeleteCommand}"/>
+
+            </StackPanel>
+            
+        </Grid>
+
+        <!--Header and deleted items-->
+        <Grid Grid.Row="1" Background="{StaticResource DarkBrush}">
+                
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--Header--> 
+            <Border Grid.Row="0" BorderThickness="1.5" BorderBrush="{StaticResource GrayBrush}">
+
+                <Grid HorizontalAlignment="Stretch" Height="40" >
+
+                    <!--File name-->
+                    <Label Content="File name" VerticalContentAlignment="Center" Padding="80 0 0 0" MinWidth="470"  HorizontalAlignment="Left"
+                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{StaticResource GrayBrush}" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        
+                        <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="1" Height="20" VerticalAlignment="Center" />
+
+                        <!--File type-->
+                        <Label Content="File type" VerticalContentAlignment="Center" Padding="0 0 50 0" Margin="20 0"
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{StaticResource GrayBrush}" />
+
+                        <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="1" Height="20" VerticalAlignment="Center" />
+
+                        <!--Date deleted-->
+                        <Label Content="Date deleted" VerticalContentAlignment="Center" Padding="0 0 50 0" Margin="20 0" 
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{StaticResource GrayBrush}" />
+
+                    </StackPanel>
+                    
+                </Grid>
+
+            </Border>
+                
+            <!--deleted items-->
+            <ScrollViewer Grid.Row="1" 
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    
+                    <ItemsControl ItemsSource="{Binding DeletedItems}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <local:DeletedItemControl VerticalAlignment="Top" Height="44" />
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!--Tag for when list is empty-->
+                    <Label Content="-  E  m  p  t  y  -" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0" Opacity="0.6"
+                           Foreground="{StaticResource WhiteBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" 
+                           Visibility="{Binding IsListEmpty, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
+
+                </Grid>
+
+            </ScrollViewer>
+
+        </Grid>
+        
+    </Grid>
+</local:BasePage>

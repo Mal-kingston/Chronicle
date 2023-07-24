@@ -3,12 +3,14 @@
 
     <!-- Colors -->
     <Color x:Key="Blue">#8BC3EB</Color>
+    <Color x:Key="Gray">#767676</Color>
 
     <!-- Brushes -->
     <SolidColorBrush x:Key="LightDarkBrush" Color="#1E1E1E" />
     <SolidColorBrush x:Key="DarkBrush" Color="#171717" />
     <SolidColorBrush x:Key="WhiteBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="GrayBrush" Color="#767676" />
+    <SolidColorBrush x:Key="RedBrush" Color="#DC143C" />
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
     <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource Blue}" />
 
 </ResourceDictionary>

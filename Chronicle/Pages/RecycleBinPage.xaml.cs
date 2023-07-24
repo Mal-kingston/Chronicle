@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,11 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for TrashPage.xaml
+    /// Interaction logic for RecycleBinPage.xaml
     /// </summary>
-    public partial class TrashPage : Page
+    public partial class RecycleBinPage : BasePage<RecycleBinViewModel>
     {
-        public TrashPage()
+        public RecycleBinPage()
         {
             InitializeComponent();
         }

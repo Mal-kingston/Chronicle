@@ -43,8 +43,8 @@ namespace Chronicle
                     return new SettingsPage { DataContext = new SettingsPageViewModel() };
 
 				// Trash
-                case ApplicationPage.Trash:
-                    return new TrashPage { DataContext = new TrashPageViewModel() };
+                case ApplicationPage.RecycleBin:
+                    return RecycleBinPageInstance;
 
 				// Notify developer if something is wrong
                 default:

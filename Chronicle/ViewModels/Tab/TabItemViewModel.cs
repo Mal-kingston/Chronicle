@@ -34,6 +34,11 @@ namespace Chronicle
         public bool TabIsSelected { get; set; }
 
         /// <summary>
+        /// Flag indicating if this item is in recycle bin
+        /// </summary>
+        public bool IsInRecycle { get; set; } = false;
+
+        /// <summary>
         /// The content associated with this tab
         /// </summary>
         public TabContentViewModel TabContent  

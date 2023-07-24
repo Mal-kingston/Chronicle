@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,15 +16,13 @@ using System.Windows.Shapes;
 namespace Chronicle
 {
     /// <summary>
-    /// Interaction logic for NotePage.xaml
+    /// Interaction logic for DeletedItemControl.xaml
     /// </summary>
-    public partial class NotePage : BasePage<NotePageViewModel>
+    public partial class DeletedItemControl : UserControl
     {
-        public NotePage()
+        public DeletedItemControl()
         {
             InitializeComponent();
-
         }
-
     }
 }

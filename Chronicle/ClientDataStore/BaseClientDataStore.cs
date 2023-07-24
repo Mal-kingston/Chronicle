@@ -117,7 +117,7 @@ namespace Chronicle
         /// <param name="file">The information to update to the database</param>
         public async Task UpdateFile(NoteDataModel file)
         {
-            // Make sure we have infomation
+            // Make sure we have information
             if (file == null)
                 // Otherwise, do nothing
                 return;
@@ -125,10 +125,12 @@ namespace Chronicle
             // Get the saved data to update
             var savedData = _DbContext.NoteData.Single(data => data.Id == file.Id);
 
-            // Pass new inforamtion that needs updating
+            // Pass new information that needs updating
             savedData.Header = file.Header;
             savedData.Title = file.Title;
             savedData.Content = file.Content;
+            savedData.IsInRecycle = file.IsInRecycle;
+            savedData.AssociatedDate = file.AssociatedDate;
 
             // Commit changes
             await _DbContext.SaveChangesAsync();

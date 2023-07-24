@@ -8,7 +8,7 @@
              d:DataContext="{x:Static local:ContextMenuDesignModel.Instance}">
 
     <!--Context menu outline-->
-    <Border Width="150" Padding="8 0" local:DropShadowAttachedProperty.Value="True"
+    <Border Width="150" Padding="0 0" local:DropShadowAttachedProperty.Value="True"
             Background="{StaticResource DarkBrush}">
 
         <!--Buttons-->
@@ -19,10 +19,10 @@
                     Command="{Binding SaveAsCommand}" />
             <Button Content="{Binding Delete, FallbackValue=Delete}" 
                     Command="{Binding DeleteCommand}" CommandParameter="File deleted" />
-            <Border BorderThickness="0.5" BorderBrush="{StaticResource GrayBrush}" />
+            <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{StaticResource GrayBrush}" />
             <Button Content="{Binding Print, FallbackValue=Print}" />
             <Button Content="{Binding Share, FallbackValue=Share}" />
-            <Border BorderThickness="0.5" BorderBrush="{StaticResource GrayBrush}" />
+            <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{StaticResource GrayBrush}" />
             <Button Content="{Binding Template, FallbackValue=Template}" />
         </StackPanel>
 

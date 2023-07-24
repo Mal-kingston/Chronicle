@@ -20,7 +20,7 @@
     <system:String x:Key="CalendarButtonIcon">&#xf783;</system:String>
     <system:String x:Key="ShareButtonIcon">&#xf1e0;</system:String>
     <system:String x:Key="SettingButtonIcon">&#xf013;</system:String>
-    <system:String x:Key="TrashButtonIcon">&#xf2ed;</system:String>
+    <system:String x:Key="RecycleBinButtonIcon">&#xf2ed;</system:String>
     <system:String x:Key="SearchButtonIcon">&#xf002;</system:String>
     <system:String x:Key="NotificationButtonIcon">&#xf0f3;</system:String>
     <system:String x:Key="UserButtonIcon">&#xf2bd;</system:String>

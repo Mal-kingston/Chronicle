@@ -26,7 +26,7 @@ namespace Chronicle
             // Setup the main application
             ApplicationSetup();
 
-            // Log inforamtion
+            // Log information
             Logger.Log("Application services setup completed.");
 
             // Show the main window
@@ -41,16 +41,22 @@ namespace Chronicle
         {
             // Setup the Dna framework
             Framework.Construct<DefaultFrameworkConstruction>()
-                 .AddPages()
-                 .AddViewModels()
-                 .AddClientDataStore()
-                 .AddFileManager()
-                 .AddLoggers()
-                 .AddUIManager()
-                 .Build();
+                     .AddPages()
+                     .AddViewModels()
+                     .AddClientDataStore()
+                     .AddFileManager()
+                     .AddLoggers()
+                     .AddUIManager()
+                     .Build();
 
             // Make sure data store is available
             await ClientDataStore.DataStoreAvailable();
+
+            // Grab a copy of the client data store
+            AccessInMemoryDb.GetCopyOfDbData();
+
+            // Populate recycle bin as needed
+            AccessInMemoryDb.UpdateRecycleBin();
 
         }
     }

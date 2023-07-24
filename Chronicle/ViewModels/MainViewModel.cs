@@ -75,7 +75,7 @@ namespace Chronicle
         /// <summary>
         /// Command to select trash menu item
         /// </summary>
-        public ICommand TrashMenuCommand { get; set; }
+        public ICommand RecycleBinMenuCommand { get; set; }
 
         #endregion
 
@@ -96,10 +96,10 @@ namespace Chronicle
             // Create Commands
             NoteMenuCommand = new RelayCommand(OpenNotes);
             BookMenuCommand = new RelayCommand(OpenBooks);
-            CalendarMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Calendar); });
-            ShareMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Share); });
-            SettingsMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Settings); });
-            TrashMenuCommand = new RelayCommand(() => { DI.MainVM.GotoPage(ApplicationPage.Trash); });
+            CalendarMenuCommand = new RelayCommand(() => { GotoPage(ApplicationPage.Calendar); });
+            ShareMenuCommand = new RelayCommand(() => { GotoPage(ApplicationPage.Share); });
+            SettingsMenuCommand = new RelayCommand(() => { GotoPage(ApplicationPage.Settings); });
+            RecycleBinMenuCommand = new RelayCommand(() => { GotoPage(ApplicationPage.RecycleBin); });
 
             // Update properties
             OnPropertyChanged(nameof(IsNoteSubMenuOpen));
@@ -115,6 +115,16 @@ namespace Chronicle
         /// </summary>
         private void OpenBooks()
         {
+            // If current view is not book view...
+            if (CurrentPage != ApplicationPage.BookFile)
+            {
+                // Just show the book view
+                GotoPage(ApplicationPage.BookFile);
+
+                // Do nothing else
+                return;
+            }
+
             // If note sub menu is already open
             if (IsNoteSubMenuOpen)
                 // Close it
@@ -134,6 +144,16 @@ namespace Chronicle
         /// </summary>
         private void OpenNotes()
         {
+            // If current view is not note view...
+            if (CurrentPage != ApplicationPage.NoteFile)
+            {
+                // Just show the note view
+                GotoPage(ApplicationPage.NoteFile);
+
+                // Do nothing else
+                return;
+            }
+
             // If book sub menu is already open
             if (IsBookSubMenuOpen)
                 // Close it
@@ -151,11 +171,17 @@ namespace Chronicle
 
         #region Public Helpers
 
-
+        /// <summary>
+        /// Navigates to a specified page
+        /// </summary>
+        /// <param name="page"></param>
         public void GotoPage(ApplicationPage page)
         {
             // Sets current page value
             CurrentPage = page;
+
+            // Update property value
+            OnPropertyChanged(nameof(CurrentPage));
         }
 
         #endregion

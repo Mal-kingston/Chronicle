@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Chronicle
 {
@@ -25,11 +14,11 @@ namespace Chronicle
         /// </summary>
         public MainWindow()
         {
-            // Initailize 
+            // Initialize 
             InitializeComponent();
-            
+
             // Data context
-            DataContext = new MainViewModel();
+            DataContext = DI.MainVM;
 
             // Listen for window size changing
             this.SizeChanged += MainWindow_SizeChanged;
@@ -45,14 +34,5 @@ namespace Chronicle
             SideMenu.Height = this.ActualHeight - AppTitle.ActualHeight;
         }
 
-        private void Main_Activated(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Main_Deactivated(object sender, EventArgs e)
-        {
-
-        }
     }
 }

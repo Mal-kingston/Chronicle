@@ -79,6 +79,11 @@ namespace Chronicle
         /// </summary>
         public static SaveAsPromptViewModel SaveAsPromptVM => Framework.Service<SaveAsPromptViewModel>();
 
+        /// <summary>
+        /// Shortcut to access the <see cref="RecycleBinViewModel"/>
+        /// </summary>
+        public static RecycleBinViewModel RecycleVM => Framework.Service<RecycleBinViewModel>();
+
         #endregion
 
         #region Pages
@@ -109,9 +114,9 @@ namespace Chronicle
         public static SettingsPage SettingsPageInstance => Framework.Service<SettingsPage>();
 
         /// <summary>
-        /// Shortcut to access the <see cref="TrashPage"/>
+        /// Shortcut to access the <see cref="RecycleBinPage"/>
         /// </summary>
-        public static TrashPage TrashPageInstance => Framework.Service<TrashPage>();
+        public static RecycleBinPage RecycleBinPageInstance => Framework.Service<RecycleBinPage>();
 
         #endregion
     }

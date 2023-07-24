@@ -65,18 +65,21 @@ namespace Chronicle
         /// Fetch data from the data store and updates the list of notes
         /// based on data available in the data store
         /// </summary>
-        public async void UpdateNoteList()
+        public void UpdateNoteList()
         {
             // Reset list
             NoteSubMenu.Clear();
 
-            // Get data from data-store
-            var data = await ClientDataStore.GetFiles();
+            // Get data from in memory data-store
+            var data = AccessInMemoryDb.InMemoryData!;
 
             // Go through all note data in the db.
             foreach (var file in data)
-                // Construct and add them to the list
-                AddToNoteList(new SubMenuItemViewModel { SubMenuTitle = file.Header });
+            {
+                if(file.Value.IsInRecycle == false)
+                    // Construct and add them to the list
+                    AddToNoteList(new SubMenuItemViewModel { SubMenuTitle = file.Value.Header });
+            }
 
             // Log this information
             Logger.Log("Note list updated");
@@ -100,7 +103,7 @@ namespace Chronicle
         /// <param name="subMenuItem">The item to add</param>
         public void AddToNoteList(SubMenuItemViewModel subMenuItem)
         {
-            // If we dont have anything to add...
+            // If we don't have anything to add...
             if (subMenuItem == null)
                 // Do nothing
                 return;

@@ -42,8 +42,8 @@ namespace Chronicle
         Settings,
 
         /// <summary>
-        /// Trash page
+        /// RecycleBin page
         /// </summary>
-        Trash,
+        RecycleBin,
     }
 }

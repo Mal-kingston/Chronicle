@@ -10,9 +10,7 @@
         WindowStartupLocation="CenterScreen"
         MinHeight="{Binding MinimumHeight}"
         MinWidth="{Binding MinimumWidth}"
-        Icon="\.resources\icons\chronicle_icon.ico"
-        Activated="Main_Activated"
-        Deactivated="Main_Deactivated">
+        Icon="\.resources\icons\chronicle_icon.ico" >
 
     <Grid Background="{StaticResource LightDarkBrush}">
 
@@ -192,11 +190,11 @@
                             Style="{StaticResource MenuButton}"
                             Command="{Binding SettingsMenuCommand}"/>
 
-                    <!--Trash-->
-                    <RadioButton Grid.Row="8" Content="Trash"
-                            Tag="{StaticResource TrashButtonIcon}"
+                    <!--RecycleBin -->
+                    <RadioButton Grid.Row="8" Content="Recycle Bin"
+                            Tag="{StaticResource RecycleBinButtonIcon}"
                             Style="{StaticResource MenuButton}" 
-                            Command="{Binding TrashMenuCommand}"/>
+                            Command="{Binding RecycleBinMenuCommand}"/>
 
                     <!-- Footer -->
                     <Border Grid.Row="9" VerticalAlignment="Bottom" Margin="0" />
@@ -255,9 +253,9 @@
                 
             </StackPanel>
             
-            <!-- Content / Text Area-->
-            <Border Grid.Row="1" Margin="0, 15, 0, 0" >
-                <Frame local:NoFrameHistoryAttachedProperty.Value="True" 
+            <!-- Content Area-->
+            <Border Grid.Row="1" Margin="0, 25, 0, 0" >
+                <Frame x:Name="frame" local:NoFrameHistoryAttachedProperty.Value="True" 
                        Content="{Binding LocateMainVM.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:PageValueConverter}}" />
             </Border>
 
