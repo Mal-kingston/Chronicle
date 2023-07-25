@@ -17,15 +17,20 @@ namespace Chronicle
         #region Private Fields
 
         /// <summary>
-        /// The text for select all button
+        /// Content of select all button
         /// </summary>
         private const string _selectAllText = "Select all";
 
         /// <summary>
         /// The text for select all button to switch to 
-        /// when all item on the list are currently selected
+        /// when all or if any item on the list are currently selected
         /// </summary>
-        private const string _unSelectAllText = "Clear all Selection";
+        private const string _clearAllText = "Clear all Selection";
+
+        /// <summary>
+        /// The text for select all button
+        /// </summary>
+        private string _selectionButtonText = _selectAllText;
 
         /// <summary>
         /// The list of deleted items by the user
@@ -39,7 +44,21 @@ namespace Chronicle
         /// <summary>
         /// The text for select all button
         /// </summary>
-        public string SelectAllText { get; set; }
+        public string SelectionButtonText 
+        {
+            // Get the value
+            get { return _selectionButtonText; }
+            set
+            {
+                // If value isn't same...
+                if (_selectionButtonText != value)
+                    // Update value
+                    _selectionButtonText = value;
+
+                // Update property
+                OnPropertyChanged(nameof(SelectionButtonText));
+            } 
+        }
 
         /// <summary>
         /// True if list is empty,
@@ -99,7 +118,7 @@ namespace Chronicle
         {
             // Set properties defaults
             _deletedItems = new ObservableCollection<DeletedItemViewModel>();
-            SelectAllText = _selectAllText;
+            SelectionButtonText = _selectionButtonText!;
             IsListEmpty = false;
 
             if (_deletedItems.Count.Equals(0))
@@ -122,14 +141,14 @@ namespace Chronicle
         private void SelectsOrClearsAllSelection()
         {
             // If selection mode is to select all...
-            if(SelectAllText == _selectAllText )
+            if(_selectionButtonText == _selectAllText )
             {
                 // Select all item on the list
                 _deletedItems?.ToList().ForEach(item => item.IsSelected = true);
                 // Set mode to clear selection
-                SelectAllText = _unSelectAllText;
+                _selectionButtonText = _clearAllText;
                 // Update property
-                OnPropertyChanged(nameof(SelectAllText));
+                OnPropertyChanged(nameof(SelectionButtonText));
             }
             // Otherwise...
             else 
@@ -137,9 +156,9 @@ namespace Chronicle
                 // Clear all selection
                 _deletedItems?.ToList().ForEach(item => item.IsSelected = false);
                 // Set mode to select all
-                SelectAllText = _selectAllText;
+                _selectionButtonText = _selectAllText;
                 // Update property
-                OnPropertyChanged(nameof(SelectAllText));
+                OnPropertyChanged(nameof(SelectionButtonText));
             }
 
         }
@@ -186,7 +205,7 @@ namespace Chronicle
                 if(item.Value.IsInRecycle == true)
                 {
                     // Construct deleted item and set up properties
-                    var itemConstruction = new DeletedItemViewModel
+                    var itemConstruction = new DeletedItemViewModel(this)
                     {
                         ItemId = item.Key,
                         FileName = item.Value.Header,
@@ -212,5 +231,19 @@ namespace Chronicle
             OnPropertyChanged(nameof(DeletedItems));
         }
 
+        /// <summary>
+        /// Event method implementation that
+        /// Changes the text on the select all | clear all text button
+        /// </summary>
+        /// <param name="sender">Source of the event</param>
+        /// <param name="args">Argument of the event</param>
+        public void OnSelectionChanged(object sender, EventArgs args)
+        {
+            // If any item is selected ?. Then change button text to clear all text, otherwise reset text
+            _selectionButtonText = _deletedItems.Any(item => item.IsSelected == true) ? _clearAllText : _selectAllText;
+
+            // Update property
+            OnPropertyChanged(nameof(SelectionButtonText));
+        }
     }
 }

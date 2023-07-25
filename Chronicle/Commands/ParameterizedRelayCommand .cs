@@ -29,7 +29,7 @@ namespace Chronicle
 		#region Constructor
 
 		/// <summary>
-		/// Defualt constructor
+		/// Default constructor
 		/// </summary>
 		public ParameterizedRelayCommand(Action<object> action)
 		{
@@ -47,7 +47,7 @@ namespace Chronicle
         /// <returns></returns>
         public virtual bool CanExecute(object? parameter)
         {
-            return true;
+           return true;
         }
 
         /// <summary>

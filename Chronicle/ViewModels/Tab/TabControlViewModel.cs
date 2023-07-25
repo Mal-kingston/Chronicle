@@ -219,16 +219,22 @@ namespace Chronicle
             // Get in memory db clone
             var fileInQuestion = AccessInMemoryDb.InMemoryData?.FirstOrDefault(x => x.Key == _selectedTab_TabID);
 
-            // If file exists...
-            if(fileInQuestion != null)
+            // If file doesn't exist...
+            if (fileInQuestion!.Value.Key == Guid.Empty)
             {
-               // Close the tab
-                await CloseTab(fileInQuestion.Value.Key);
+                // Close context menu
+                _tabContent.IsContextMenuOpen = false;
 
-                // Remove it
-                AccessInMemoryDb.ProcessAndDataForRecycling(fileInQuestion);
+                // Do nothing
+                return;
 
             }
+
+            // Close the tab
+            await CloseTab(fileInQuestion.Value.Key);
+
+            // Remove it
+            AccessInMemoryDb.ProcessAndDataForRecycling(fileInQuestion);
 
             // Update UI list
             SubMenuVM.UpdateNoteList();

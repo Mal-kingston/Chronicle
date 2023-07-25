@@ -96,7 +96,7 @@ namespace Chronicle
 
             // Create commands
             SaveCommand = new ParameterizedRelayCommand(async (parameter) => await SaveData(parameter));
-            DeleteCommand  = new ParameterizedRelayCommand(async (parameter) => await DeleteData(parameter));
+            DeleteCommand = new ParameterizedRelayCommand(async (parameter) =>   await DeleteData(parameter));
 
         }
 

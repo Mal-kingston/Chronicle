@@ -105,7 +105,7 @@
 
     <Grid>
         <CheckBox Style="{StaticResource DeletedItemStyle}" 
-                  Command="{Binding SelectCommand}" />
+                  Command="{Binding SelectCommand}"/>
     </Grid>
 
 </UserControl>

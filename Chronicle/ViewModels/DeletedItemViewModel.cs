@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -45,12 +46,28 @@ namespace Chronicle
         public ICommand SelectCommand { get; set; }
 
         /// <summary>
+        /// The event to fire when property (IsSelected) of this item is true
+        /// </summary>
+        public event EventHandler SelectedChanged;
+
+        /// <summary>
         /// Default constructor
         /// </summary>
-        public DeletedItemViewModel()
+        public DeletedItemViewModel(RecycleBinViewModel recycleBinViewModel)
         {
             // Create commands
-            SelectCommand = new RelayCommand(() => IsSelected ^= true);
+            SelectCommand = new RelayCommand(() =>
+            {
+                // Toggle and set true | false value
+                IsSelected ^= true;
+
+                // Fire event 
+                SelectedChanged?.Invoke(this, EventArgs.Empty);
+
+            });
+
+            // Subscribe to event
+            SelectedChanged += recycleBinViewModel.OnSelectionChanged!;
         }
 
     }

@@ -27,7 +27,7 @@
                         Command="{Binding ClearAllSelectionCommand}"/>-->
 
                 <!--Select or Unselect all items-->
-                <Button Content="{Binding SelectAllText, FallbackValue=Select all}" Width="160"
+                <Button Content="{Binding SelectionButtonText, UpdateSourceTrigger=PropertyChanged, FallbackValue=Select all}" Width="160"
                         HorizontalAlignment="Left"
                         Style="{StaticResource RecycleBinFunctionButtonStyle}"
                         Command="{Binding SelectAllCommand}"/>
