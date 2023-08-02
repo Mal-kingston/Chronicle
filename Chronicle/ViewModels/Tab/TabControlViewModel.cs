@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -326,11 +327,13 @@ namespace Chronicle
                 // Check if Id exists on database
                 var result = await ClientDataStore.FileExists(FileInQuestion!);
 
+                var query = "Do you want to save this file ?";
+
                 // If we have no record of the Id...
                 if (!result)
                 {
                     // Spin-up prompt box
-                    await DI.UIManager.InvokePromptBox(PromptBoxContent.SaveAndExitContent, query: null!, buttons: buttons);
+                    await DI.UIManager.InvokePromptBox(PromptBoxContent.SaveAndExitContent, query: query, buttons: buttons);
 
                     // Parameter for saving data in this function before exiting
                     var saveFunctionParameter = "File saved";
@@ -404,10 +407,8 @@ namespace Chronicle
             {
                 // If tab header match
                 if (item.TabID == (Guid)parameter)
-                {
                     // Set new selection 
                     item.TabIsSelected = true;
-                }
             }
 
             // Update tab content
@@ -494,10 +495,13 @@ namespace Chronicle
                     OnPropertyChanged(nameof(TabContent));
                 }
 
+                // Turn off context menu for tabs that are not currently selected
+                if (item.TabIsSelected == false)
+                    _tabContent.IsContextMenuOpen = false;
+
             }
 
         }
-
 
         /// <summary>
         /// Saves closing tab
@@ -523,7 +527,7 @@ namespace Chronicle
 
         #endregion
 
-        #region Event Definition
+        #region Event Definition And Methods
 
         /// <summary>
         /// Invokes the content-saved event
@@ -535,6 +539,33 @@ namespace Chronicle
 
             // Pass event down to subscribers
             ContentUpdated?.Invoke(this, _tabContent);
+        }
+
+        /// <summary>
+        /// Turn off context menu for each tab
+        /// </summary>
+        /// <param name="sender">Origin of this event</param>
+        /// <param name="page">The current page of this application</param>
+        public void OnCurrentPageChanged(object? sender, ApplicationPage page)
+        {
+            // Make sure tab isn't null
+            if(_tabs == null)
+                // If it is, do nothing
+                return;
+
+            // If current page is not note-view
+            if(page != ApplicationPage.NoteFile)
+            {
+                // Go through tabs
+                foreach (var tab in _tabs)
+                {
+                    // Turn off context menu
+                    if (tab.TabContent.IsContextMenuOpen == true)
+                        tab.TabContent.IsContextMenuOpen = false;
+                }
+
+            }
+
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -27,10 +28,21 @@ namespace Chronicle
         public bool IsNoteSubMenuOpen { get; set; }
 
         /// <summary>
+        /// True if note menu button is checked
+        /// (Button is checked by default)
+        /// </summary>
+        public bool IsNoteChecked { get; set; } = true;
+
+        /// <summary>
         /// True if book sub menu should be shown,
         /// Otherwise false
         /// </summary>
         public bool IsBookSubMenuOpen { get; set; }
+
+        /// <summary>
+        /// True if book menu button is checked
+        /// </summary>
+        public bool IsBookChecked { get; set; }
 
         /// <summary>
         /// The current page of this application
@@ -42,6 +54,15 @@ namespace Chronicle
         /// The view model to use for the current page when the Current page changes
         /// </summary>
         public BaseViewModel? CurrentPageViewModel { get; set; }
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Event that fires whenever current page changes
+        /// </summary>
+        public event EventHandler<ApplicationPage> CurrentPageChanged;
 
         #endregion
 
@@ -101,6 +122,10 @@ namespace Chronicle
             SettingsMenuCommand = new RelayCommand(() => { GotoPage(ApplicationPage.Settings); });
             RecycleBinMenuCommand = new RelayCommand(() => { GotoPage(ApplicationPage.RecycleBin); });
 
+            // Hook up events
+            CurrentPageChanged += DI.TabControlVM.OnCurrentPageChanged;
+            CurrentPageChanged += DI.RecycleVM.OnCurrentPageChanged;
+
             // Update properties
             OnPropertyChanged(nameof(IsNoteSubMenuOpen));
             OnPropertyChanged(nameof(IsBookSubMenuOpen));
@@ -133,9 +158,13 @@ namespace Chronicle
             // Toggle book sub menu as needed
             IsBookSubMenuOpen ^= true;
 
+            // Set book as checked
+            IsBookChecked = true;
+
             // Update properties
             OnPropertyChanged(nameof(IsNoteSubMenuOpen));
             OnPropertyChanged(nameof(IsBookSubMenuOpen));
+            OnPropertyChanged(nameof(IsBookChecked));
 
         }
 
@@ -162,9 +191,13 @@ namespace Chronicle
             // Toggle note sub menu as needed
             IsNoteSubMenuOpen ^= true;
 
+            // Set note button as checked
+            IsNoteChecked = true; 
+
             // Update properties
             OnPropertyChanged(nameof(IsNoteSubMenuOpen));
             OnPropertyChanged(nameof(IsBookSubMenuOpen));
+            OnPropertyChanged(nameof(IsNoteChecked));
         }
 
         #endregion
@@ -174,7 +207,7 @@ namespace Chronicle
         /// <summary>
         /// Navigates to a specified page
         /// </summary>
-        /// <param name="page"></param>
+        /// <param name="page">The page to navigate to</param>
         public void GotoPage(ApplicationPage page)
         {
             // Sets current page value
@@ -182,6 +215,23 @@ namespace Chronicle
 
             // Update property value
             OnPropertyChanged(nameof(CurrentPage));
+
+            // Raise event whenever page changes
+            OnCurrentPageChanged(this);
+        }
+
+        #endregion
+
+        #region Public Event Definition
+
+        /// <summary>
+        /// Invokes event whenever current page changes
+        /// </summary>
+        /// <param name="sender">Origin of this event</param>
+        public virtual void OnCurrentPageChanged(object sender)
+        {
+            // Invoke the event
+            CurrentPageChanged?.Invoke(this, CurrentPage);
         }
 
         #endregion

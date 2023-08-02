@@ -29,7 +29,7 @@ namespace Chronicle
             construction.Services.AddSingleton<TabContentViewModel>();
             construction.Services.AddSingleton<NotePageViewModel>();
             construction.Services.AddSingleton<SubMenuViewModel>();
-            construction.Services.AddSingleton<SaveAndExitPromptViewModel>();
+            construction.Services.AddSingleton<BasicPromptViewModel>();
             construction.Services.AddSingleton<SaveAsPromptViewModel>();
             construction.Services.AddSingleton<RecycleBinViewModel>();
 
@@ -91,7 +91,7 @@ namespace Chronicle
         /// <returns></returns>
         public static FrameworkConstruction AddLoggers(this FrameworkConstruction construction)
         {
-            // TODO: Use configuration locate file/folder using appsettings.json file
+            // TODO: Use configuration locate file/folder using app-settings.json file
 
             // Get the folder where log file will be created and stored
             var pathToLogFile = GetFullPathToFile(@"logs\Chronicle-log.txt");
@@ -125,7 +125,7 @@ namespace Chronicle
         public static FrameworkConstruction AddUIManager(this FrameworkConstruction construction)
         {
             // Add UI manager
-            construction.Services.AddSingleton<IUIManager>(UI => new UIManager());
+            construction.Services.AddScoped<IUIManager>(UI => new UIManager());
 
             // Return the construction for chaining
             return construction;

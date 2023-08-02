@@ -72,10 +72,11 @@
 
                     <!--Note-->
                     <!-- Set the ischecked properties in the app settings based on the default page of the app -->
-                    <RadioButton Grid.Row="0" IsChecked="True" 
+                    <RadioButton Grid.Row="0" 
                                  Content="Note"
                                  Tag="{StaticResource NoteButtonIcon}"
                                  Style="{StaticResource MenuButton}"
+                                 IsChecked="{Binding IsNoteChecked, FallbackValue=True}"
                                  Command="{Binding NoteMenuCommand}"/>
 
                     <!--Note Sub-Menu-->

@@ -9,6 +9,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         ShowInTaskbar="False" >
+    
     <Window.Resources>
         <Style TargetType="{x:Type local:PromptBoxWindow}" >
             <Setter Property="Template">
@@ -23,6 +24,7 @@
         </Style>
     </Window.Resources>
          
-    <Grid>
+    <Grid >
+        
     </Grid>
 </Window>

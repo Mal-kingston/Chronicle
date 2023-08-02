@@ -20,9 +20,9 @@
         <!--Prompt box content-->
         <Grid Grid.Row="0"
               VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <ContentControl Content="{Binding PromptBoxContent, Converter={local:PromptBoxContentConverter}}" 
+            <ContentControl x:Name="Content" Content="{Binding PromptBoxContent, Converter={local:PromptBoxContentConverter}}" 
                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                            Margin="20 40 20 10"/>
+                            Margin="20 40 20 10" />
         </Grid>
 
         <!--Prompt box buttons-->
@@ -44,7 +44,7 @@
                     <DataTemplate >
 
                         <!--Actual button-->
-                        <local:PromptBoxButtonControl />
+                        <local:PromptBoxButtonControl Focusable="False" />
 
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -79,7 +81,7 @@ namespace Chronicle
         public PromptBoxShellViewModel()
         {
             // Set properties default
-            PromptBoxContent = PromptBoxContent.SaveAndExitContent;
+            PromptBoxContent = PromptBoxContent.None;
             _buttons = new ObservableCollection<PromptBoxButtonsViewModel>();
 
             // Create commands 
@@ -96,11 +98,14 @@ namespace Chronicle
         /// <param name="parameter">The signature of user feedback</param>
         public async Task Feedback(object parameter)
         {
-            // TODO: render UI in-accessible if we haven't gotten feedback from user
             switch (PromptBoxContent)
             {
                 case PromptBoxContent.SaveAndExitContent:
-                    HandleSaveAndExitPromptFeedBack(parameter);
+                    HandleBasicPromptFeedBack(parameter);
+                    break;
+
+                case PromptBoxContent.DeleteRecycledItemContent:
+                    HandleBasicPromptFeedBack(parameter);
                     break;
 
                 case PromptBoxContent.SaveAsContent:
@@ -142,10 +147,10 @@ namespace Chronicle
         /// Handles the save and exit type feedback only
         /// </summary>
         /// <param name="parameter"></param>
-        private void HandleSaveAndExitPromptFeedBack(object parameter)
+        private void HandleBasicPromptFeedBack(object parameter)
         {
             // If feedback is not of the type made for this function...
-            if (PromptBoxContent != PromptBoxContent.SaveAndExitContent)
+            if (PromptBoxContent == PromptBoxContent.None)
                 // Do nothing
                 return;
 

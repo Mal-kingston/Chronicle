@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Threading;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Chronicle
 {
@@ -13,12 +18,12 @@ namespace Chronicle
         /// <summary>
         /// The prompt window
         /// </summary>
-        public Window PromptWindow { get; set; } = null!;
+        public PromptBoxWindow PromptWindow { get; set; } = null!;
 
         /// <summary>
         /// Prompt box view model
         /// </summary>
-        public PromptBoxShellViewModel promptShell { get; set; } = null!;
+        public PromptBoxShellViewModel PromptShell { get; set; } = null!;
 
         /// <summary>
         /// Result of feed back from user
@@ -41,27 +46,12 @@ namespace Chronicle
         public UIManager()
         {
             // Set properties
-            promptShell = new PromptBoxShellViewModel();
             Conditioner = new TaskCompletionSource<bool>();
-            PromptWindow = new PromptBoxWindow();
-
-            // Set prompt window content
-            PromptWindow.Content = new PromptBoxShell { DataContext = promptShell };
-            // Set main window as owner of prompt box window
-            PromptWindow.Owner = Application.Current.MainWindow;
-            // Make sure we show in the center of the application
-            PromptWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            PromptShell = new PromptBoxShellViewModel();
 
             // Hook up to events
-            promptShell.FeedBackReceived += OnFeedBackReceived;
-            PromptWindow.Closing += (s, e) =>
-            {
-                // Hide window
-                PromptWindow.Hide();
+            PromptShell.FeedBackReceived += OnFeedBackReceived;
 
-                // Do not close window
-                e.Cancel = true;
-            };
         }
 
         #endregion
@@ -73,10 +63,21 @@ namespace Chronicle
         /// </summary>
         public void ClosePromptBox()
         {
-            // Jump on main thread
-            Application.Current.Dispatcher.Invoke( () 
-                // Close the window
-                => PromptWindow?.Close());
+            try
+            {
+                // Reset the shell and message of the prompt 
+                DI.BasicPromptVM.Query = null;
+                PromptShell.PromptBoxContent = PromptBoxContent.None;
+                PromptShell.Buttons.Clear();
+                PromptWindow.Content = new PromptBoxShell { DataContext = PromptShell }; ;
+            }
+            finally
+            {
+                // Jump on main thread
+                Application.Current.Dispatcher.Invoke(()
+                    // Close the window
+                    => PromptWindow?.Close());
+            }
         }
 
         /// <summary>
@@ -87,23 +88,33 @@ namespace Chronicle
         /// <param name="buttons">The buttons to be added as needed for the prompt box</param>
         public async Task InvokePromptBox(PromptBoxContent queryType, string query = null!, PromptBoxButtonsViewModel[] buttons = null!)
         {
+            // Create a window for the prompt
+            PromptWindow = new PromptBoxWindow();
+
+            // Set prompt window content
+            PromptWindow.Content = new PromptBoxShell { DataContext = PromptShell };
+            // Set main window as owner of prompt box window
+            PromptWindow.Owner = Application.Current.MainWindow;
+            // Make sure we show in the center of the application
+            PromptWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
             // If we have a simple query...
             if (query != null)
                 // Set it
-                DI.SaveAndExitPromptVM.Query = query;
+                DI.BasicPromptVM.Query = query;
 
             // Set content of the shell
-            promptShell.PromptBoxContent = queryType;
+            PromptShell.PromptBoxContent = queryType;
             // Make sure we are using our button
-            promptShell.Buttons.Clear();
+            PromptShell.Buttons.Clear();
             // Add button
-            promptShell.AddButtons(buttons);
+            PromptShell.AddButtons(buttons);
 
             // Get all the buttons
             foreach (var button in buttons)
                 // Wire button commands
-                button.ButtonAction = promptShell.FeedbackCommand;
-            
+                button.ButtonAction = PromptShell.FeedbackCommand;
+
             // Show the window
             PromptWindow.ShowDialog();
 

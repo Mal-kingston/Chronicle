@@ -42,7 +42,7 @@ namespace Chronicle
         /// <summary>
         /// The view model for save and exit prompt
         /// </summary>
-        public SaveAndExitPromptViewModel LocatePromptQueryVM => SaveAndExitPromptVM;
+        public BasicPromptViewModel LocatePromptQueryVM => BasicPromptVM;
 
 
         #endregion

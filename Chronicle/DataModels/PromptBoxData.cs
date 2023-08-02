@@ -9,6 +9,11 @@
         // ----------------------------
 
         /// <summary>
+        /// No content
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Prompt query prompt
         /// (Basic text prompts such as: Save before exit | Delete | Restore file )
         /// </summary>
@@ -23,6 +28,11 @@
         /// Print prompt
         /// </summary>
         PrintContent = 3,
+
+        /// <summary>
+        /// Prompt for when user want to actually delete an item
+        /// </summary>
+        DeleteRecycledItemContent = 4,
     }
 
     /// <summary>
@@ -54,6 +64,16 @@
         /// Ok (acknowledge)
         /// </summary>
         Ok = 4,
+
+        /// <summary>
+        /// Yes proceed or Yes agree
+        /// </summary>
+        Yes = 5,
+
+        /// <summary>
+        /// No user don't approve
+        /// </summary>
+        No = 6,
     }
 
 }

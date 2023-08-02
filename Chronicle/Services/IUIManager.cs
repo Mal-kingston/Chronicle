@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Chronicle
@@ -11,12 +12,12 @@ namespace Chronicle
         /// <summary>
         /// The prompt window
         /// </summary>
-        Window PromptWindow { get; set; }
+        PromptBoxWindow PromptWindow { get; set; }
 
         /// <summary>
         /// Prompt box view model
         /// </summary>
-        PromptBoxShellViewModel promptShell { get; set; }
+        PromptBoxShellViewModel PromptShell { get; set; }
 
         /// <summary>
         /// Result of feed back from user

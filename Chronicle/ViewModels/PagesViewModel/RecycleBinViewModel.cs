@@ -33,6 +33,11 @@ namespace Chronicle
         private string _selectionButtonText = _selectAllText;
 
         /// <summary>
+        /// Selection mode
+        /// </summary>
+        private bool _isSelectAllText;
+
+        /// <summary>
         /// The list of deleted items by the user
         /// </summary>
         private ObservableCollection<DeletedItemViewModel> _deletedItems;
@@ -44,7 +49,7 @@ namespace Chronicle
         /// <summary>
         /// The text for select all button
         /// </summary>
-        public string SelectionButtonText 
+        public string SelectionButtonText
         {
             // Get the value
             get { return _selectionButtonText; }
@@ -57,7 +62,26 @@ namespace Chronicle
 
                 // Update property
                 OnPropertyChanged(nameof(SelectionButtonText));
-            } 
+            }
+        }
+
+        /// <summary>
+        /// Selection mode
+        /// </summary>
+        public bool IsSelectAllText
+        {
+            // Get the value
+            get => _selectionButtonText == _selectAllText ? true : false;
+            set
+            {
+                // If value isn't same...
+                if (_isSelectAllText != value)
+                    // Update value
+                    _isSelectAllText = value;
+
+                // Update property
+                OnPropertyChanged(nameof(IsSelectAllText));
+            }
         }
 
         /// <summary>
@@ -69,10 +93,10 @@ namespace Chronicle
         /// <summary>
         /// The list of deleted items by the user
         /// </summary>
-        public ObservableCollection<DeletedItemViewModel> DeletedItems 
+        public ObservableCollection<DeletedItemViewModel> DeletedItems
         {
             // Provide items
-            get { return  _deletedItems; }
+            get { return _deletedItems; }
             set
             {
                 // If value are same...
@@ -133,7 +157,7 @@ namespace Chronicle
 
         #endregion
 
-        #region Public Commands
+        #region Command Methods
 
         /// <summary>
         /// Selects all or clears all selection of the deleted items list
@@ -141,7 +165,7 @@ namespace Chronicle
         private void SelectsOrClearsAllSelection()
         {
             // If selection mode is to select all...
-            if(_selectionButtonText == _selectAllText )
+            if (IsSelectAllText)
             {
                 // Select all item on the list
                 _deletedItems?.ToList().ForEach(item => item.IsSelected = true);
@@ -151,7 +175,7 @@ namespace Chronicle
                 OnPropertyChanged(nameof(SelectionButtonText));
             }
             // Otherwise...
-            else 
+            else
             {
                 // Clear all selection
                 _deletedItems?.ToList().ForEach(item => item.IsSelected = false);
@@ -166,21 +190,126 @@ namespace Chronicle
         /// <summary>
         /// Recovers only the selected items on the list
         /// </summary>
-        private void RecoverItems()
+        private async void RecoverItems()
         {
+            // Get all the selected items
             var selectedItems = _deletedItems?.ToList().FindAll(item => item.IsSelected == true);
+
+            // Make sure we have something selected
+            if (selectedItems is null)
+                // If nothing is selected, Do nothing
+                return;
+
+            // Go through selected items...
+            foreach (var item in selectedItems)
+            {
+                // If any key of the selected item(s) matches key in in memory data
+                if (AccessInMemoryDb.InMemoryData!.ContainsKey(item.ItemId))
+                {
+                    // TODO: Wrap this call in AccessInMemory class
+                    var dataToRecover = (await DI.ClientDataStore.GetFiles()).FirstOrDefault(data => data.Id == item.ItemId);
+
+                    // Reset recycle tag
+                    dataToRecover!.IsInRecycle = false;
+
+                    // Update data
+                    await DI.ClientDataStore.UpdateFile(dataToRecover!);
+                }
+            }
+
+            // Update In memory data
+            AccessInMemoryDb.GetCopyOfDbData();
+
+            // Release from recycle
+            ReleaseFromRecycle();
+
+            // Open submenu
+            DI.MainVM.IsNoteSubMenuOpen = true;
+
+            // Update sub menu
+            DI.SubMenuVM.UpdateNoteList();
+
+            // Update selection button content
+            OnSelectionChanged(this, EventArgs.Empty);
+
         }
 
         /// <summary>
         /// Deletes only the selected items on the list
         /// </summary>
-        private void DeleteItems()
+        private async void DeleteItems()
         {
+            // Get all the selected items on the list
             var selectedItems = _deletedItems?.ToList().FindAll(item => item.IsSelected == true);
+
+            // Make sure we have something selected
+            if (selectedItems is null)
+                // If nothing is selected, Do nothing
+                return;
+
+            // True if the feedback is no
+            var feedbackResultIsNo = false;
+
+            // Go through selected items...
+            foreach (var item in selectedItems)
+            {
+                // If any key of the selected item(s) matches key in in memory data
+                if (AccessInMemoryDb.InMemoryData!.ContainsKey(item.ItemId))
+                {
+                    // TODO: Wrap this call in AccessInMemory class
+                    var dataToDelete = (await DI.ClientDataStore.GetFiles()).FirstOrDefault(data => data.Id == item.ItemId);
+
+                    // Construct and configure prompt box buttons
+                    var buttons = new PromptBoxButtonsViewModel[]
+                    {
+                        new PromptBoxButtonsViewModel { ButtonContent = "Yes", FeedBackType = PromptBoxFeedBackType.Yes, HighlightButton = true, },
+                        new PromptBoxButtonsViewModel { ButtonContent = "No", FeedBackType = PromptBoxFeedBackType.No },
+                    };
+
+                    // Define the message for the prompt
+                    var query = $"Selected files will be permanently deleted ?";
+
+                    // Spin-up prompt box
+                    await DI.UIManager.InvokePromptBox(PromptBoxContent.DeleteRecycledItemContent, query: query, buttons: buttons);
+
+                    // Handle response accordingly
+                    switch (DI.UIManager.FeedBackResult)
+                    {
+                        case PromptBoxFeedBackType.Yes:
+                            // Delete the item
+                            await DI.ClientDataStore.DeleteFile(dataToDelete!);
+                            break;
+
+                        case PromptBoxFeedBackType.No:
+                            // Set feedback
+                            feedbackResultIsNo = true;
+                            return;
+                    }
+
+                }
+            }
+
+            // If item(s) is deleted...
+            if (!feedbackResultIsNo)
+            {
+                // Update In memory data
+                AccessInMemoryDb.GetCopyOfDbData();
+
+                // Release from recycle
+                ReleaseFromRecycle();
+
+                // Update sub menu
+                DI.SubMenuVM.UpdateNoteList();
+
+                // Update selection button content
+                OnSelectionChanged(this, EventArgs.Empty);
+            }
 
         }
 
         #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Adds deleted file(s) to the deleted items list
@@ -202,7 +331,7 @@ namespace Chronicle
             foreach (var item in recycleItems)
             {
                 // Filter items that are flagged for recycling
-                if(item.Value.IsInRecycle == true)
+                if (item.Value.IsInRecycle == true)
                 {
                     // Construct deleted item and set up properties
                     var itemConstruction = new DeletedItemViewModel(this)
@@ -232,6 +361,15 @@ namespace Chronicle
         }
 
         /// <summary>
+        /// Releases recovered item(s) from the recycle page
+        /// </summary>
+        public void ReleaseFromRecycle() => SendToRecycle();
+
+        #endregion
+
+        #region Public Event Methods
+
+        /// <summary>
         /// Event method implementation that
         /// Changes the text on the select all | clear all text button
         /// </summary>
@@ -245,5 +383,21 @@ namespace Chronicle
             // Update property
             OnPropertyChanged(nameof(SelectionButtonText));
         }
+
+        /// <summary>
+        /// Reset selection of items whenever current page changes to a different page
+        /// </summary>
+        /// <param name="sender">Origin of this event</param>
+        /// <param name="page">The current page of this application</param>
+        public void OnCurrentPageChanged(object? sender, ApplicationPage page)
+        {
+            // Reset selection in recycle bin whenever we go to a different page
+            if (page != ApplicationPage.RecycleBin && IsSelectAllText == false)
+                // Command that does the job
+                SelectAllCommand.Execute(string.Empty);
+        }
+
+        #endregion
+
     }
 }

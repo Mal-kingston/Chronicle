@@ -11,10 +11,13 @@ namespace Chronicle
             switch((PromptBoxContent)value)
             {
                 case PromptBoxContent.SaveAndExitContent:
-                    return new SaveAndExitControl { DataContext = DI.SaveAndExitPromptVM };
+                    return new SaveAndExitControl { DataContext = DI.BasicPromptVM };
 
                 case PromptBoxContent.SaveAsContent:
                     return new SaveAsControl { DataContext = DI.SaveAsPromptVM };
+
+                case PromptBoxContent.DeleteRecycledItemContent:
+                    return new DeleteItemControl { DataContext = DI.BasicPromptVM };
 
                 default:
                     break;

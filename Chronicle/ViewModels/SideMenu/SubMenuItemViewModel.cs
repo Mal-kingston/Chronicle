@@ -63,21 +63,25 @@ namespace Chronicle
         /// Opens a file
         /// </summary>
         /// <param name="parameter">The name of the file to open</param>
-        private async void OpenFile(object parameter)
+        private void OpenFile(object parameter)
         {
             // Get the requested file from database
-            var fileToOpen = (await ClientDataStore.GetFiles()).Find(x => x.Header == parameter.ToString()); 
+            var fileToOpen = AccessInMemoryDb.InMemoryData?.ToList().Find(x => x.Value.Header == parameter.ToString()); 
 
             // Load it
-            TabControlVM.LoadNote(fileToOpen!);
+            TabControlVM.LoadNote(fileToOpen!.Value.Value);
 
             // Log info
-            Logger.Log($"{fileToOpen?.Header} file opened");
+            Logger.Log($"{fileToOpen.Value.Value?.Header} file opened");
 
             // If main view current page isn't notefile...
             if(MainVM.CurrentPage != ApplicationPage.NoteFile)
+            {
                 // Show notefile page
                 MainVM.GotoPage(ApplicationPage.NoteFile);
+                // Mark note button as checked
+                MainVM.IsNoteChecked = true;
+            }   
             
         }
 
@@ -112,31 +116,31 @@ namespace Chronicle
 
         #region Public Methods
 
-        /// <summary>
-        /// Helper to convert database data into format that can be worked with
-        /// </summary>
-        /// <param name="model">The data to convert</param>
-        /// <returns>The converted format for use</returns>
-        public static TabItemViewModel ConvertToTabItem(NoteDataModel? model)
-        {
-            // Assign data properties as needed
-            var tabContent = new TabContentViewModel
-            {
-                Title = model!.Title,
-                Header = model.Header,
-                Content = model.Content,
-            };
+        ///// <summary>
+        ///// Helper to convert database data into format that can be worked with
+        ///// </summary>
+        ///// <param name="model">The data to convert</param>
+        ///// <returns>The converted format for use</returns>
+        //public static TabItemViewModel ConvertToTabItem(NoteDataModel? model)
+        //{
+        //    // Assign data properties as needed
+        //    var tabContent = new TabContentViewModel
+        //    {
+        //        Title = model!.Title,
+        //        Header = model.Header,
+        //        Content = model.Content,
+        //    };
 
-            // Assign data properties as needed
-            var tabItemViewModel = new TabItemViewModel
-            {
-                TabID = model.Id,
-                TabContent = tabContent,
-            };
+        //    // Assign data properties as needed
+        //    var tabItemViewModel = new TabItemViewModel
+        //    {
+        //        TabID = model.Id,
+        //        TabContent = tabContent,
+        //    };
 
-            // Return the converted format for use
-            return tabItemViewModel;
-        }
+        //    // Return the converted format for use
+        //    return tabItemViewModel;
+        //}
 
         #endregion
 
