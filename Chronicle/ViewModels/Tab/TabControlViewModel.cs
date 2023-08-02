@@ -497,7 +497,7 @@ namespace Chronicle
 
                 // Turn off context menu for tabs that are not currently selected
                 if (item.TabIsSelected == false)
-                    _tabContent.IsContextMenuOpen = false;
+                    item.TabContent.IsContextMenuOpen = false;
 
             }
 
