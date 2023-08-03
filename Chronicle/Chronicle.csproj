@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Compile Include="ViewModels\.Design\ContextMenuDesignModel.cs" />
+    <Compile Include="ViewModels\PagesViewModel\.Design\RecycleBinDesignModel.cs" />
     <Compile Include="ViewModels\PromptBox\.Design\PromptBoxShellDesignModel.cs" />
     <Compile Include="ViewModels\SideMenu\.Design\SubMenuDesignModel.cs" />
     <Compile Include="ViewModels\SideMenu\.Design\SubMenuItemDesignModel.cs" />
