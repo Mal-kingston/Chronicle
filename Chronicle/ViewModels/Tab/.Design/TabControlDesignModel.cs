@@ -24,14 +24,18 @@ namespace Chronicle
         public TabControlDesignModel() 
         {
             // Set default tab item in the view (dummy item)
-            //Items = new ObservableCollection<TabItemViewModel> 
-            //{
-            //    new TabItemViewModel
-            //    { 
-            //        TabHeader = "Untitled", 
-            //        IsSelected = true,
-            //    }  
-            //};
+            Tabs = new ObservableCollection<TabItemViewModel>
+            {
+                new TabItemViewModel
+                {
+                    TabIsSelected = true,
+                    TabContent = new TabContentViewModel
+                    {
+                        Title = "Untitled",
+                    },
+                }
+            };
+
 
         }
 

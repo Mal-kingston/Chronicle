@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d" >
     <Grid Background="{StaticResource DarkBrush}">
-        <Label Content="{Binding Query, UpdateSourceTrigger=PropertyChanged, FallbackValue=Do you want to save this file ?}"
+        <Label Content="{Binding Query, UpdateSourceTrigger=PropertyChanged, FallbackValue=Selected files will be permanently deleted ?}"
                Foreground="{StaticResource GrayBrush}" 
                FontSize="{StaticResource Small}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
     </Grid>

@@ -10,7 +10,9 @@
     <Grid Margin="0, 15, 0, 0">
 
         <!-- Tab Control -->
-        <local:TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <local:TabControl DataContext="{Binding LocateTabControlVM, Source={x:Static local:ViewModelLocator.Instance}}"
+                          d:DataContext="{x:Static local:TabControlDesignModel.Instance}"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
     </Grid>
     

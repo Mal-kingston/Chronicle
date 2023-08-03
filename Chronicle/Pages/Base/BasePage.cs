@@ -98,7 +98,6 @@ namespace Chronicle
             else
                 // Create a default view model
                 ViewModel = Framework.Service<VM>() ?? new VM();
-
         }
 
         #endregion

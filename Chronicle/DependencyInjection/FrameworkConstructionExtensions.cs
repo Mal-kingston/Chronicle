@@ -67,7 +67,7 @@ namespace Chronicle
             // Inject SQLite EF data store
             construction.Services.AddDbContext<ClientDataStoreDbContext>(options =>
             {
-                // TODO: Use configuration locate file/folder using appsettings.json file
+                // TODO: Use configuration locate file/folder using app-settings.json file
 
                 // Get the folder where database will be created and stored
                 var pathToLogFile = GetFullPathToFile(@"Database\Chronicle.db");

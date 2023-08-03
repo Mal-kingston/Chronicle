@@ -255,10 +255,11 @@
             </StackPanel>
             
             <!-- Content Area-->
-            <Border Grid.Row="1" Margin="0, 25, 0, 0" >
+            <Grid Grid.Row="1" Margin="0, 25, 0, 0" >
                 <Frame x:Name="frame" local:NoFrameHistoryAttachedProperty.Value="True" 
                        Content="{Binding LocateMainVM.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:PageValueConverter}}" />
-            </Border>
+
+            </Grid>
 
         </Grid>
 

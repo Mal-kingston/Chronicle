@@ -14,7 +14,7 @@ namespace Chronicle
             InitializeComponent();
 
             // Set data context
-            DataContext = TabControlVM;
+           // DataContext = TabControlVM;
 
         }
 

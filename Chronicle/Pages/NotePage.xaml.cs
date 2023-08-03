@@ -24,8 +24,6 @@ namespace Chronicle
         public NotePage()
         {
             InitializeComponent();
-
         }
-
     }
 }
