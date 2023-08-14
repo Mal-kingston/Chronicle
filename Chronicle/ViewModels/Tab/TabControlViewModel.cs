@@ -89,6 +89,11 @@ namespace Chronicle
         /// </summary>
         public ContextMenuViewModel ContextMenu { get; set; }
 
+        /// <summary>
+        /// Flag indicating that a tab was added
+        /// </summary>
+        public bool NewTabAdded { get; set; }
+
         #endregion
 
         #region Public Events
@@ -131,6 +136,7 @@ namespace Chronicle
         public TabControlViewModel()
         {
             // Set properties default
+            NewTabAdded = false;
             TabItem = new TabItemViewModel();
             _tabs = new ObservableCollection<TabItemViewModel>
             {
@@ -262,8 +268,8 @@ namespace Chronicle
                 return;
 
             // TODO: handle opening unlimited tabs 
-            if (_tabs?.Count == 4)
-                return;
+            //if (_tabs?.Count == 4)
+            //    return;
 
             // Reset selection
             _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
@@ -276,6 +282,12 @@ namespace Chronicle
                 TabID = Guid.NewGuid(),
                 TabContent = new TabContentViewModel(),
             });
+
+            // Set flag to true
+            NewTabAdded = true;
+
+            // Update property
+            OnPropertyChanged(nameof(NewTabAdded));
 
             // Update tab content
             UpdateTabContent();

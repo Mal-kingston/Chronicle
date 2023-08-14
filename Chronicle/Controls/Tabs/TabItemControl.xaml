@@ -18,6 +18,8 @@
                         <Grid x:Name="container"
                               Height="36" Width="180" 
                               Background="{StaticResource DarkBrush}" >
+                            
+                            <!-- TODO: Refactor this design later -->
 
                             <!-- Title -->
                             <StackPanel Orientation="Horizontal">

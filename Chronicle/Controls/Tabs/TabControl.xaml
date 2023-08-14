@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
              d:Height="500" d:Width="800"
+             x:Name="ThisControl"
              d:DataContext="{x:Static local:TabControlDesignModel.Instance}">
 
-    <Grid >
+    <Grid>
 
         <Grid.RowDefinitions>
             <!-- Tab -->
@@ -16,12 +17,22 @@
             <!-- Main content area -->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <ScrollViewer Grid.Row="0"
-                      VerticalScrollBarVisibility="Disabled" 
-                      HorizontalScrollBarVisibility="Hidden">
 
-            <StackPanel Orientation="Horizontal" >
+        <Grid x:Name="topRow" Grid.Row="0" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" x:Name="scrollColumn" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Width="28" Height="28" Margin="5"
+                    Content="{StaticResource LeftArrowIcon}" Click="LeftButtonContentScroller"
+                    Visibility="{Binding ScrollViewerButtonVisibility, ElementName=ThisControl, FallbackValue=Collapsed}"/>
+
+            <ScrollViewer Grid.Column="1" x:Name="scrollViewer"
+                          VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" >
 
                 <ItemsControl ItemsSource="{Binding Tabs, UpdateSourceTrigger=PropertyChanged}" >
                     <!--Panel template (Orientation of tabs) -->
@@ -33,24 +44,29 @@
                     <!--Item template-->
                     <ItemsControl.ItemTemplate >
                         <DataTemplate >
-                            <local:TabItemControl HorizontalAlignment="Left" Focusable="False"
+                            <local:TabItemControl HorizontalAlignment="Left" Focusable="False" 
                                                   Header="{Binding TabContent.Header}"
                                                   IsSelected="{Binding TabIsSelected}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <!--Add tab button-->
-                <Button Width="28" Height="28" Margin="5"
-                        Style="{StaticResource AddIconStyle}"
-                        Content="{StaticResource AddIcon}" 
-                        Command="{Binding AddNewTabCommand}"
-                        Focusable="False"
-                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                
-            </StackPanel>
+            </ScrollViewer>
 
-        </ScrollViewer>
+            <Button Grid.Column="2" Width="28" Height="28" Margin="5"
+                    Content="{StaticResource RightArrowIcon}" Click="RightButtonContentScroller"
+                    Visibility="{Binding ScrollViewerButtonVisibility, ElementName=ThisControl, FallbackValue=Collapsed}" />
+
+
+            <!--Add tab button-->
+            <Button Grid.Column="3" Width="28" Height="28" Margin="5 5 15 5"
+                    Style="{StaticResource AddIconStyle}"
+                    Content="{StaticResource AddIcon}" 
+                    Command="{Binding AddNewTabCommand}"
+                    Focusable="False"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        </Grid>
 
         <!--Tab content-->
         <Grid Grid.Row="1" >

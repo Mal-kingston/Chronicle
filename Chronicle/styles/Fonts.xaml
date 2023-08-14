@@ -29,5 +29,7 @@
     <system:String x:Key="CloseIcon">&#xf00d;</system:String>
     <system:String x:Key="AddIcon">&#xf067;</system:String>
     <system:String x:Key="CheckGoodIcon">&#xf00c;</system:String>
+    <system:String x:Key="LeftArrowIcon">&#xf104;</system:String>
+    <system:String x:Key="RightArrowIcon">&#xf105;</system:String>
     
    </ResourceDictionary>

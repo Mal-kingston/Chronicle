@@ -39,7 +39,7 @@ namespace Chronicle
                 _title = value;
 
                 // Set header
-                if (_title.Length > 0)
+                if (!string.IsNullOrWhiteSpace(_title))
                     Header = _title;
                 else Header = "Untitled";
             }
