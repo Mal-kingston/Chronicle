@@ -126,6 +126,5 @@ namespace Chronicle
 
         #endregion
 
-
     }
 }

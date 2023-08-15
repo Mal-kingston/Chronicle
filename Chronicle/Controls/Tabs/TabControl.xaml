@@ -8,11 +8,17 @@
              d:Height="500" d:Width="800"
              x:Name="ThisControl"
              d:DataContext="{x:Static local:TabControlDesignModel.Instance}">
+
     <UserControl.InputBindings>
+
+        <!--Hot keys or shortcut key combinations to perform a function-->
         <KeyBinding Command="{Binding AddNewTabCommand}" Gesture="Ctrl + N" />
-        <KeyBinding Command="{Binding CloseTabCommand}"
-                    CommandParameter="{Binding SelectedTabTabID}"
-                    Gesture="Ctrl + F" />
+        <KeyBinding Command="{Binding CloseTabCommand}" CommandParameter="{Binding SelectedTabTabID}" 
+                    Gesture="Ctrl + F4" />
+        <KeyBinding Command="{Binding TabContent.ContextMenu.SaveCommand}" CommandParameter="File saved"
+                    Gesture="Ctrl + S" />
+        <KeyBinding Command="{Binding TabContent.ContextMenu.DeleteCommand}" CommandParameter="File deleted"
+                    Gesture="Ctrl + Shift + D" />
 
     </UserControl.InputBindings>
 
