@@ -28,11 +28,6 @@ namespace Chronicle
         /// </summary>
         private TabContentViewModel _tabContent;
 
-        /// <summary>
-        /// The tab id of tab that is currently selected
-        /// </summary>
-        private Guid _selectedTab_TabID => (Guid)(_tabs?.FirstOrDefault(x => x.TabIsSelected == true))?.TabID!;
-
         #endregion
 
         #region Public Properties
@@ -88,6 +83,11 @@ namespace Chronicle
         /// as well as other functions
         /// </summary>
         public ContextMenuViewModel ContextMenu { get; set; }
+
+        /// <summary>
+        /// The tab id of tab that is currently selected
+        /// </summary>
+        public Guid SelectedTabTabID => (Guid)(_tabs?.FirstOrDefault(x => x.TabIsSelected == true))?.TabID!;
 
         /// <summary>
         /// Flag indicating that a tab was added
@@ -192,7 +192,7 @@ namespace Chronicle
             {
                 // TODO: Remember template of note
                 // Note_data | Id | Header | Title | Content |
-                Id = _selectedTab_TabID,
+                Id = SelectedTabTabID,
                 Header = _tabContent.Header,
                 Title = _tabContent.Title,
                 Content = _tabContent.Content,
@@ -224,7 +224,7 @@ namespace Chronicle
         public async Task Delete(object parameter)
         {
             // Get in memory db clone
-            var fileInQuestion = AccessInMemoryDb.InMemoryData?.FirstOrDefault(x => x.Key == _selectedTab_TabID);
+            var fileInQuestion = AccessInMemoryDb.InMemoryData?.FirstOrDefault(x => x.Key == SelectedTabTabID);
 
             // If file doesn't exist...
             if (fileInQuestion!.Value.Key == Guid.Empty)
@@ -266,10 +266,6 @@ namespace Chronicle
             // Make sure tab isn't null
             if (_tabs == null)
                 return;
-
-            // TODO: handle opening unlimited tabs 
-            //if (_tabs?.Count == 4)
-            //    return;
 
             // Reset selection
             _tabs?.ToList().ForEach(item => item.TabIsSelected = false);
@@ -512,6 +508,9 @@ namespace Chronicle
                     item.TabContent.IsContextMenuOpen = false;
 
             }
+
+            // Update selected tab unique id
+            OnPropertyChanged(nameof(SelectedTabTabID));
 
         }
 

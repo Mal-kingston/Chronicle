@@ -54,9 +54,7 @@
     </UserControl.Resources>
 
     <UserControl.InputBindings>
-        <KeyBinding Command="{Binding LocateTabControlVM.CloseTabCommand, Source={x:Static local:ViewModelLocator.Instance}}"
-                    CommandParameter="{Binding TabID}"
-                    Gesture="Ctrl + F" />
+
     </UserControl.InputBindings>
 
     <Grid Opacity="{Binding IsSelected, ElementName=TabItem, Converter={local:OpacityConverter}, Mode=TwoWay}">

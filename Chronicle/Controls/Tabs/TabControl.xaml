@@ -10,6 +10,10 @@
              d:DataContext="{x:Static local:TabControlDesignModel.Instance}">
     <UserControl.InputBindings>
         <KeyBinding Command="{Binding AddNewTabCommand}" Gesture="Ctrl + N" />
+        <KeyBinding Command="{Binding CloseTabCommand}"
+                    CommandParameter="{Binding SelectedTabTabID}"
+                    Gesture="Ctrl + F" />
+
     </UserControl.InputBindings>
 
     <Grid>
