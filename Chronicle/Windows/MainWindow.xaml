@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Chronicle"
         mc:Ignorable="d"
         x:Name="Main"
-        Height="800" Width="1082"
+        Height="800" Width="1282"
         WindowStartupLocation="CenterScreen"
         MinHeight="{Binding MinimumHeight}"
         MinWidth="{Binding MinimumWidth}"

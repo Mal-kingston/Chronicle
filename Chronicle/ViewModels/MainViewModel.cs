@@ -109,7 +109,7 @@ namespace Chronicle
         {
             // Set default properties
             MinimumHeight = 750;
-            MinimumWidth = 1048;
+            MinimumWidth = 1182;
             CurrentPage = ApplicationPage.NoteFile;
             IsNoteSubMenuOpen = false;
             IsBookSubMenuOpen = false;

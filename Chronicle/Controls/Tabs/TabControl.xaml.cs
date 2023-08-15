@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using static Chronicle.DI;
+using System.Windows.Input;
 
 namespace Chronicle
 {
@@ -18,18 +18,18 @@ namespace Chronicle
             InitializeComponent();
 
             // The main window of this application
-            var mainWindow = (Window)Application.Current.MainWindow;
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
 
             // Whenever scroll changes
-            scrollViewer.ScrollChanged += (s, e) => 
+            scrollViewer.ScrollChanged += (s, e) =>
             {
                 // Check if a new tab is added, if true...
-                if (TabControlVM.NewTabAdded == true)
+                if (ViewModelLocator.Instance.LocateTabControlVM?.NewTabAdded == true)
                 {
                     // Scroll scroll-viewer content to the right end
                     scrollViewer.ScrollToRightEnd();
                     // Reset the tab added flag
-                    TabControlVM.NewTabAdded = false;
+                    ViewModelLocator.Instance.LocateTabControlVM.NewTabAdded = false;
                 }
 
                 // Adjust scrolling controls accordingly
@@ -38,6 +38,7 @@ namespace Chronicle
 
             //  Adjust scrolling controls accordingly whenever window size changes (maximize | normal)
             mainWindow.SizeChanged += (s, e) => AdjustScrollControls();
+
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace Chronicle
         private void RightButtonContentScroller(object sender, RoutedEventArgs e) => scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 160);
 
         /// <summary>
-        // Adjust scrolling controls accordingly
+        /// Adjust scrolling controls accordingly
         /// </summary>
         private void AdjustScrollControls()
         {
