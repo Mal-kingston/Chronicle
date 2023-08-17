@@ -32,7 +32,7 @@
         <!--Prompt box buttons-->
         <Border Grid.Row="1" Background="{StaticResource LightDarkBrush}">
 
-            <ItemsControl ItemsSource="{Binding Buttons}" >
+            <ItemsControl ItemsSource="{Binding Buttons}" x:Name="thiss" >
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

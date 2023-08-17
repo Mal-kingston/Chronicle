@@ -160,7 +160,7 @@
                 <ControlTemplate TargetType="{x:Type RadioButton}">
 
                     <!-- Menu title -->
-                    <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2" Focusable="False">
 
                         <Grid >
                             <Grid.ColumnDefinitions>

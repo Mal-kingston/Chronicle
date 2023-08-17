@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:Height="500" d:Width="800"
              x:Name="ThisControl"
-             d:DataContext="{x:Static local:TabControlDesignModel.Instance}">
+             d:DataContext="{x:Static local:TabControlDesignModel.Instance}" >
 
     <UserControl.InputBindings>
 
@@ -59,7 +59,7 @@
                         <DataTemplate >
                             <local:TabItemControl HorizontalAlignment="Left" Focusable="False" 
                                                   Header="{Binding TabContent.Header}"
-                                                  IsSelected="{Binding TabIsSelected}" />
+                                                  IsSelected="{Binding TabIsSelected, Mode=TwoWay}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

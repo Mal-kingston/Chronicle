@@ -53,11 +53,7 @@
         
     </UserControl.Resources>
 
-    <UserControl.InputBindings>
-
-    </UserControl.InputBindings>
-
-    <Grid Opacity="{Binding IsSelected, ElementName=TabItem, Converter={local:OpacityConverter}, Mode=TwoWay}">
+    <Grid Opacity="{Binding IsSelected, ElementName=TabItem, Converter={local:OpacityConverter}, Mode=TwoWay}" >
 
         <!--Custom tab item-->
         <Button x:Name="MainTab" Style="{StaticResource TabItem}"

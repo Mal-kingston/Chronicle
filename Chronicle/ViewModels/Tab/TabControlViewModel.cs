@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading;
@@ -404,14 +405,14 @@ namespace Chronicle
         private void SelectTab(object parameter)
         {
             // Make sure we have tabs
-            if (Tabs == null)
+            if (_tabs == null)
                 return;
 
             // Reset selection
-            Tabs.ToList().ForEach(item => item.TabIsSelected = false);
+            _tabs.ToList().ForEach(item => item.TabIsSelected = false);
 
             // For every tabs in the collection
-            foreach (var item in Tabs)
+            foreach (var item in _tabs)
             {
                 // If tab header match
                 if (item.TabID == (Guid)parameter)
@@ -453,10 +454,6 @@ namespace Chronicle
                   return;
               }
            }
-
-            // TODO: handle opening unlimited tabs 
-            if (_tabs?.Count == 4)
-                return;
 
             // ==================================
             // --- Construct and load new tab ---

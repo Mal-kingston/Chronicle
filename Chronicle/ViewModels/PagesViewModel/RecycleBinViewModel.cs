@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -249,6 +252,14 @@ namespace Chronicle
 
             // True if the feedback is no
             var feedbackResultIsNo = false;
+            // True if items selected are found
+            var itemsFound = false;
+            // True if items selected are not found
+            var someItemsAreNotFound = false;
+            // List of items found and to be deleted
+            var dataToDelete = new List<NoteDataModel>();
+            // list of names of items that are not found
+            var dataNotFound = new List<string>();
 
             // Go through selected items...
             foreach (var item in selectedItems)
@@ -257,37 +268,59 @@ namespace Chronicle
                 if (AccessInMemoryDb.InMemoryData!.ContainsKey(item.ItemId))
                 {
                     // TODO: Wrap this call in AccessInMemory class
-                    var dataToDelete = (await DI.ClientDataStore.GetFiles()).FirstOrDefault(data => data.Id == item.ItemId);
-
-                    // Construct and configure prompt box buttons
-                    var buttons = new PromptBoxButtonsViewModel[]
-                    {
-                        new PromptBoxButtonsViewModel { ButtonContent = "Yes", FeedBackType = PromptBoxFeedBackType.Yes, HighlightButton = true, },
-                        new PromptBoxButtonsViewModel { ButtonContent = "No", FeedBackType = PromptBoxFeedBackType.No },
-                    };
-
-                    // Define the message for the prompt
-                    var query = $"Selected files will be permanently deleted ?";
-
-                    // Spin-up prompt box
-                    await DI.UIManager.InvokePromptBox(PromptBoxContent.DeleteRecycledItemContent, query: query, buttons: buttons);
-
-                    // Handle response accordingly
-                    switch (DI.UIManager.FeedBackResult)
-                    {
-                        case PromptBoxFeedBackType.Yes:
-                            // Delete the item
-                            await DI.ClientDataStore.DeleteFile(dataToDelete!);
-                            break;
-
-                        case PromptBoxFeedBackType.No:
-                            // Set feedback
-                            feedbackResultIsNo = true;
-                            return;
-                    }
-
+                    var dataSearch = (await DI.ClientDataStore.GetFiles()).FirstOrDefault(data => data.Id == item.ItemId);
+                    // add the item to the list of items to be deleted
+                    dataToDelete.Add(dataSearch!);
+                    // Indicate that at least one item was found
+                    itemsFound = true;
                 }
+                else if (!(AccessInMemoryDb.InMemoryData!.ContainsKey(item.ItemId)))
+                {
+                    // add the items that are not found to the not found list
+                    dataNotFound.Add(item.FileName);
+                    // Indicate that at least one item was not found
+                    someItemsAreNotFound = true;
+                }
+
             }
+
+            // If we find item(s) 
+            if(itemsFound)
+            {
+                // Construct and configure prompt box buttons
+                var buttons = new PromptBoxButtonsViewModel[]
+                {
+                    new PromptBoxButtonsViewModel { ButtonContent = "Yes", FeedBackType = PromptBoxFeedBackType.Yes, HighlightButton = true, },
+                    new PromptBoxButtonsViewModel { ButtonContent = "No", FeedBackType = PromptBoxFeedBackType.No },
+                };
+
+                // Define the message for the prompt
+                var query = $"Selected files will be permanently deleted ?";
+
+                // Spin-up prompt box
+                await DI.UIManager.InvokePromptBox(PromptBoxContent.DeleteRecycledItemContent, query: query, buttons: buttons);
+
+                // Handle response accordingly
+                switch (DI.UIManager.FeedBackResult)
+                {
+                    case PromptBoxFeedBackType.Yes:
+                        // Delete items
+                        foreach (var item in dataToDelete)
+                            await DI.ClientDataStore.DeleteFile(item);
+                        break;
+
+                    case PromptBoxFeedBackType.No:
+                        // Set feedback
+                        feedbackResultIsNo = true;
+                        return;
+                }
+
+            }
+
+            // If we can't find an item(s) 
+            if (someItemsAreNotFound)
+                // Log (Notify developer)
+                Logger.Log($"These items could not be found in user database.{Environment.NewLine}{dataNotFound.Aggregate((a, b) => a.Append('.') + Environment.NewLine + b.Append('.'))}", LogLevel.Warning);
 
             // If item(s) is deleted...
             if (!feedbackResultIsNo)
@@ -398,6 +431,5 @@ namespace Chronicle
         }
 
         #endregion
-
     }
 }

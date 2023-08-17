@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
              d:DataContext="{x:Static local:SubMenuItemDesignModel.Instance}"
-             d:Background="{StaticResource DarkBrush}">
+             d:Background="{StaticResource DarkBrush}"
+             Focusable="False">
 
     <UserControl.Resources >
 
@@ -20,7 +21,7 @@
                     <ControlTemplate TargetType="{x:Type Button}" >
                         <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2" Opacity="0.7">
 
-                            <Grid Margin="2" >
+                            <Grid Margin="2" Width="200" >
 
                                 <!-- icon & title -->
                                 <Grid.ColumnDefinitions>

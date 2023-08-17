@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
-             mc:Ignorable="d" >
+             mc:Ignorable="d" 
+             x:Name="ButtonControl" >
 
     <Grid>
         <!-- Button -->
         <Button Content="{Binding ButtonContent, UpdateSourceTrigger=PropertyChanged, FallbackValue=Save}" 
-                BorderThickness="{Binding BorderThickness}"
+                BorderThickness="{Binding BorderThickness}" 
                 Style="{StaticResource PromptBoxButtonStyle}" 
                 Command="{Binding ButtonAction}" CommandParameter="{Binding FeedBackType}" />
     </Grid>

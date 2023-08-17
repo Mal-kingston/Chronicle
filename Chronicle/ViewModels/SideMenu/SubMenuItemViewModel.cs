@@ -81,8 +81,8 @@ namespace Chronicle
                 MainVM.GotoPage(ApplicationPage.NoteFile);
                 // Mark note button as checked
                 MainVM.IsNoteChecked = true;
-            }   
-            
+            }
+
         }
 
         /// <summary>
