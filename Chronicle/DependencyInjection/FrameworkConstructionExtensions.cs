@@ -164,6 +164,11 @@ namespace Chronicle
                 // if we can't find service folder
                 if(pathToServicesFolder.EndsWith(@":\"))
                 {
+                    // ===================================================================================
+                    // NOTE: If the root folder of this project downloaded from github is Chronicle-main
+                    //       Change it to  Chronicle for the application to run.
+                    // ===================================================================================
+                    //
                     // Let developer know
                     Debugger.Break();
                     // Exit this loop
