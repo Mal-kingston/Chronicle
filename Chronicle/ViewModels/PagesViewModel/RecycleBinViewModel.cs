@@ -199,7 +199,7 @@ namespace Chronicle
             var selectedItems = _deletedItems?.ToList().FindAll(item => item.IsSelected == true);
 
             // Make sure we have something selected
-            if (selectedItems is null)
+            if (selectedItems is null || selectedItems.Count == 0)
                 // If nothing is selected, Do nothing
                 return;
 
