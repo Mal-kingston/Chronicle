@@ -11,6 +11,33 @@
 
     <UserControl.Resources >
 
+        <!--Sub menu item style-->
+        <Style TargetType="{x:Type local:SubMenuItemControl}" >
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
+
+                        <!--Control outline (Used to set the custom background)-->
+                        <Border x:Name="bg" >
+
+                            <!--The actual content of this control-->
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource SubMenubg}" TargetName="bg" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+         
+        </Style>
+
         <!-- Submenu item style -->
         <Style TargetType="{x:Type Button}" x:Key="SubItem">
             <Setter Property="Background" Value="Transparent" />
@@ -65,7 +92,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        
+
         <Button Grid.Column="0" HorizontalAlignment="Left"
                 Style="{StaticResource SubItem}"  
                 Command="{Binding OpenFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
@@ -75,10 +102,6 @@
                 FontSize="{StaticResource XSmall}"
                 Style="{StaticResource SubMenuDeleteButtonStyle}"
                 Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
-
-        <Border Grid.ColumnSpan="2" Opacity="0.2">
-
-        </Border>
 
     </Grid>
 

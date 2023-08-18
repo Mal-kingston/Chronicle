@@ -423,6 +423,15 @@ namespace Chronicle
 
             // Update tab content
             UpdateTabContent();
+
+            // Reset flags 
+            NewTabAdded = false;
+            SetFocusOnTabContent = false;
+
+            // Update property
+            OnPropertyChanged(nameof(NewTabAdded));
+            OnPropertyChanged(nameof(SetFocusOnTabContent));
+
         }
 
         #endregion
