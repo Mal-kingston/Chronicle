@@ -44,6 +44,13 @@
                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True" >
                                 <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="Header" />
                             </DataTrigger>
+
+                            <!--Set properties for when mouse is over-->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={local:BooleanToColorConverter}}" TargetName="Header"/>
+                                <Setter Property="Opacity" Value="{Binding IsSelected, Converter={local:OpacityConverter}}" TargetName="Header"/>
+                            </Trigger> 
+
                         </ControlTemplate.Triggers>
 
                     </ControlTemplate>
@@ -57,13 +64,13 @@
 
         <!--Custom tab item-->
         <Button x:Name="MainTab" Style="{StaticResource TabItem}"
-                Content="{Binding Header, ElementName=TabItem, FallbackValue=Untitled}"
+                Content="{Binding Header, ElementName=TabItem, FallbackValue=Untitled}" Focusable="False"
                 Command="{Binding DataContext.SelectTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
                 CommandParameter="{Binding TabID}" />
 
         <!--Close button for the tab item-->
         <Button Height="22" Width="22" Margin="0, 0, 8, 0" HorizontalAlignment="Right" 
-                Content="{StaticResource CloseIcon}" 
+                Content="{StaticResource CloseIcon}" Focusable="False"
                 Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
                 CommandParameter="{Binding TabID}" />
 

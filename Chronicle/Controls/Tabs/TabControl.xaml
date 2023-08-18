@@ -22,7 +22,7 @@
 
     </UserControl.InputBindings>
 
-    <Grid>
+    <Grid >
 
         <Grid.RowDefinitions>
             <!-- Tab -->

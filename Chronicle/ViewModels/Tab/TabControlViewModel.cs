@@ -95,6 +95,11 @@ namespace Chronicle
         /// </summary>
         public bool NewTabAdded { get; set; }
 
+        /// <summary>
+        /// Used to direct focus on tab content when needed
+        /// </summary>
+        public bool SetFocusOnTabContent{ get; set; }
+
         #endregion
 
         #region Public Events
@@ -137,7 +142,8 @@ namespace Chronicle
         public TabControlViewModel()
         {
             // Set properties default
-            NewTabAdded = false;
+            NewTabAdded = true;
+            SetFocusOnTabContent = false;
             TabItem = new TabItemViewModel();
             _tabs = new ObservableCollection<TabItemViewModel>
             {
@@ -280,14 +286,9 @@ namespace Chronicle
                 TabContent = new TabContentViewModel(),
             });
 
-            // Set flag to true
-            NewTabAdded = true;
-
-            // Update property
-            OnPropertyChanged(nameof(NewTabAdded));
-
             // Update tab content
             UpdateTabContent();
+
         }
 
         /// <summary>
@@ -506,6 +507,21 @@ namespace Chronicle
 
             }
 
+            // Set flags for UI to gain focus accordingly
+            if (_tabContent.Title.Count() == 0)
+            {
+                NewTabAdded = true;
+                SetFocusOnTabContent = false;
+            }
+            else
+            {
+                NewTabAdded = false;
+                SetFocusOnTabContent = true;
+            }
+
+            // Update property
+            OnPropertyChanged(nameof(NewTabAdded));
+            OnPropertyChanged(nameof(SetFocusOnTabContent));
             // Update selected tab unique id
             OnPropertyChanged(nameof(SelectedTabTabID));
 

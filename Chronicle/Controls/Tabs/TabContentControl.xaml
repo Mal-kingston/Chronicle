@@ -44,7 +44,7 @@
 
                     <TextBox  x:Name="Title" Background="Transparent" BorderThickness="0" MaxLength="32" 
                           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                          local:IsFocusedAttachedProperties.Value="True"
+                          local:IsFocusedAttachedProperties.Value="{Binding DataContext.NewTabAdded, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
                           TextWrapping="NoWrap" 
                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" 
                           CaretBrush="{StaticResource GrayBrush}"/>
@@ -62,7 +62,7 @@
 
         <!--Content-->
         <TextBox Grid.Row="1" x:Name="MainContent" Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="0 20 0 0"
-                 AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
+                 local:IsFocusedAttachedProperties.Value="{Binding DataContext.SetFocusOnTabContent, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"                 AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
                  FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="20 20 40 5" CaretBrush="{StaticResource GrayBrush}" 
                  Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 

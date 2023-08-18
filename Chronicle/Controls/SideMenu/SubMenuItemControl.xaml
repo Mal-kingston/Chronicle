@@ -19,7 +19,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}" >
-                        <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2" Opacity="0.7">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="8, 2" Opacity="0.7" >
 
                             <Grid Margin="2" Width="200" >
 
@@ -75,6 +75,10 @@
                 FontSize="{StaticResource XSmall}"
                 Style="{StaticResource SubMenuDeleteButtonStyle}"
                 Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
+
+        <Border Grid.ColumnSpan="2" Opacity="0.2">
+
+        </Border>
 
     </Grid>
 
