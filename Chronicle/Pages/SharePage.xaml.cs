@@ -23,6 +23,7 @@ namespace Chronicle
         public SharePage()
         {
             InitializeComponent();
+
         }
     }
 }

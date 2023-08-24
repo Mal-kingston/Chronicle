@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.TextFormatting;
 
 namespace Chronicle
 {
@@ -77,6 +78,11 @@ namespace Chronicle
         /// </summary>
         public ContextMenuViewModel ContextMenu { get; set; }
 
+        /// <summary>
+        /// Template of the UI this view model controls
+        /// </summary>
+        public TabContentTemplates Template { get; set; }
+
         #endregion
 
         #region Public Commands
@@ -106,6 +112,7 @@ namespace Chronicle
             _title = string.Empty;
             Content = string.Empty;
             IsContextMenuOpen = false;
+            Template = TabContentTemplates.LinedWithMargin;
             ContextMenu = new ContextMenuViewModel();
 
             // Create commands
@@ -118,6 +125,7 @@ namespace Chronicle
             OnPropertyChanged(nameof(Header));
             OnPropertyChanged(nameof(_title));
             OnPropertyChanged(nameof(ContextMenu));
+            OnPropertyChanged(nameof(Template));
             
         }
 
@@ -141,7 +149,6 @@ namespace Chronicle
         /// <param name="tabContent">The property to change</param>
         public void OnContentUpdated(object sender, TabContentViewModel tabContent)
         {
-
             // If we haven't notified user yet
             if (tabContent.NotifyUser == false)
             {

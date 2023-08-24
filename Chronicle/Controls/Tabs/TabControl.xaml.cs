@@ -82,5 +82,6 @@ namespace Chronicle
                 scrollColumn.Width = new GridLength(0, GridUnitType.Auto);
             }
         }
+
     }
 }

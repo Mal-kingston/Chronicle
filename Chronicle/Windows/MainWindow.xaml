@@ -21,7 +21,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
         <!-- Side menu -->
         <!-- make the border width resizable -->
         <Border Grid.Column="0"

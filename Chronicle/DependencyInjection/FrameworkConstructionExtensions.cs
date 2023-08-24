@@ -133,14 +133,13 @@ namespace Chronicle
 
         #region Temporary Helpers
 
-        /// <summary>
-        /// Temporary function that points to the services directory of this application
-        /// to create and locate files for utilization 
-        /// 
         /// ============================================================================
         /// NOTE: Remove this function, once configuration is setup and in use
         /// ============================================================================
         /// 
+        /// <summary>
+        /// Temporary function that points to the services directory of this application
+        /// to create and locate files for 
         /// </summary>
         /// <param name="path">The path to services folder</param>
         /// <returns>Full path to the services folder</returns>

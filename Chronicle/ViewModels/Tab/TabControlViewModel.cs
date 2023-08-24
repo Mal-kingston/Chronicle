@@ -151,7 +151,7 @@ namespace Chronicle
                 TabItem
             };
 
-            // Wire tabs UI and data
+            // Wire tabs UI and data | components
             _tabContent = TabItem.TabContent;
             ContextMenu = _tabContent.ContextMenu;
 
@@ -288,7 +288,6 @@ namespace Chronicle
 
             // Update tab content
             UpdateTabContent();
-
         }
 
         /// <summary>
@@ -431,7 +430,6 @@ namespace Chronicle
             // Update property
             OnPropertyChanged(nameof(NewTabAdded));
             OnPropertyChanged(nameof(SetFocusOnTabContent));
-
         }
 
         #endregion
