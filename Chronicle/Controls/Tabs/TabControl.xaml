@@ -83,7 +83,8 @@
 
         <!--Tab content-->
         <Grid Grid.Row="1" >
-            <local:TabContentControl DataContext="{Binding TabContent}" />            
+            <local:TabContentControl DataContext="{Binding TabContent}"
+                                     d:DataContext=""/>            
         </Grid>
 
     </Grid>
