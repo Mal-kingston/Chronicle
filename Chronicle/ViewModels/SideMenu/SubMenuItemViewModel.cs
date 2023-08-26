@@ -70,8 +70,6 @@ namespace Chronicle
 
             // Load it
             TabControlVM.LoadNote(fileToOpen!.Value.Value);
-            // Reset content focus flag
-            TabControlVM.SetFocusOnTabContent = false;
 
             // Log info
             Logger.Log($"{fileToOpen.Value.Value?.Header} file opened");

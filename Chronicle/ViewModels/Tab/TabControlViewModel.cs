@@ -95,11 +95,6 @@ namespace Chronicle
         /// </summary>
         public bool NewTabAdded { get; set; }
 
-        /// <summary>
-        /// Used to direct focus on tab content when needed
-        /// </summary>
-        public bool SetFocusOnTabContent{ get; set; }
-
         #endregion
 
         #region Public Events
@@ -143,7 +138,6 @@ namespace Chronicle
         {
             // Set properties default
             NewTabAdded = true;
-            SetFocusOnTabContent = false;
             TabItem = new TabItemViewModel();
             _tabs = new ObservableCollection<TabItemViewModel>
             {
@@ -285,6 +279,11 @@ namespace Chronicle
                 TabID = Guid.NewGuid(),
                 TabContent = new TabContentViewModel(),
             });
+            
+            // Set flag
+            NewTabAdded = true;
+            // Update property
+            OnPropertyChanged(nameof(NewTabAdded));
 
             // Update tab content
             UpdateTabContent();
@@ -422,14 +421,6 @@ namespace Chronicle
 
             // Update tab content
             UpdateTabContent();
-
-            // Reset flags 
-            NewTabAdded = false;
-            SetFocusOnTabContent = false;
-
-            // Update property
-            OnPropertyChanged(nameof(NewTabAdded));
-            OnPropertyChanged(nameof(SetFocusOnTabContent));
         }
 
         #endregion
@@ -487,7 +478,6 @@ namespace Chronicle
 
             // Update tab content
             UpdateTabContent();
-
         }
 
         /// <summary>
@@ -514,21 +504,6 @@ namespace Chronicle
 
             }
 
-            // Set flags for UI to gain focus accordingly
-            if (_tabContent.Title.Count() == 0)
-            {
-                NewTabAdded = true;
-                SetFocusOnTabContent = false;
-            }
-            else
-            {
-                NewTabAdded = false;
-                SetFocusOnTabContent = true;
-            }
-
-            // Update property
-            OnPropertyChanged(nameof(NewTabAdded));
-            OnPropertyChanged(nameof(SetFocusOnTabContent));
             // Update selected tab unique id
             OnPropertyChanged(nameof(SelectedTabTabID));
 

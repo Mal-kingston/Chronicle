@@ -43,7 +43,6 @@
 
                         <TextBox  x:Name="Title" Background="Transparent" BorderThickness="0" MaxLength="32" 
                           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                          local:IsFocusedAttachedProperties.Value="{Binding DataContext.NewTabAdded, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"
                           TextWrapping="NoWrap" 
                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" 
                           CaretBrush="{StaticResource GrayBrush}"/>
@@ -63,8 +62,7 @@
             <Grid Grid.Row="1">
 
                 <TextBox x:Name="MainContent" Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="40 20 0 0"
-                         local:IsFocusedAttachedProperties.Value="{Binding DataContext.SetFocusOnTabContent, RelativeSource={RelativeSource AncestorType={x:Type local:TabControl}}}"                 AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
-                         FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="20 20 40 5" CaretBrush="{StaticResource GrayBrush}" 
+                         FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 40 5" CaretBrush="{StaticResource GrayBrush}" 
                          Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" TextBlock.LineHeight="22" />
 
                 <StackPanel x:Name="LinesContainer" Orientation="Vertical" VerticalAlignment="Stretch" Margin="0 40 0 0" />

@@ -58,6 +58,22 @@ namespace Chronicle
 
             };
 
+            Loaded += (s, e) =>
+            {
+                if (Title.Text.Length > 0)
+                {
+                    MainContent.Focus();
+                    MainContent.CaretIndex = MainContent.Text.Length;
+                }
+                else
+                {
+                    Title.Focus();
+                    Title.CaretIndex = MainContent.Text.Length;
+                }
+
+            };
+
+
         }
     }
 }

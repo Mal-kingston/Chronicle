@@ -24,6 +24,42 @@ namespace Chronicle
         {
             InitializeComponent();
 
+            var number = new TextBlock
+            {
+                Focusable = false,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Width = 40, Foreground = (Brush)Application.Current.FindResource("GrayBrush"),
+                FontSize = (double)Application.Current.FindResource("XSmall"),
+                FontFamily = (FontFamily)Application.Current.FindResource("JostFont"),
+                LineHeight = (double)Application.Current.FindResource("Small"),
+                TextAlignment = TextAlignment.Center,
+                Text = 1.ToString(),
+            };
+
+            if(MainContent.LineCount < 0)
+                LineNumber.Children.Add(number);
+
+            MainContent.TextChanged += (s, e) =>
+            {
+                if (MainContent.LineCount > LineNumber.Children.Count)
+                    LineNumber.Children.Add(new TextBlock
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Width = 40, Focusable = false,
+                        Foreground = (Brush)Application.Current.FindResource("GrayBrush"),
+                        FontSize = (double)Application.Current.FindResource("XSmall"),
+                        FontFamily = (FontFamily)Application.Current.FindResource("JostFont"),
+                        LineHeight = (double)Application.Current.FindResource("Small"),
+                        TextAlignment = TextAlignment.Center,
+                        Text = MainContent.LineCount.ToString(),
+                    });
+                else
+                {
+                    if(!(MainContent.LineCount <= 1))
+                        LineNumber.Children.RemoveAt(MainContent.LineCount);
+                }
+            };
+
             PreviewKeyDown += (s, e) =>
             {
 
@@ -39,6 +75,22 @@ namespace Chronicle
 
                 e.Handled = true;
             };
+
+            Loaded += (s, e) =>
+            {
+                if (Title.Text.Length > 0)
+                {
+                    MainContent.Focus();
+                    MainContent.CaretIndex = MainContent.Text.Length;
+                }
+                else
+                {
+                    Title.Focus();
+                    Title.CaretIndex = MainContent.Text.Length;
+                }
+
+            };
+
 
         }
     }

@@ -28,10 +28,9 @@ namespace Chronicle
             control.Focus();
 
             // If element is a text box and has text...
-            if(((TextBox)control).Text.Length > 0)
+            if (((TextBox)control).Text.Length > 0)
                 // Set the carat index to the very end of the text
                 ((TextBox)control).CaretIndex = ((TextBox)control).Text.Length;
         }
-
     }
 }
