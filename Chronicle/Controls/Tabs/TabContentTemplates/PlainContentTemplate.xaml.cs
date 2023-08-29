@@ -41,23 +41,23 @@ namespace Chronicle
 
             MainContent.TextChanged += (s, e) =>
             {
-                if (MainContent.LineCount > LineNumber.Children.Count)
-                    LineNumber.Children.Add(new TextBlock
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Width = 40, Focusable = false,
-                        Foreground = (Brush)Application.Current.FindResource("GrayBrush"),
-                        FontSize = (double)Application.Current.FindResource("XSmall"),
-                        FontFamily = (FontFamily)Application.Current.FindResource("JostFont"),
-                        LineHeight = (double)Application.Current.FindResource("Small"),
-                        TextAlignment = TextAlignment.Center,
-                        Text = MainContent.LineCount.ToString(),
-                    });
-                else
-                {
-                    if(!(MainContent.LineCount <= 1))
-                        LineNumber.Children.RemoveAt(MainContent.LineCount);
-                }
+                //if (MainContent.LineCount > LineNumber.Children.Count)
+                //    LineNumber.Children.Add(new TextBlock
+                //    {
+                //        HorizontalAlignment = HorizontalAlignment.Left,
+                //        Width = 40, Focusable = false,
+                //        Foreground = (Brush)Application.Current.FindResource("GrayBrush"),
+                //        FontSize = (double)Application.Current.FindResource("XSmall"),
+                //        FontFamily = (FontFamily)Application.Current.FindResource("JostFont"),
+                //        LineHeight = (double)Application.Current.FindResource("Small"),
+                //        TextAlignment = TextAlignment.Center,
+                //        Text = MainContent.LineCount.ToString(),
+                //    });
+                //else
+                //{
+                //    if(!(MainContent.LineCount <= 1))
+                //        LineNumber.Children.RemoveAt(MainContent.LineCount);
+                //}
             };
 
             PreviewKeyDown += (s, e) =>

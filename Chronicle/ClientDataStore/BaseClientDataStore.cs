@@ -131,6 +131,7 @@ namespace Chronicle
             savedData.Content = file.Content;
             savedData.IsInRecycle = file.IsInRecycle;
             savedData.AssociatedDate = file.AssociatedDate;
+            savedData.Template = file.Template;
 
             // Commit changes
             await _DbContext.SaveChangesAsync();
