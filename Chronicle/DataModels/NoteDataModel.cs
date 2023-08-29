@@ -35,6 +35,11 @@ namespace Chronicle
         public string Content { get; set; } = string.Empty;
 
         /// <summary>
+        /// The template associated with this file
+        /// </summary>
+        public TabContentTemplates Template { get; set; }
+
+        /// <summary>
         /// Flag indicating if this item is in recycle bin
         /// </summary>
         public bool IsInRecycle { get; set; } = false;

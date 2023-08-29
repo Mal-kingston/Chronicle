@@ -192,13 +192,13 @@ namespace Chronicle
             // Save note data to database
             await ClientDataStore.SaveFile(new NoteDataModel
             {
-                // TODO: Remember template of note
                 // Note_data | Id | Header | Title | Content |
                 Id = SelectedTabTabID,
                 Header = _tabContent.Header,
                 Title = _tabContent.Title,
                 Content = _tabContent.Content,
                 AssociatedDate = DateTime.Now,
+                Template = _tabContent.Template,
             });
 
 
@@ -474,7 +474,7 @@ namespace Chronicle
                     Header = note.Header,
                     Title = note.Title,
                     Content = note.Content,
-                    
+                    Template = note.Template
                 },
             });
 

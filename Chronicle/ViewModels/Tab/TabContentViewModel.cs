@@ -139,7 +139,7 @@ namespace Chronicle
             Content = string.Empty;
             IsContextMenuOpen = false;
             IsTemplateOptionsOpen = false;
-            Template = TabContentTemplates.Lined;
+            Template = TabContentTemplates.Plain;
             ContextMenu = new ContextMenuViewModel();
 
             // Create commands
