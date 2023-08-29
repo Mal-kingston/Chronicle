@@ -33,7 +33,7 @@ namespace Chronicle
                 FontFamily = (FontFamily)Application.Current.FindResource("JostFont"),
                 LineHeight = (double)Application.Current.FindResource("Small"),
                 TextAlignment = TextAlignment.Center,
-                Text = 1.ToString(),
+                // Text = 1.ToString(),
             };
 
             if(MainContent.LineCount < 0)

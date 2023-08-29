@@ -33,9 +33,9 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Title-->
-                <StackPanel Grid.Column="0" Margin="60 0 0 0"
+                <StackPanel Grid.Column="0" Margin="20 0 0 0"
                         Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock VerticalAlignment="Bottom" Text="{Binding TitleLabel}" Margin="50 0 0 0" Focusable="False"
+                    <TextBlock VerticalAlignment="Bottom" Text="{Binding TitleLabel}" Margin="20 0 0 0" Focusable="False"
                        FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" />
 
                     <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource GrayBrush}" 
@@ -59,16 +59,28 @@
             </Grid>
 
             <!--Content-->
-            <Grid Grid.Row="1">
+            <ScrollViewer x:Name="LinesScrollBar" Grid.Row="1" Margin="0 20 0 0" 
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
 
-                <TextBox x:Name="MainContent" Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="40 20 0 0"
-                         FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 40 5" CaretBrush="{StaticResource GrayBrush}" 
-                         Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" TextBlock.LineHeight="22" />
+                <Grid>
 
-                <StackPanel x:Name="LinesContainer" Orientation="Vertical" VerticalAlignment="Stretch" Margin="0 40 0 0" />
+                    <TextBox x:Name="MainContent" Grid.Row="0" Background="Transparent" TextAlignment="Left"
+                             Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="40 0 0 0"
+                             AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
+                             FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 5 20" CaretBrush="{StaticResource GrayBrush}" 
+                             Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" TextBlock.LineHeight="22" />
 
-            </Grid>
+                    <StackPanel x:Name="LinesContainer" Grid.Row="0" Focusable="False"
+                                Orientation="Vertical" VerticalAlignment="Stretch" Margin="0 0 0 0" />
 
+                    <StackPanel x:Name="LinesContainer2" Grid.Row="0" Focusable="False" 
+                                Orientation="Horizontal" VerticalAlignment="Stretch" Margin="0 0 0 0" />
+
+                </Grid>
+
+
+            </ScrollViewer>
+            
             <!--Context menu-->
             <Border Grid.Row="1" Margin="0 10 10 0" Panel.ZIndex="2"
                     Visibility="{Binding IsContextMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
@@ -76,6 +88,12 @@
                 <local:ContextMenuControl DataContext="{Binding LocateTabControlVM.ContextMenu, Source={x:Static local:ViewModelLocator.Instance}}"
                                           HorizontalAlignment="Right" VerticalAlignment="Top" />
 
+            </Border>
+
+            <!--Template options-->
+            <Border Grid.Row="1" Margin="0 165 165 0" Panel.ZIndex="2"
+                    Visibility="{Binding IsTemplateOptionsOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                <local:TemplateOptions VerticalAlignment="Top" HorizontalAlignment="Right" />
             </Border>
 
             <!--Notification-->

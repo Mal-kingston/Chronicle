@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Chronicle.TemplateOptions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Chronicle"
+             mc:Ignorable="d"
+             Background="{StaticResource DarkBrush}"
+             local:DropShadowAttachedProperty.Value="True">
+    <Grid >
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!--Plain template-->
+        <local:TemplateItemControl Grid.Row="0" Grid.Column="0" 
+                                   TemplateThumbnail="/.resources/images/PlainThumbnail.png"
+                                   TemplateName="Plain">
+
+            <local:TemplateItemControl.InputBindings>
+                <MouseBinding Command="{Binding DataContext.SelectPlainCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabContentControl}}}" MouseAction="LeftClick" />
+            </local:TemplateItemControl.InputBindings>
+
+        </local:TemplateItemControl>
+
+        <!--Lined template-->
+        <local:TemplateItemControl Grid.Row="0" Grid.Column="1" 
+                                   TemplateThumbnail="/.resources/images/LinedThumbnail.png"
+                                   TemplateName="Lined">
+            <local:TemplateItemControl.InputBindings>
+                <MouseBinding Command="{Binding DataContext.SelectLinedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabContentControl}}}" MouseAction="LeftClick" />
+            </local:TemplateItemControl.InputBindings>
+
+        </local:TemplateItemControl>
+
+        <!--Lined with margin template-->
+        <local:TemplateItemControl Grid.Row="1" Grid.Column="0" 
+                                   TemplateThumbnail="/.resources/images/LinedWithMarginThumbnail.png"
+                                   TemplateName="Margin lined">
+            <local:TemplateItemControl.InputBindings>
+                <MouseBinding Command="{Binding DataContext.SelectMarginLinedCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabContentControl}}}" MouseAction="LeftClick" />
+            </local:TemplateItemControl.InputBindings>
+
+        </local:TemplateItemControl>
+
+    </Grid>
+</UserControl>

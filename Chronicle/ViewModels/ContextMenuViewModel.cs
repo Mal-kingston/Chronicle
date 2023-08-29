@@ -72,11 +72,6 @@ namespace Chronicle
         /// </summary>
         public ICommand ShareCommand { get; set; }
 
-        /// <summary>
-        /// Command to select a preferred template
-        /// </summary>
-        public ICommand ChooseTemplateCommand { get; set; }
-
         #endregion
 
         #region Constructor

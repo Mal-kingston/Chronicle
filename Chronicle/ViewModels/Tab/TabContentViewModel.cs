@@ -73,6 +73,12 @@ namespace Chronicle
         public bool IsContextMenuOpen { get; set; }
 
         /// <summary>
+        /// True if template option control is open
+        /// Otherwise, false if not open
+        /// </summary>
+        public bool IsTemplateOptionsOpen { get; set; }
+
+        /// <summary>
         /// The context menu to allow saving, sharing, printing of files
         /// as well as other functions
         /// </summary>
@@ -97,6 +103,26 @@ namespace Chronicle
         /// </summary>
         public ICommand CloseContextMenuCommand { get; set; }
 
+        /// <summary>
+        /// Command to select a preferred template
+        /// </summary>
+        public ICommand OpenTemplateOptionsCommand { get; set; }
+
+        /// <summary>
+        /// Command to select plain template
+        /// </summary>
+        public ICommand SelectPlainCommand { get; set; }
+
+        /// <summary>
+        /// Command to select lined template
+        /// </summary>
+        public ICommand SelectLinedCommand { get; set; }
+
+        /// <summary>
+        /// Command to select margin lined template
+        /// </summary>
+        public ICommand SelectMarginLinedCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -112,12 +138,18 @@ namespace Chronicle
             _title = string.Empty;
             Content = string.Empty;
             IsContextMenuOpen = false;
-            Template = TabContentTemplates.LinedWithMargin;
+            IsTemplateOptionsOpen = false;
+            Template = TabContentTemplates.Lined;
             ContextMenu = new ContextMenuViewModel();
 
             // Create commands
             OpenContextMenuCommand = new RelayCommand(() => IsContextMenuOpen ^= true);
-            CloseContextMenuCommand = new RelayCommand(() => IsContextMenuOpen = false);
+            CloseContextMenuCommand = new RelayCommand(() => IsTemplateOptionsOpen = IsContextMenuOpen = false);
+            OpenTemplateOptionsCommand = new RelayCommand(() => IsTemplateOptionsOpen ^= true);
+            SelectPlainCommand = new RelayCommand(() => {Template = TabContentTemplates.Plain; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
+            SelectLinedCommand = new RelayCommand(() => { Template = TabContentTemplates.Lined; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
+            SelectMarginLinedCommand = new RelayCommand(() => { Template = TabContentTemplates.LinedWithMargin; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
+
 
             // Update properties
             OnPropertyChanged(nameof(Content));

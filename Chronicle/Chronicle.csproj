@@ -30,6 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include=".resources\images\LinedThumbnail.png" />
+    <Resource Include=".resources\images\LinedWithMarginThumbnail.png" />
+    <Resource Include=".resources\images\PlainThumbnail.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include=".resources\fonts\Jost-Regular.ttf" />
   </ItemGroup>
   

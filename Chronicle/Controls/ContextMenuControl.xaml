@@ -23,7 +23,8 @@
             <Button Content="{Binding Print, FallbackValue=Print}" />
             <Button Content="{Binding Share, FallbackValue=Share}" />
             <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{StaticResource GrayBrush}" />
-            <Button Content="{Binding Template, FallbackValue=Template}" />
+            <Button Content="{Binding Template, FallbackValue=Template}"
+                    Command="{Binding DataContext.OpenTemplateOptionsCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabContentControl}}}"/>
         </StackPanel>
 
     </Border>

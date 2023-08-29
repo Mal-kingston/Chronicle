@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Chronicle.TemplateItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Chronicle"
+             mc:Ignorable="d" 
+             x:Name="ThisControl">
+
+    <UserControl.Resources>
+        
+        <Style x:Key="TemplateItemStyle" TargetType="{x:Type ContentControl}">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}" >
+                    
+                        <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="2" >
+
+                            <Grid>
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <!--Template thumbnail-->
+                                    <Image Source="{Binding TemplateThumbnail, ElementName=ThisControl}"
+                                           d:Source="/.resources/images/PlainThumbnail.png"/>
+
+                                    <!--Template label | name-->
+                                    <TextBlock x:Name="TemplateLabel" Text="{Binding TemplateName, ElementName=ThisControl, FallbackValue=Plain}" Foreground="{StaticResource GrayBrush}"
+                                               FontSize="10" FontFamily="{StaticResource JostFont}" 
+                                               HorizontalAlignment="Stretch" TextBlock.TextAlignment="Center" VerticalAlignment="Bottom" />
+
+                                </StackPanel>
+
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="TemplateLabel" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </UserControl.Resources>
+
+    <!--Template item -->
+    <ContentControl Style="{StaticResource TemplateItemStyle}" />
+
+</UserControl>

@@ -26,11 +26,6 @@
                 </Border.InputBindings>
             </Border>
 
-            <!--Margin line--> 
-            <Border Grid.Row="0" Grid.RowSpan="2" Opacity="0.6"
-                    BorderBrush="{StaticResource RedBrush}" BorderThickness="1"
-                    Width="1" HorizontalAlignment="Left" Margin="60 0 0 0"/>
-
             <!--Title and context menu-->
             <Grid Grid.Row="0" Panel.ZIndex="1" >
                 <Grid.ColumnDefinitions>
@@ -66,16 +61,29 @@
             </Grid>
 
             <!--Content-->
-            <Grid Grid.Row="1">
+            <ScrollViewer x:Name="LinesScrollBar" Grid.Row="1" Margin="0 20 0 0" 
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
 
-                <TextBox x:Name="MainContent" Background="Transparent" TextAlignment="Left" Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="70 20 0 0"
-                         AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
-                         FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 40 5" CaretBrush="{StaticResource GrayBrush}" 
-                         Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" TextBlock.LineHeight="22" />
+                <Grid>
+                    
+                    <TextBox x:Name="MainContent" Grid.Row="0" Background="Transparent" TextAlignment="Left"
+                             Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="70 0 0 0"
+                             AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
+                             FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 5 20" CaretBrush="{StaticResource GrayBrush}" 
+                             Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" TextBlock.LineHeight="22" />
 
-                <StackPanel x:Name="LinesContainer" Orientation="Vertical" VerticalAlignment="Stretch" Margin="0 20 0 0" />
+                    <StackPanel x:Name="LinesContainer" Grid.Row="0" Focusable="False"
+                                Orientation="Vertical" VerticalAlignment="Stretch" Margin="0 0 0 0" />
 
-            </Grid>
+                </Grid> 
+                    
+            </ScrollViewer>
+
+            <!--Margin line-->
+            <Border Grid.Row="0" Grid.RowSpan="2" Opacity="0.7"
+                    BorderBrush="{StaticResource RedBrush}" BorderThickness="1"
+                    Width="1" HorizontalAlignment="Left" Margin="60 0 0 0"/>
+
 
             <!--Context menu-->
             <Border Grid.Row="1" Margin="0 10 10 0" Panel.ZIndex="2"
@@ -84,6 +92,12 @@
                 <local:ContextMenuControl DataContext="{Binding LocateTabControlVM.ContextMenu, Source={x:Static local:ViewModelLocator.Instance}}"
                                           HorizontalAlignment="Right" VerticalAlignment="Top" />
 
+            </Border>
+
+            <!--Template options-->
+            <Border Grid.Row="1" Margin="0 165 165 0" Panel.ZIndex="2"
+                    Visibility="{Binding IsTemplateOptionsOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                <local:TemplateOptions VerticalAlignment="Top" HorizontalAlignment="Right" />
             </Border>
 
             <!--Notification-->
