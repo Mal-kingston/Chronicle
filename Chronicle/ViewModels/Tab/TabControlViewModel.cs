@@ -478,6 +478,11 @@ namespace Chronicle
                 },
             });
 
+            // Set flag
+            NewTabAdded = true;
+            // Update property
+            OnPropertyChanged(nameof(NewTabAdded));
+
             // Update tab content
             UpdateTabContent();
         }
@@ -577,6 +582,5 @@ namespace Chronicle
         }
 
         #endregion
-
     }
 }

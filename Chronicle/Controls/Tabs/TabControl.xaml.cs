@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Chronicle
 {
@@ -39,6 +41,8 @@ namespace Chronicle
             //  Adjust scrolling controls accordingly whenever window size changes (maximize | normal)
             mainWindow.SizeChanged += (s, e) => AdjustScrollControls();
 
+            // Adjust tabs 
+            AdjustTabs();
         }
 
         /// <summary>
@@ -81,6 +85,32 @@ namespace Chronicle
                 ScrollViewerButtonVisibility = Visibility.Collapsed;
                 scrollColumn.Width = new GridLength(0, GridUnitType.Auto);
             }
+        }
+
+        /// <summary>
+        /// Adjust tabs when either of the semi-hidden far end tabs are selected
+        /// </summary>
+        private void AdjustTabs()
+        {
+            // TODO: Find a better way to react to tabs collection when user clicks on a tab that is not fully visible
+            scrollViewer.PreviewMouseDown += (s, e) =>
+            {
+                var pos = Mouse.GetPosition(Application.Current.MainWindow).X;
+
+                if(Application.Current.MainWindow.WindowState == WindowState.Maximized)
+                {
+                    if (pos >= 312 && pos <= 380)
+                        scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 75);
+                    else if(pos >= 1750 && pos <= 1830)
+                        scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 75);
+                }
+                else if (pos >= 312 && pos <= 380)
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 89);
+                else if (pos >= 1111 && pos <= 1180)
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 89);
+
+            };
+
         }
 
     }

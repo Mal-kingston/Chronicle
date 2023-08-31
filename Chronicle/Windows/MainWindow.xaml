@@ -108,7 +108,7 @@
                                             <DataTemplate>
 
                                                 <!--The actual list-->
-                                                <local:SubMenuItemControl />
+                                                <local:SubMenuItemControl Focusable="False" />
 
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -157,7 +157,7 @@
                                             <DataTemplate>
                                                 
                                                 <!--The actual list-->
-                                                <local:SubMenuItemControl />
+                                                <local:SubMenuItemControl Focusable="False" />
 
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>

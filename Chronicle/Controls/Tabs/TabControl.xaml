@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Width="28" Height="28" Margin="5"
+            <Button Grid.Column="0" Width="28" Height="28" Margin="5" x:Name="LeftScrollButton"
                     Content="{StaticResource LeftArrowIcon}" Click="LeftButtonContentScroller"
                     Visibility="{Binding ScrollViewerButtonVisibility, ElementName=ThisControl, FallbackValue=Collapsed}"/>
 
@@ -50,14 +50,14 @@
                 <ItemsControl ItemsSource="{Binding Tabs, UpdateSourceTrigger=PropertyChanged}" >
                     <!--Panel template (Orientation of tabs) -->
                     <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
+                        <ItemsPanelTemplate >
                             <StackPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <!--Item template-->
                     <ItemsControl.ItemTemplate >
                         <DataTemplate >
-                            <local:TabItemControl HorizontalAlignment="Left" Focusable="False" 
+                            <local:TabItemControl HorizontalAlignment="Left" Focusable="False"
                                                   Header="{Binding TabContent.Header}"
                                                   IsSelected="{Binding TabIsSelected, Mode=TwoWay}" />
                         </DataTemplate>
@@ -66,7 +66,7 @@
 
             </ScrollViewer>
 
-            <Button Grid.Column="2" Width="28" Height="28" Margin="5"
+            <Button Grid.Column="2" Width="28" Height="28" Margin="5" x:Name="RightScrollButton"
                     Content="{StaticResource RightArrowIcon}" Click="RightButtonContentScroller"
                     Visibility="{Binding ScrollViewerButtonVisibility, ElementName=ThisControl, FallbackValue=Collapsed}" />
 
