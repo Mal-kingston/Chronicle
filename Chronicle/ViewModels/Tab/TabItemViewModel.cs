@@ -56,7 +56,6 @@ namespace Chronicle
 
                 OnPropertyChanged(nameof(TabContent));
             }
-
         }
 
         /// <summary>

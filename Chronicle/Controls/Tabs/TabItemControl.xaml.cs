@@ -20,6 +20,7 @@ namespace Chronicle
     /// </summary>
     public partial class TabItemControl : UserControl
     {
+
         public TabItemControl()
         {
             InitializeComponent();
@@ -36,7 +37,7 @@ namespace Chronicle
 
         // Using a DependencyProperty as the backing store for Selected.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(TabItemControl), new PropertyMetadata(defaultValue: false));
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(TabItemControl), new PropertyMetadata(defaultValue: false, OnPropertyChanged));
 
         /// <summary>
         /// Header for each tab
@@ -51,7 +52,23 @@ namespace Chronicle
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(string), typeof(TabItemControl), new PropertyMetadata(defaultValue: "Untitled"));
 
-
+        /// <summary>
+        /// Brings this control into view if its partially visible when selected.
+        /// NOTE: Same applies to currently opened tabs that are not visible, 
+        ///       When users tries to open them, they will be brought into view
+        /// </summary>
+        /// <remarks>
+        /// ===  Callback for when this control is selected  ===
+        /// </remarks>
+        /// <param name="d">This control</param>
+        /// <param name="e">The value of this control</param>
+        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // If latest value is true (Meaning that the tab is currently selected)...
+            if ((bool)e.NewValue)
+                // Bring it into view
+                (d as TabItemControl)?.BringIntoView();
+        }
 
     }
 }

@@ -44,10 +44,11 @@
                     Content="{StaticResource LeftArrowIcon}" Click="LeftButtonContentScroller"
                     Visibility="{Binding ScrollViewerButtonVisibility, ElementName=ThisControl, FallbackValue=Collapsed}"/>
 
-            <ScrollViewer Grid.Column="1" x:Name="scrollViewer"
-                          VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" >
+            <ScrollViewer Grid.Column="1" x:Name="scrollViewer" 
+                          VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
 
                 <ItemsControl ItemsSource="{Binding Tabs, UpdateSourceTrigger=PropertyChanged}" >
+                    
                     <!--Panel template (Orientation of tabs) -->
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate >
