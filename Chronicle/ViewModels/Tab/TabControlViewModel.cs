@@ -147,7 +147,6 @@ namespace Chronicle
 
             // Wire tabs UI and data | components
             _tabContent = TabItem.TabContent;
-            _tabContent.Template = TabItem.TabContent.Template;
             ContextMenu = _tabContent.ContextMenu;
 
             // Create commands

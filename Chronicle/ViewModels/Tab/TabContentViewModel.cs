@@ -148,7 +148,8 @@ namespace Chronicle
             OpenTemplateOptionsCommand = new RelayCommand(() => IsTemplateOptionsOpen ^= true);
             SelectPlainCommand = new RelayCommand(() => {Template = TabContentTemplates.Plain; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
             SelectLinedCommand = new RelayCommand(() => { Template = TabContentTemplates.Lined; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
-            SelectMarginLinedCommand = new RelayCommand(() => { Template = TabContentTemplates.LinedWithMargin; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
+            SelectMarginLinedCommand = new RelayCommand(() => { Template = TabContentTemplates.LinedWithMargin; IsTemplateOptionsOpen = IsContextMenuOpen = false; 
+                OnPropertyChanged(nameof(Template)); });
 
 
             // Update properties
