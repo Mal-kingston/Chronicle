@@ -20,10 +20,21 @@ namespace Chronicle
     /// </summary>
     public partial class ContextMenuControl : UserControl
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ContextMenuControl()
         {
             InitializeComponent();
-        }
 
+            // Hook up to visibility changed event
+            IsVisibleChanged += (s, e) =>
+            {
+                // If we're not visible...
+                if (!IsVisible)
+                    // Reset our template button (toggle button) checked state to not checked
+                    TemplateButton.IsChecked = false;
+            };
+        }
     }
 }

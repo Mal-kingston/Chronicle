@@ -15,7 +15,7 @@ namespace Chronicle
 
         public SharePageViewModel()
         {
-            Label = "SHARE PAGE UNDER CONSTRUCTION";
+            Label = $"NOT SUPPORTED YET";
         }
     }
 }

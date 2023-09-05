@@ -7,9 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid >
-        <Label Content="{Binding Label}" 
+    <StackPanel Orientation="Vertical" Margin="0 100" >
+        
+        <Label Content="{Binding Label}" Margin="0 50" 
                FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
-    </Grid>
+
+        <Label Content="TRY AGAIN LATER" 
+               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+    </StackPanel>
 </Page>
