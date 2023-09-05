@@ -230,6 +230,43 @@
         </Setter>
     </Style>
 
+    <!--Template options style--> 
+    <Style x:Key="ContextMenuToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+        <Setter Property="FontSize" Value="{StaticResource XSmall}" />
+        <Setter Property="FontFamily" Value="{StaticResource JostFont}" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+
+                    <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="0">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
+                            <Setter Property="Background" Value="{StaticResource LightDarkBrush}" />
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
+                            <Setter Property="Background" Value="{StaticResource LightDarkBrush}" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Vertical dots button style-->
     <Style x:Key="VerticalDotsButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent" />

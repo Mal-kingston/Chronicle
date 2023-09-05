@@ -179,7 +179,7 @@ namespace Chronicle
             if (string.IsNullOrEmpty(_tabContent.Content) || TabItem?.TabID == null)
             {
                 // Close context menu
-                _tabContent.IsContextMenuOpen = false;
+                _tabContent.IsContextMenuOpen = _tabContent.IsTemplateOptionsOpen = false;
 
                 // Do nothing
                 return;
@@ -212,7 +212,7 @@ namespace Chronicle
             SubMenuVM.UpdateNoteList();
 
             // Close context menu
-            _tabContent.IsContextMenuOpen = false;
+            _tabContent.IsContextMenuOpen = _tabContent.IsTemplateOptionsOpen = false;
 
             // notify user that file has been saved
             OnContentUpdated(parameter);
@@ -231,7 +231,7 @@ namespace Chronicle
             if (fileInQuestion!.Value.Key == Guid.Empty)
             {
                 // Close context menu
-                _tabContent.IsContextMenuOpen = false;
+                _tabContent.IsContextMenuOpen = _tabContent.IsTemplateOptionsOpen = false;
 
                 // Do nothing
                 return;
@@ -248,7 +248,7 @@ namespace Chronicle
             SubMenuVM.UpdateNoteList();
 
             // Close context menu
-            _tabContent.IsContextMenuOpen = false;
+            _tabContent.IsContextMenuOpen = _tabContent.IsTemplateOptionsOpen = false;
 
             // notify user that file has been deleted
             OnContentUpdated(parameter);

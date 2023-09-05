@@ -77,7 +77,6 @@
 
             <local:ContextMenuControl DataContext="{Binding LocateTabControlVM.ContextMenu, Source={x:Static local:ViewModelLocator.Instance}}"
                                       HorizontalAlignment="Right" VerticalAlignment="Top" />
-
         </Border>
 
         <!--Template options-->
