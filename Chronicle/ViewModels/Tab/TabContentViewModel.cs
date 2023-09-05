@@ -143,7 +143,7 @@ namespace Chronicle
             ContextMenu = new ContextMenuViewModel();
 
             // Create commands
-            OpenContextMenuCommand = new RelayCommand(() => IsContextMenuOpen ^= true);
+            OpenContextMenuCommand = new RelayCommand(() => { IsContextMenuOpen ^= true; if (!IsContextMenuOpen) IsTemplateOptionsOpen = false; });
             CloseContextMenuCommand = new RelayCommand(() => IsTemplateOptionsOpen = IsContextMenuOpen = false);
             OpenTemplateOptionsCommand = new RelayCommand(() => IsTemplateOptionsOpen ^= true);
             SelectPlainCommand = new RelayCommand(() => {Template = TabContentTemplates.Plain; IsTemplateOptionsOpen = IsContextMenuOpen = false; });
