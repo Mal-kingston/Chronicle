@@ -5,12 +5,80 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chronicle"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="BookPage">
+      d:DesignHeight="600" d:DesignWidth="800" 
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
-    <Grid >
-        <Label Content="{Binding Label}" 
-               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
-               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-    </Grid>
+    <Border Background="{StaticResource DarkBrush}" 
+            Margin="0 15 0 0" Padding="40 20" >
+
+        <StackPanel >
+
+            <!--Appearance-->
+            <Label Content="[ APPEARANCE ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 10"
+                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
+                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+
+            <!--Theme-->
+            <StackPanel Margin="0 0 0 20">
+
+                <Grid >
+                    
+                    <Label Content="Themes" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
+                       HorizontalAlignment="Left"/>
+
+                    <ComboBox HorizontalAlignment="Right" Width="200"
+                              Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+
+                        <ComboBoxItem Content="Light (Blue)" IsSelected="True" Background="Transparent"/>
+                        <ComboBoxItem Content="Dark" />
+                        <ComboBoxItem Content="Use system setting" />
+
+                    </ComboBox>
+
+                </Grid>
+
+                <!--Templates-->
+                <Grid >
+                    <Label Content="Templates" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
+                       HorizontalAlignment="Left" ToolTip="template for tabs"/>
+
+                    <ComboBox HorizontalAlignment="Right" Width="200" 
+                          Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}"
+                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+
+                        <ComboBoxItem Content="Plain" IsSelected="True" />
+                        <ComboBoxItem Content="Lined" />
+                        <ComboBoxItem Content="Lined with margin" />
+
+                    </ComboBox>
+
+                </Grid>
+
+            </StackPanel>
+            
+            <Label Content="[ Social media ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
+                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
+                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ToolTip="Linked social media accounts" />
+
+            <StackPanel Orientation="Vertical" Margin="0 0 0 20">
+                <Label Content="Facebook" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="Instagram" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="Discord" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="X" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+            </StackPanel>
+            
+            <Label Content="[ HELP ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
+                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
+                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+
+            <StackPanel>
+                <Label Content="Shortcuts" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="About chronicle" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+            </StackPanel>
+
+
+        </StackPanel>
+
+    </Border>
 </Page>

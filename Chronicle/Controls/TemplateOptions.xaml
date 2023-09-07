@@ -6,8 +6,10 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
              Background="{StaticResource DarkBrush}"
-             local:DropShadowAttachedProperty.Value="True">
-    <Grid >
+             local:DropShadowAttachedProperty.Value="True"
+             BorderThickness="0" BorderBrush="{StaticResource GrayBrush}">
+    
+    <Grid Background="{StaticResource LightDarkBrush}" >
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -49,6 +51,9 @@
             </local:TemplateItemControl.InputBindings>
 
         </local:TemplateItemControl>
+
+        <!--Dummy to fill up empty space-->
+        <Border Grid.Row="1" Grid.Column="1" Margin="2" Background="{StaticResource DarkBrush}" />
 
     </Grid>
 </UserControl>

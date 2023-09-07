@@ -10,7 +10,7 @@
     <Grid>
         <!-- Button -->
         <Button Content="{Binding ButtonContent, UpdateSourceTrigger=PropertyChanged, FallbackValue=Save}" 
-                BorderThickness="{Binding BorderThickness}" 
+                BorderThickness="{Binding BorderThickness}" IsDefault="{Binding BorderThickness}"
                 Style="{StaticResource PromptBoxButtonStyle}" 
                 Command="{Binding ButtonAction}" CommandParameter="{Binding FeedBackType}" />
     </Grid>

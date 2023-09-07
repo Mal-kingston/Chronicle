@@ -25,6 +25,7 @@ namespace Chronicle
         public PromptBoxShell()
         {
             InitializeComponent();
+
         }
     }
 }

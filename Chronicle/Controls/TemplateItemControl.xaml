@@ -15,7 +15,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}" >
                     
-                        <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="1" >
+                        <Border Background="{StaticResource DarkBrush}" Margin="2"
+                                BorderBrush="{StaticResource GrayBrush}" BorderThickness="0" >
 
                             <Grid>
 
