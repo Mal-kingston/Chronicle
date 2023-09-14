@@ -85,6 +85,11 @@ namespace Chronicle
         /// </summary>
         public static RecycleBinViewModel RecycleVM => Framework.Service<RecycleBinViewModel>();
 
+        /// <summary>
+        /// Shortcut to access the <see cref="SettingsPageViewModel"/>
+        /// </summary>
+        public static SettingsPageViewModel SettingsVM => Framework.Service<SettingsPageViewModel>();
+
         #endregion
 
         #region Pages

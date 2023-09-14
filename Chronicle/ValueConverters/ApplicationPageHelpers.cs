@@ -40,7 +40,7 @@ namespace Chronicle
 
 				// Settings
                 case ApplicationPage.Settings:
-                    return new SettingsPage { DataContext = new SettingsPageViewModel() };
+                    return SettingsPageInstance;
 
 				// Trash
                 case ApplicationPage.RecycleBin:

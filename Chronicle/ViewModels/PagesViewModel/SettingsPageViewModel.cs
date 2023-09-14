@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Chronicle
 {
@@ -11,11 +13,30 @@ namespace Chronicle
     /// </summary>
     public class SettingsPageViewModel : BaseViewModel
     {
-        public string Label { get; set; } 
+        /// <summary>
+        /// Command to set tab template to use lined template
+        /// </summary>
+        public ICommand LinedTemplateCommand { get; set; }
 
+        /// <summary>
+        /// Command to set tab template to use plain template
+        /// </summary>
+        public ICommand PlainTemplateCommand { get; set; }
+
+        /// <summary>
+        /// Command to set tab template to use lined with margin template
+        /// </summary>
+        public ICommand LinedWithMarginTemplateCommand { get; set; }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public SettingsPageViewModel()
         {
-            Label = "SETTINGS PAGE UNDER CONSTRUCTION";
+            // Create commands
+            LinedTemplateCommand = new RelayCommand(() => DI.TabContentVM.Template = TabContentTemplates.Lined);
+            PlainTemplateCommand = new RelayCommand(() => DI.TabContentVM.Template = TabContentTemplates.Plain);
+            LinedWithMarginTemplateCommand = new RelayCommand(() => DI.TabContentVM.Template = TabContentTemplates.LinedWithMargin);
         }
     }
 }

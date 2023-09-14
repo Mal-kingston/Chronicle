@@ -1,38 +1,36 @@
-﻿<Page x:Class="Chronicle.SettingsPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Chronicle"
-      mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800" 
-    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+﻿<local:BasePage x:TypeArguments="local:SettingsPageViewModel" 
+                x:Class="Chronicle.SettingsPage"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:Chronicle"
+                mc:Ignorable="d" 
+                d:DesignHeight="600" d:DesignWidth="800" >
 
     <Border Background="{StaticResource DarkBrush}" 
-            Margin="0 15 0 0" Padding="40 20" >
+            Margin="0 15 0 0" Padding="60 40" >
 
         <StackPanel >
 
             <!--Appearance-->
             <Label Content="[ APPEARANCE ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 10"
                    FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
-                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+                   VerticalAlignment="Center" HorizontalAlignment="Left" />
 
             <!--Theme-->
             <StackPanel Margin="0 0 0 20">
 
                 <Grid >
                     
-                    <Label Content="Themes" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
-                       HorizontalAlignment="Left"/>
+                    <Label Content="Choose a default theme" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
+                           HorizontalAlignment="Left"/>
 
-                    <ComboBox HorizontalAlignment="Right" Width="200"
-                              Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}"
-                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <ComboBox HorizontalAlignment="Right" Width="200" Margin="0 5" >
 
-                        <ComboBoxItem Content="Light (Blue)" IsSelected="True" Background="Transparent"/>
-                        <ComboBoxItem Content="Dark" />
-                        <ComboBoxItem Content="Use system setting" />
+                        <local:CustomComboBoxItem Content="Light (Blue)" IsSelected="True" />
+                        <local:CustomComboBoxItem Content="Dark" />
+                        <local:CustomComboBoxItem Content="Use system setting" />
 
                     </ComboBox>
 
@@ -40,16 +38,14 @@
 
                 <!--Templates-->
                 <Grid >
-                    <Label Content="Templates" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
+                    <Label Content="Choose a default template" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
                        HorizontalAlignment="Left" ToolTip="template for tabs"/>
 
-                    <ComboBox HorizontalAlignment="Right" Width="200" 
-                          Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}"
-                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <ComboBox HorizontalAlignment="Right" Width="200" Margin="0 5">
 
-                        <ComboBoxItem Content="Plain" IsSelected="True" />
-                        <ComboBoxItem Content="Lined" />
-                        <ComboBoxItem Content="Lined with margin" />
+                        <local:CustomComboBoxItem Content="Plain" IsSelected="True" ControlCommand="{Binding PlainTemplateCommand}" />
+                        <local:CustomComboBoxItem Content="Lined" ControlCommand="{Binding LinedTemplateCommand}" />
+                        <local:CustomComboBoxItem Content="Lined (margin)" ControlCommand="{Binding LinedWithMarginTemplateCommand}" />
 
                     </ComboBox>
 
@@ -58,8 +54,8 @@
             </StackPanel>
             
             <Label Content="[ Social media ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
-                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
-                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ToolTip="Linked social media accounts" />
+                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                   ToolTip="Linked social media accounts" />
 
             <StackPanel Orientation="Vertical" Margin="0 0 0 20">
                 <Label Content="Facebook" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
@@ -70,10 +66,10 @@
             
             <Label Content="[ HELP ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
                    FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
-                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+                   VerticalAlignment="Center" HorizontalAlignment="Left" />
 
             <StackPanel>
-                <Label Content="Shortcuts" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="Hotkeys" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
                 <Label Content="About chronicle" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
             </StackPanel>
 
@@ -81,4 +77,4 @@
         </StackPanel>
 
     </Border>
-</Page>
+</local:BasePage>

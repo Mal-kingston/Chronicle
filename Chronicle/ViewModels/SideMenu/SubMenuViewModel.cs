@@ -30,7 +30,7 @@ namespace Chronicle
         /// True if note list is empty
         /// Otherwise false
         /// </summary>
-        public bool IsBookListEmpty { get; set; }
+        public bool IsBookListEmpty { get; set; } 
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace Chronicle
             BookSubMenu = new ObservableCollection<SubMenuItemViewModel>();
             NoteSubMenu = new ObservableCollection<SubMenuItemViewModel>();
             IsNoteListEmpty = false;
-            IsBookListEmpty = false;
+            IsBookListEmpty = true;    // NOTE : This is set to true because it hasn't been implemented yet 
 
             // Update list of notes
             UpdateNoteList();

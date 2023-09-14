@@ -1,14 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Threading;
-using Chronicle;
-using static Chronicle.DI;
 
 namespace Chronicle
 {
@@ -54,6 +44,7 @@ namespace Chronicle
                 // Set content to value
                 _tabContent = value;
 
+                // Update tabcontent
                 OnPropertyChanged(nameof(TabContent));
             }
         }
@@ -67,6 +58,7 @@ namespace Chronicle
             TabIsSelected = true;
             TabID = Guid.NewGuid();
             _tabContent = new TabContentViewModel();
+            _tabContent.Template = DI.TabContentVM.Template;
 
             // Update properties
             OnPropertyChanged(nameof(TabIsSelected));

@@ -277,7 +277,6 @@ namespace Chronicle
                 // Set defaults
                 TabIsSelected = true,
                 TabID = Guid.NewGuid(),
-                TabContent = new TabContentViewModel(),
             });
             
             // Set flag

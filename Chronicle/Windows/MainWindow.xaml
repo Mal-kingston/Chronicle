@@ -131,7 +131,7 @@
 
                     <!--Book Sub-Menu-->
                     <Border Background="{StaticResource DarkBrush}" Grid.Row="3"
-                            BorderThickness="0" ClipToBounds="True"
+                            BorderThickness="0" ClipToBounds="True" Height="120"
                             Visibility="{Binding IsBookSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
 
                         <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
@@ -152,7 +152,9 @@
                                                         Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
 
 
-                                    <ItemsControl ItemsSource="{Binding BookSubMenu, Source={x:Static local:SubMenuDesignModel.Instance}}">
+                                    <ItemsControl ItemsSource="{Binding BookSubMenu, UpdateSourceTrigger=PropertyChanged,
+                                                  Source={x:Static local:ViewModelLocator.Instance}}"
+                                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 

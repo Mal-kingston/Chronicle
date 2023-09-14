@@ -7,6 +7,7 @@
     <FontFamily x:Key="JostFont">pack://application:,,,/.resources/fonts/#Jost</FontFamily>
     
     <!-- Font sizes -->
+    <system:Double x:Key="XXSmall">12</system:Double> 
     <system:Double x:Key="XSmall">14</system:Double> 
     <system:Double x:Key="Small">18</system:Double>
     <system:Double x:Key="SemiRegular">20</system:Double>
@@ -32,5 +33,6 @@
     <system:String x:Key="CheckGoodIcon">&#xf00c;</system:String>
     <system:String x:Key="LeftArrowIcon">&#xf104;</system:String>
     <system:String x:Key="RightArrowIcon">&#xf105;</system:String>
+    <system:String x:Key="SolidTriangleIcon">&#xf0d7;</system:String>
     
    </ResourceDictionary>

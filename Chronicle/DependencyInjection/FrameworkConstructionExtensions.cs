@@ -32,6 +32,7 @@ namespace Chronicle
             construction.Services.AddSingleton<BasicPromptViewModel>();
             construction.Services.AddSingleton<SaveAsPromptViewModel>();
             construction.Services.AddSingleton<RecycleBinViewModel>();
+            construction.Services.AddSingleton<SettingsPageViewModel>();
 
             // Return the construction for chaining
             return construction;
