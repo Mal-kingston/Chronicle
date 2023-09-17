@@ -65,7 +65,7 @@
             </StackPanel>
 
             <!--Help-->
-            <Label Content="[ HELP ]" Foreground="{DynamicResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
+            <Label Content="[ INFO ]" Foreground="{DynamicResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
                    FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" />
 
