@@ -10,7 +10,7 @@
 
     <!--Context menu outline-->
     <Border Width="150" Padding="0 0" local:DropShadowAttachedProperty.Value="True"
-            Background="{StaticResource DarkBrush}">
+            Background="{DynamicResource DarkBrush}">
 
         <!--Buttons-->
         <StackPanel Orientation="Vertical" local:ContexMenuButtonStyleAttachedProperties.Value="True">
@@ -20,10 +20,10 @@
                     Command="{Binding SaveAsCommand}" />
             <Button Content="{Binding Delete, FallbackValue=Delete}" 
                     Command="{Binding DeleteCommand}" CommandParameter="File deleted" />
-            <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{StaticResource GrayBrush}" />
+            <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{DynamicResource GrayBrush}" />
             <Button Content="{Binding Print, FallbackValue=Print}" />
             <Button Content="{Binding Share, FallbackValue=Share}" />
-            <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{StaticResource GrayBrush}" />
+            <Border BorderThickness="0.5" Margin="8 0" BorderBrush="{DynamicResource GrayBrush}" />
             <ToggleButton x:Name="TemplateButton" Content="{Binding Template, FallbackValue=Template}" Style="{StaticResource ContextMenuToggleButtonStyle}" 
                           Command="{Binding DataContext.OpenTemplateOptionsCommand, RelativeSource={RelativeSource AncestorType={x:Type local:TabContentControl}}}"/>
         </StackPanel>

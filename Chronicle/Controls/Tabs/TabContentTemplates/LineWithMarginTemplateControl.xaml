@@ -10,7 +10,7 @@
              d:DataContext="{x:Static local:TabContentDesignModel.Instance}">
     
     <Grid>
-        <Grid Grid.Row="1" Background="{StaticResource DarkBrush}">
+        <Grid Grid.Row="1" Background="{DynamicResource DarkBrush}">
             <Grid.RowDefinitions>
                 <!--Title-->
                 <RowDefinition Height="50" />
@@ -38,16 +38,16 @@
                             Orientation="Horizontal" HorizontalAlignment="Left">
                     
                     <TextBlock VerticalAlignment="Bottom" Text="{Binding TitleLabel}" Margin="50 0 0 0" Focusable="False"
-                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" />
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{DynamicResource GrayBrush}" />
 
-                    <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource GrayBrush}" 
+                    <Border BorderThickness="0 0 0 1" BorderBrush="{DynamicResource GrayBrush}" 
                             Width="200" Margin="10 0 0 0" Padding="10 0 0 0" VerticalAlignment="Bottom">
 
                         <TextBox  x:Name="Title" Background="Transparent" BorderThickness="0" MaxLength="32" 
                                   Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                   TextWrapping="NoWrap" 
-                                  FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{StaticResource GrayBrush}" 
-                                  CaretBrush="{StaticResource GrayBrush}"/> 
+                                  FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Foreground="{DynamicResource GrayBrush}" 
+                                  CaretBrush="{DynamicResource GrayBrush}"/> 
 
                     </Border>
                 </StackPanel>
@@ -67,9 +67,9 @@
                 <Grid>
                     
                     <TextBox x:Name="MainContent" Grid.Row="0" Background="Transparent" TextAlignment="Left"
-                             Foreground="{StaticResource GrayBrush}" TextWrapping="Wrap" Margin="70 0 0 0"
+                             Foreground="{DynamicResource GrayBrush}" TextWrapping="Wrap" Margin="70 0 0 0"
                              AcceptsTab="True" AcceptsReturn="True" BorderBrush="{x:Null}" BorderThickness="0" HorizontalScrollBarVisibility="Disabled"
-                             FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 5 20" CaretBrush="{StaticResource GrayBrush}" 
+                             FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XSmall}" Padding="5 0 5 20" CaretBrush="{DynamicResource GrayBrush}" 
                              Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" TextBlock.LineHeight="22" />
 
                     <StackPanel x:Name="LinesContainer" Grid.Row="0" Focusable="False"
@@ -81,7 +81,7 @@
 
             <!--Margin line-->
             <Border Grid.Row="0" Grid.RowSpan="2" Opacity="0.7"
-                    BorderBrush="{StaticResource RedBrush}" BorderThickness="1"
+                    BorderBrush="{DynamicResource RedBrush}" BorderThickness="1"
                     Width="1" HorizontalAlignment="Left" Margin="60 0 0 0"/>
 
 
@@ -102,7 +102,7 @@
 
             <!--Notification-->
             <Border Grid.Row="0" Grid.RowSpan="2" Margin="0 0 0 200" Padding="10 2"
-                Background="{StaticResource LightDarkBrush}" BorderBrush="{StaticResource GrayBrush}" BorderThickness="2"
+                Background="{DynamicResource LightDarkBrush}" BorderBrush="{DynamicResource GrayBrush}" BorderThickness="2"
                 VerticalAlignment="Center" HorizontalAlignment="Center" 
                 Visibility="{Binding NotifyUser, Converter={local:BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, FallbackValue=Visible}">
 
@@ -110,12 +110,12 @@
 
                     <!--Text-->
                     <Label Content="{Binding BriefNotificationText}" FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Regular}"
-                       Foreground="{StaticResource GrayBrush}" Margin="0 0 4 0"
+                       Foreground="{DynamicResource GrayBrush}" Margin="0 0 4 0"
                        VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                     <!--Icon-->
                     <Label Content="{StaticResource CheckGoodIcon}" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="{StaticResource Regular}"
-                       Foreground="{StaticResource GrayBrush}" Margin="4 0 0 0"
+                       Foreground="{DynamicResource GrayBrush}" Margin="4 0 0 0"
                        VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                 </StackPanel>

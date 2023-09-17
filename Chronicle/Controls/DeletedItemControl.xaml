@@ -9,9 +9,9 @@
     <UserControl.Resources>
 
         <Style x:Key="DeletedItemStyle" TargetType="{x:Type CheckBox}" >
-            <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource DarkBrush}"/>
             <Setter Property="BorderBrush" Value="{x:Null}"/>
-            <Setter Property="Foreground" Value="{StaticResource BlueBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource BlueBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -30,20 +30,20 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!--Box-->
-                                <Border x:Name="Box" Grid.Column="0" Background="{StaticResource DarkBrush}" Height="22" Width="22"
-                                        BorderBrush="{StaticResource GrayBrush}" BorderThickness="2"
+                                <Border x:Name="Box" Grid.Column="0" Background="{DynamicResource DarkBrush}" Height="22" Width="22"
+                                        BorderBrush="{DynamicResource GrayBrush}" BorderThickness="2"
                                         Margin="10 0 0 0" HorizontalAlignment="Left" >
 
                                     <!--Check mark-->
                                     <Label x:Name="CheckIcon" Content="{StaticResource CheckGoodIcon}" FontFamily="{StaticResource FontAwesomeSolid}"
-                                            Foreground="{StaticResource BlueBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                            Foreground="{DynamicResource BlueBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                             Padding="0" Visibility="Collapsed" />
                                 </Border>
 
                                 <!--File name-->
                                 <Label x:Name="FileName" Grid.Column="1" Content="{Binding FileName, FallbackValue=Micro controllers}" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                         Margin="30 0" MinWidth="350"
-                                        FontFamily="{StaticResource JostFont}" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource XSmall}" />
+                                        FontFamily="{StaticResource JostFont}" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource XSmall}" />
 
                                 <!--File type and deleted date-->
                                 <StackPanel Grid.Column="2" Orientation="Horizontal"
@@ -51,12 +51,12 @@
 
                                     <!--File type-->
                                     <Label x:Name="FileType" Content="{Binding FileType, FallbackValue=Note}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 50 0" 
-                                            FontFamily="{StaticResource JostFont}" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource XSmall}" 
+                                            FontFamily="{StaticResource JostFont}" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource XSmall}" 
                                             MinWidth="100"/>
 
                                     <!--Deleted date-->
                                     <Label x:Name="DeletedDate" Content="{Binding DeletedDate, FallbackValue=7/20/2023}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 50 0" 
-                                            FontFamily="{StaticResource JostFont}" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource XSmall}" 
+                                            FontFamily="{StaticResource JostFont}" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource XSmall}" 
                                             MinWidth="100"/>
 
                                 </StackPanel>
@@ -66,29 +66,29 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource LightDarkBrush}" TargetName="MainContent" />
-                                <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}" TargetName="Box" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="FileName" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="FileType" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="DeletedDate" />
+                                <Setter Property="Background" Value="{DynamicResource LightDarkBrush}" TargetName="MainContent" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" TargetName="Box" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="FileName" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="FileType" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="DeletedDate" />
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="True" >
                                 <Setter Property="Visibility" Value="Visible" TargetName="CheckIcon" />
-                                <Setter Property="Background" Value="{StaticResource LightDarkBrush}" TargetName="MainContent" />
-                                <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}" TargetName="Box" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="FileName" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="FileType" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="DeletedDate" />
+                                <Setter Property="Background" Value="{DynamicResource LightDarkBrush}" TargetName="MainContent" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" TargetName="Box" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="FileName" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="FileType" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="DeletedDate" />
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="{x:Null}" >
                                 <Setter Property="Visibility" Value="Collapsed" TargetName="CheckIcon" />
-                                <Setter Property="Background" Value="{StaticResource DarkBrush}" TargetName="MainContent" />
-                                <Setter Property="BorderBrush" Value="{StaticResource GrayBrush}" TargetName="Box" />
-                                <Setter Property="Foreground" Value="{StaticResource GrayBrush}" TargetName="FileName" />
-                                <Setter Property="Foreground" Value="{StaticResource GrayBrush}" TargetName="FileType" />
-                                <Setter Property="Foreground" Value="{StaticResource GrayBrush}" TargetName="DeletedDate" />
+                                <Setter Property="Background" Value="{DynamicResource DarkBrush}" TargetName="MainContent" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush}" TargetName="Box" />
+                                <Setter Property="Foreground" Value="{DynamicResource GrayBrush}" TargetName="FileName" />
+                                <Setter Property="Foreground" Value="{DynamicResource GrayBrush}" TargetName="FileType" />
+                                <Setter Property="Foreground" Value="{DynamicResource GrayBrush}" TargetName="DeletedDate" />
                             </Trigger>
 
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">

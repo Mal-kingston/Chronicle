@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d" 
-             d:Background="{StaticResource DarkBrush}">
+             d:Background="{DynamicResource DarkBrush}">
     
     <StackPanel Orientation="Horizontal" >
 
         <!--Label-->   
-        <Label Content="{Binding TextBoxLabel, FallbackValue=File name :}" Foreground="{StaticResource GrayBrush}" VerticalContentAlignment="Center"
+        <Label Content="{Binding TextBoxLabel, FallbackValue=File name :}" Foreground="{DynamicResource GrayBrush}" VerticalContentAlignment="Center"
                FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Regular}"/>
         
         <!--Text box for file name input-->
-        <Border Width="300" BorderBrush="{StaticResource GrayBrush}" BorderThickness="0 0 0 1"
+        <Border Width="300" BorderBrush="{DynamicResource GrayBrush}" BorderThickness="0 0 0 1"
                 Margin="4 8 8 2" Padding="0 0 0 0" VerticalAlignment="Center">
             
             <!--The text-->

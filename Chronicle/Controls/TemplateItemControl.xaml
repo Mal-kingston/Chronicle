@@ -15,8 +15,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}" >
                     
-                        <Border Background="{StaticResource DarkBrush}" Margin="2"
-                                BorderBrush="{StaticResource GrayBrush}" BorderThickness="0" >
+                        <Border Background="{DynamicResource DarkBrush}" Margin="2"
+                                BorderBrush="{DynamicResource GrayBrush}" BorderThickness="0" >
 
                             <Grid>
 
@@ -27,7 +27,7 @@
                                            d:Source="/.resources/images/PlainThumbnail.png"/>
 
                                     <!--Template label | name-->
-                                    <TextBlock x:Name="TemplateLabel" Text="{Binding TemplateName, ElementName=ThisControl, FallbackValue=Plain}" Foreground="{StaticResource GrayBrush}"
+                                    <TextBlock x:Name="TemplateLabel" Text="{Binding TemplateName, ElementName=ThisControl, FallbackValue=Plain}" Foreground="{DynamicResource GrayBrush}"
                                                FontSize="10" FontFamily="{StaticResource JostFont}" 
                                                HorizontalAlignment="Stretch" TextBlock.TextAlignment="Center" VerticalAlignment="Bottom" />
 
@@ -39,7 +39,7 @@
                         <ControlTemplate.Triggers>
                             
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="TemplateLabel" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="TemplateLabel" />
                             </Trigger>
                         </ControlTemplate.Triggers>
 

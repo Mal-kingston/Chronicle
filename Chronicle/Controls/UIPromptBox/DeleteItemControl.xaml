@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d" >
-    <Grid Background="{StaticResource DarkBrush}">
+    <Grid Background="{DynamicResource DarkBrush}">
         <Label Content="{Binding Query, UpdateSourceTrigger=PropertyChanged, FallbackValue=Selected files will be permanently deleted ?}"
-               Foreground="{StaticResource GrayBrush}" 
+               Foreground="{DynamicResource GrayBrush}" 
                FontSize="{StaticResource Small}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
     </Grid>
 </UserControl>

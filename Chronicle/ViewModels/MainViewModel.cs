@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Chronicle
@@ -9,6 +11,7 @@ namespace Chronicle
     /// </summary>
     public class MainViewModel : BaseViewModel
     {
+
         #region Public Properties
 
         /// <summary>
@@ -48,12 +51,7 @@ namespace Chronicle
         /// The current page of this application
         /// default to note
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; } 
-
-        /// <summary>
-        /// The view model to use for the current page when the Current page changes
-        /// </summary>
-        public BaseViewModel? CurrentPageViewModel { get; set; }
+        public ApplicationPage CurrentPage { get; set; }
 
         #endregion
 

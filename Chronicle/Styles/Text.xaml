@@ -9,15 +9,15 @@
         <Setter Property="MaxLength" Value="26" />
         <Setter Property="FontSize" Value="{StaticResource Small}" />
         <Setter Property="FontFamily" Value="{StaticResource JostFont}" />
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
-        <Setter Property="Background" Value="{StaticResource DarkBrush}" />
-        <Setter Property="CaretBrush" Value="{StaticResource GrayBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource GrayBrush}" />
+        <Setter Property="Background" Value="{DynamicResource DarkBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource GrayBrush}" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
 
-                    <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="0 0 0 1">
+                    <Border BorderBrush="{DynamicResource GrayBrush}" BorderThickness="0 0 0 1">
 
                         <Grid>
 

@@ -6,15 +6,15 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                 xmlns:local="clr-namespace:Chronicle"
                 mc:Ignorable="d" 
-                d:DesignHeight="600" d:DesignWidth="800" >
+                d:DesignHeight="700" d:DesignWidth="800" >
 
-    <Border Background="{StaticResource DarkBrush}" 
+    <Border Background="{DynamicResource DarkBrush}" 
             Margin="0 15 0 0" Padding="60 40" >
 
         <StackPanel >
 
             <!--Appearance-->
-            <Label Content="[ APPEARANCE ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 10"
+            <Label Content="[ APPEARANCE ]" Foreground="{DynamicResource WhiteBrush}" Opacity="0.6" Margin="0 10"
                    FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" />
 
@@ -22,15 +22,15 @@
             <StackPanel Margin="0 0 0 20">
 
                 <Grid >
-                    
-                    <Label Content="Choose a default theme" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
+
+                    <Label Content="Choose a default theme" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}"
                            HorizontalAlignment="Left"/>
 
                     <ComboBox HorizontalAlignment="Right" Width="200" Margin="0 5" >
 
-                        <local:CustomComboBoxItem Content="Light (Blue)" IsSelected="True" />
-                        <local:CustomComboBoxItem Content="Dark" />
-                        <local:CustomComboBoxItem Content="Use system setting" />
+                        <local:CustomComboBoxItem Content="Dark" IsSelected="{Binding IsDarkThemeActive, FallbackValue=True}" ControlCommand="{Binding DarkThemeCommand}" />
+                        <local:CustomComboBoxItem Content="Light (Blue)" IsSelected="{Binding IsLightThemeActive}" ControlCommand="{Binding LightThemeCommand}" />
+                        <local:CustomComboBoxItem Content="Use system setting" /> <!--Dummy-->
 
                     </ComboBox>
 
@@ -38,39 +38,53 @@
 
                 <!--Templates-->
                 <Grid >
-                    <Label Content="Choose a default template" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}"
+                    <Label Content="Choose a default template" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}"
                        HorizontalAlignment="Left" ToolTip="template for tabs"/>
 
                     <ComboBox HorizontalAlignment="Right" Width="200" Margin="0 5">
 
-                        <local:CustomComboBoxItem Content="Plain" IsSelected="True" ControlCommand="{Binding PlainTemplateCommand}" />
-                        <local:CustomComboBoxItem Content="Lined" ControlCommand="{Binding LinedTemplateCommand}" />
-                        <local:CustomComboBoxItem Content="Lined (margin)" ControlCommand="{Binding LinedWithMarginTemplateCommand}" />
+                        <local:CustomComboBoxItem Content="Plain" IsSelected="{Binding IsPlainTemplateActive, FallbackValue=True}" ControlCommand="{Binding PlainTemplateCommand}" />
+                        <local:CustomComboBoxItem Content="Lined" IsSelected="{Binding IsLinedTemplateActive}" ControlCommand="{Binding LinedTemplateCommand}" />
+                        <local:CustomComboBoxItem Content="Lined (margin)" IsSelected="{Binding IsMarginLinedTemplateActive}" ControlCommand="{Binding LinedWithMarginTemplateCommand}" />
 
                     </ComboBox>
 
                 </Grid>
 
             </StackPanel>
-            
-            <Label Content="[ Social media ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
-                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}" HorizontalAlignment="Left" VerticalAlignment="Center"
-                   ToolTip="Linked social media accounts" />
+
+            <!--Social media-->
+            <Label Content="[ Social media ]" Foreground="{DynamicResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
+                   FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
             <StackPanel Orientation="Vertical" Margin="0 0 0 20">
-                <Label Content="Facebook" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
-                <Label Content="Instagram" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
-                <Label Content="Discord" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
-                <Label Content="X" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="Facebook" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="Instagram" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="Discord" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Label Content="X" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
             </StackPanel>
-            
-            <Label Content="[ HELP ]" Foreground="{StaticResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
+
+            <!--Help-->
+            <Label Content="[ HELP ]" Foreground="{DynamicResource WhiteBrush}" Opacity="0.6" Margin="0 0 0 10"
                    FontSize="{StaticResource SemiRegular}" FontFamily="{StaticResource JostFont}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" />
 
             <StackPanel>
-                <Label Content="Hotkeys" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
-                <Label Content="About chronicle" Foreground="{StaticResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                <Grid>
+                    <Label Content="Hotkeys" Foreground="{DynamicResource GrayBrush}" HorizontalAlignment="Left" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+                    <TextBlock HorizontalAlignment="Right" Foreground="{DynamicResource GrayBrush}"
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}"> New tab [Ctrl + N]. <LineBreak/> 
+                                                                                                        Close tab [Ctrl + F4]. <LineBreak/> 
+                                                                                                        Save note [Ctrl + S]. <LineBreak/>  
+                                                                                                        Delete a selected tab [Shft + Ctrl + D] <LineBreak/>  </TextBlock>
+                </Grid>
+                <Grid>
+                    <Label Content="About chronicle" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
+
+                    <TextBlock HorizontalAlignment="Right" Foreground="{DynamicResource GrayBrush}" Margin="0 0 40 0"
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}"> Product of mal </TextBlock>
+                </Grid>
+                
             </StackPanel>
 
 

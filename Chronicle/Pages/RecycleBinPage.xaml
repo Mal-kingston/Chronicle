@@ -9,7 +9,7 @@
                 d:DesignHeight="650" d:DesignWidth="850"
                 d:DataContext="{x:Static local:RecycleBinDesignModel.Instance}">
 
-    <Grid Margin="0 15 0 5" Background="{StaticResource LightDarkBrush}" >
+    <Grid Margin="0 15 0 5" Background="{DynamicResource LightDarkBrush}" >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -51,35 +51,35 @@
         </Grid>
 
         <!--Header and deleted items-->
-        <Grid Grid.Row="1" Background="{StaticResource DarkBrush}">
+        <Grid Grid.Row="1" Background="{DynamicResource DarkBrush}">
                 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--Header--> 
-            <Border Grid.Row="0" BorderThickness="1.5" BorderBrush="{StaticResource GrayBrush}">
+            <!--Header-->
+            <Border Grid.Row="0" BorderThickness="1.5" BorderBrush="{DynamicResource GrayBrush}">
 
                 <Grid HorizontalAlignment="Stretch" Height="40" >
 
                     <!--File name-->
                     <Label Content="File name" VerticalContentAlignment="Center" Padding="80 0 0 0" MinWidth="470"  HorizontalAlignment="Left"
-                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{StaticResource GrayBrush}" />
+                           FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{DynamicResource GrayBrush}" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         
-                        <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="1" Height="20" VerticalAlignment="Center" />
+                        <Border BorderBrush="{DynamicResource GrayBrush}" BorderThickness="1" Height="20" VerticalAlignment="Center" />
 
                         <!--File type-->
                         <Label Content="File type" VerticalContentAlignment="Center" Padding="0 0 50 0" Margin="20 0"
-                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{StaticResource GrayBrush}" />
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{DynamicResource GrayBrush}" />
 
-                        <Border BorderBrush="{StaticResource GrayBrush}" BorderThickness="1" Height="20" VerticalAlignment="Center" />
+                        <Border BorderBrush="{DynamicResource GrayBrush}" BorderThickness="1" Height="20" VerticalAlignment="Center" />
 
                         <!--Date deleted-->
                         <Label Content="Date deleted" VerticalContentAlignment="Center" Padding="0 0 50 0" Margin="20 0" 
-                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{StaticResource GrayBrush}" />
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}" Foreground="{DynamicResource GrayBrush}" />
 
                     </StackPanel>
                     
@@ -104,7 +104,7 @@
 
                     <!--Tag for when list is empty-->
                     <Label Content="-  E  m  p  t  y  -" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0" Opacity="0.6"
-                           Foreground="{StaticResource WhiteBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" 
+                           Foreground="{DynamicResource WhiteBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" 
                            Visibility="{Binding IsListEmpty, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
 
                 </Grid>

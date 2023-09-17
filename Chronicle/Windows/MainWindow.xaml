@@ -12,7 +12,7 @@
         MinWidth="{Binding MinimumWidth}"
         Icon="\.resources\icons\chronicle_icon.ico" >
 
-    <Grid Background="{StaticResource LightDarkBrush}">
+    <Grid Background="{DynamicResource LightDarkBrush}" >
 
         <Grid.ColumnDefinitions>
             <!-- Side menu -->
@@ -24,8 +24,8 @@
         <!-- Side menu -->
         <!-- make the border width resizable -->
         <Border Grid.Column="0"
-                BorderBrush="{StaticResource GrayBrush}" BorderThickness="0, 0, 1, 0"
-                Background="{StaticResource DarkBrush}" ClipToBounds="True" >
+                BorderBrush="{DynamicResource GrayBrush}" BorderThickness="0, 0, 1, 0"
+                Background="{DynamicResource DarkBrush}" ClipToBounds="True" >
 
             <Grid>
 
@@ -43,9 +43,9 @@
                       x:Name="AppTitle"
                       Width="200">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Foreground="{StaticResource WhiteBrush}" Padding="10">
+                               Foreground="{DynamicResource WhiteBrush}" Padding="10">
                         <TextBlock.Effect>
-                            <DropShadowEffect BlurRadius="25" Color="{StaticResource Blue}" ShadowDepth="0" />
+                            <DropShadowEffect BlurRadius="25" Color="{DynamicResource Blue}" ShadowDepth="0" />
                         </TextBlock.Effect>
                         <Run Text="{StaticResource PlaneIcon}" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="{StaticResource Large}" />
                         <Run Text=" Chronicle" FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" />
@@ -79,11 +79,11 @@
                                  Command="{Binding NoteMenuCommand}"/>
 
                     <!--Note Sub-Menu-->
-                    <Border Background="{StaticResource DarkBrush}" Grid.Row="1"
+                    <Border Background="{DynamicResource DarkBrush}" Grid.Row="1"
                             BorderThickness="0" ClipToBounds="True" Height="120"
                             Visibility="{Binding IsNoteSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
 
-                        <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
+                        <Border Background="Transparent" BorderBrush="{DynamicResource DarkBrush}" 
                                 BorderThickness="5, 5, 5, 0" Margin="-4">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
@@ -96,7 +96,7 @@
 
                                     <!--Tag for empty list-->
                                     <Label Content="- E m p t y -" VerticalAlignment="Top" HorizontalAlignment="Center"
-                                           Foreground="{StaticResource WhiteBrush}" Margin="0 8 0 0" Opacity="0.7" FontFamily="{StaticResource JostFont}"
+                                           Foreground="{DynamicResource WhiteBrush}" Margin="0 8 0 0" Opacity="0.7" FontFamily="{StaticResource JostFont}"
                                            Visibility="{Binding LocateSubMenuVM.IsNoteListEmpty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
                                                         Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
 
@@ -130,11 +130,11 @@
 
 
                     <!--Book Sub-Menu-->
-                    <Border Background="{StaticResource DarkBrush}" Grid.Row="3"
+                    <Border Background="{DynamicResource DarkBrush}" Grid.Row="3"
                             BorderThickness="0" ClipToBounds="True" Height="120"
                             Visibility="{Binding IsBookSubMenuOpen, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
 
-                        <Border Background="Transparent" BorderBrush="{StaticResource DarkBrush}" 
+                        <Border Background="Transparent" BorderBrush="{DynamicResource DarkBrush}" 
                                 BorderThickness="5, 5, 5, 0" Margin="-4">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="20"/>
@@ -147,7 +147,7 @@
 
                                     <!--Tag for empty list-->
                                     <Label Content="- E m p t y -" VerticalAlignment="Top" HorizontalAlignment="Center"
-                                           Foreground="{StaticResource WhiteBrush}" Margin="0 8 0 0" Opacity="0.7" FontFamily="{StaticResource JostFont}"
+                                           Foreground="{DynamicResource WhiteBrush}" Margin="0 8 0 0" Opacity="0.7" FontFamily="{StaticResource JostFont}"
                                            Visibility="{Binding LocateSubMenuVM.IsBookListEmpty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
                                                         Source={x:Static local:ViewModelLocator.Instance}, Converter={local:BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
 
@@ -220,34 +220,34 @@
                         Orientation="Horizontal" HorizontalAlignment="Right" >
 
                 <!-- Search -->
-                <Border Background="{StaticResource DarkBrush}" Width="600" Height="30" Margin="30, 30, 0, 0" Padding="10 0 0 0">
+                <Border Background="{DynamicResource DarkBrush}" Width="600" Height="30" Margin="30, 30, 0, 0" Padding="10 0 0 0">
                     <Grid Margin="20, 4">
 
-                        <TextBlock Text="Search" Foreground="{StaticResource GrayBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                        <TextBlock Text="Search" Foreground="{DynamicResource GrayBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"
                                 FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
                         <TextBlock Text="{StaticResource SearchButtonIcon}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                Foreground="{StaticResource GrayBrush}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                Foreground="{DynamicResource GrayBrush}" FontFamily="{StaticResource FontAwesomeSolid}" />
                     </Grid>
                 </Border>
 
                 <!-- Notification -->
-                <Border Background="{StaticResource DarkBrush}" Width="30" Height="30" Margin="20, 30, 0, 0">
+                <Border Background="{DynamicResource DarkBrush}" Width="30" Height="30" Margin="20, 30, 0, 0">
 
                     <TextBlock Text="{StaticResource NotificationButtonIcon}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                Foreground="{StaticResource GrayBrush}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                Foreground="{DynamicResource GrayBrush}" FontFamily="{StaticResource FontAwesomeSolid}" />
                 </Border>
 
                 <!-- User -->
-                <Border Background="{StaticResource DarkBrush}"
+                <Border Background="{DynamicResource DarkBrush}"
                     Width="100" Height="30" Margin="20, 30, 0, 0">
 
                     <Grid Margin="8, 0">
 
-                        <TextBlock Text="Heather" Foreground="{StaticResource GrayBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                        <TextBlock Text="Heather" Foreground="{DynamicResource GrayBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"
                                 FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
 
                         <TextBlock Text="{StaticResource UserButtonIcon}" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="{StaticResource Small}"
-                                Foreground="{StaticResource GrayBrush}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                Foreground="{DynamicResource GrayBrush}" FontFamily="{StaticResource FontAwesomeSolid}" />
 
                     </Grid>
                     

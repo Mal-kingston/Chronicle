@@ -10,11 +10,11 @@
     <StackPanel Orientation="Vertical" Margin="0 100" >
         
         <Label Content="{Binding Label}" Margin="0 50" 
-               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
+               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{DynamicResource GrayBrush}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <Label Content="TRY AGAIN LATER" 
-               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
+               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{DynamicResource GrayBrush}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
     </StackPanel>

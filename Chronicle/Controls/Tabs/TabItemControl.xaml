@@ -17,7 +17,7 @@
 
                         <Grid x:Name="container"
                               Height="36" Width="160" 
-                              Background="{StaticResource DarkBrush}" >
+                              Background="{DynamicResource DarkBrush}" >
                             
                             <!-- Title -->
                             <TextBlock x:Name="Header" 
@@ -25,16 +25,16 @@
                                         TextAlignment="Center" FontSize="{StaticResource XSmall}"
                                         Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalAlignment="Left" 
                                         TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
-                                        Foreground="{StaticResource GrayBrush}" Width="100" />
+                                        Foreground="{DynamicResource GrayBrush}" Width="100" />
                                 
                             <!-- Right bar -->
-                            <Border Width="2" Margin="0" Background="{StaticResource GrayBrush}" 
+                            <Border Width="2" Margin="0" Background="{DynamicResource GrayBrush}" 
                                     HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
 
                             <!-- Bottom bar -->
                             <Border Height="4"
                                     VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-                                    Background="{StaticResource BlueBrush}" 
+                                    Background="{DynamicResource BlueBrush}" 
                                     Visibility="{Binding IsSelected, ElementName=TabItem, Converter={local:BooleanToVisibilityConverter}, Mode=TwoWay}" />
 
                         </Grid>
@@ -42,7 +42,7 @@
                         <ControlTemplate.Triggers>
                             <!--Set header selection when selected-->
                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True" >
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="Header" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="Header" />
                             </DataTrigger>
 
                             <!--Set properties for when mouse is over-->

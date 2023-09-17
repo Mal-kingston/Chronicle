@@ -9,7 +9,7 @@
 
     <Grid  >
         <Label Content="{Binding Label}" 
-               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{StaticResource GrayBrush}"
+               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource XLarge}" Foreground="{DynamicResource GrayBrush}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
     </Grid>

@@ -8,7 +8,7 @@
              Height="{Binding PromptBoxHeight}" MinWidth="{Binding PromptBoxWidth}"
              d:DataContext="{x:Static local:PromptBoxShellDesignModel.Instance}">
 
-    <Grid Background="{StaticResource DarkBrush}"
+    <Grid Background="{DynamicResource DarkBrush}"
           local:DropShadowAttachedProperty.Value="True" >
 
         <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
         </Grid>
 
         <!--Prompt box buttons-->
-        <Border Grid.Row="1" Background="{StaticResource LightDarkBrush}">
+        <Border Grid.Row="1" Background="{DynamicResource LightDarkBrush}">
 
             <ItemsControl ItemsSource="{Binding Buttons}" x:Name="thiss" >
 

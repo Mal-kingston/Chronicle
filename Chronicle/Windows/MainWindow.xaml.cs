@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Configuration;
 using System.Windows;
 
 namespace Chronicle
@@ -22,7 +23,7 @@ namespace Chronicle
 
             // Listen for window size changing
             this.SizeChanged += MainWindow_SizeChanged;
-                
+
         }
 
         /// <summary>

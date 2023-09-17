@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Chronicle"
              mc:Ignorable="d"
              d:DataContext="{x:Static local:SubMenuItemDesignModel.Instance}"
-             d:Background="{StaticResource DarkBrush}"
+             d:Background="{DynamicResource DarkBrush}"
              Focusable="False">
 
     <UserControl.Resources >
@@ -28,7 +28,7 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource SubMenubg}" TargetName="bg" />
+                                <Setter Property="Background" Value="{DynamicResource SubMenubg}" TargetName="bg" />
                             </Trigger>
                         </ControlTemplate.Triggers>
 
@@ -57,13 +57,13 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- icon -->
-                                <TextBlock Grid.Column="0" Foreground="{StaticResource WhiteBrush}" Name="SubMenuIcon"
+                                <TextBlock Grid.Column="0" Foreground="{DynamicResource WhiteBrush}" Name="SubMenuIcon"
                                            Text="{Binding SubMenuIcon, Converter={local:IconTypeConverter}}" FontFamily="{StaticResource FontAwesomeSolid}"
                                            VerticalAlignment="Center" Margin="10, 0, 10, 0" Padding="0" />
 
                                 <!-- title -->
                                 <TextBlock Grid.Column="1"  Name="Text"
-                                           Text="{Binding SubMenuTitle}" FontFamily="{StaticResource JostFont}" Foreground="{StaticResource WhiteBrush}"
+                                           Text="{Binding SubMenuTitle}" FontFamily="{StaticResource JostFont}" Foreground="{DynamicResource WhiteBrush}"
                                            VerticalAlignment="Center" Margin="0" Padding="0" TextTrimming="WordEllipsis" TextWrapping="NoWrap" />
 
                             </Grid>
@@ -72,8 +72,8 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="SubMenuIcon" />
-                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" TargetName="Text" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="SubMenuIcon" />
+                                <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" TargetName="Text" />
                             </Trigger>
                         </ControlTemplate.Triggers>
 
@@ -98,7 +98,7 @@
                 Command="{Binding OpenFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
 
         <Button Grid.Column="1" Height="22" Width="22" Padding="10, 5" Margin="0 0 10 0" Opacity="0.7" HorizontalAlignment="Right"
-                Content="{StaticResource CloseIcon}" Foreground="{StaticResource WhiteBrush}" 
+                Content="{StaticResource CloseIcon}" Foreground="{DynamicResource WhiteBrush}" 
                 FontSize="{StaticResource XSmall}"
                 Style="{StaticResource SubMenuDeleteButtonStyle}"
                 Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SubMenuTitle}"/>
