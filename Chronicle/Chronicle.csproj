@@ -76,9 +76,6 @@
     <Compile Update="Pages\SharePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\CalendarPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>

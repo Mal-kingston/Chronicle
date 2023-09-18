@@ -15,7 +15,7 @@ namespace Chronicle
 
         public BookPageViewModel()
         {
-            Label = "BOOK PAGE UNDER CONSTRUCTION";
+            Label = "NOT SUPPORTED YET";
         }
     }
 }

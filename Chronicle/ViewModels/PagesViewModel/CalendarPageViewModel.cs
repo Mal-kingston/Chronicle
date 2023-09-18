@@ -15,7 +15,7 @@ namespace Chronicle
 
         public CalendarPageViewModel()
         {
-            Label = "CALENDAR PAGE UNDER CONSTRUCTION";
+            Label = "NOT SUPPORTED YET";
         }
     }
 }
