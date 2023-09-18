@@ -82,7 +82,7 @@
                     <Label Content="About chronicle" Foreground="{DynamicResource GrayBrush}" FontSize="{StaticResource Small}" FontFamily="{StaticResource JostFont}" />
 
                     <TextBlock HorizontalAlignment="Right" Foreground="{DynamicResource GrayBrush}" Margin="0 0 40 0"
-                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}"> Product of mal </TextBlock>
+                               FontFamily="{StaticResource JostFont}" FontSize="{StaticResource Small}"> Product of mal [fun project] </TextBlock>
                 </Grid>
                 
             </StackPanel>
